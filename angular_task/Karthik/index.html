@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+    <script src="./index.js"></script>
+</head>
+
+<body ng-app="voter" ng-controller="voterDetails" >
+    <div class="container-fluid m-0 p-0 ">
+        <div class="header bg-success py-2 m-0 text-white text-center align-items-center">
+            <p style="font-size:20px">Voter List</p>
+        </div>
+        <div class="row mt-5 m-0">
+            <div class="col-lg-3 col-1  "></div>
+            <div class="left col-lg-3">
+                <ul class="list-unstyled">
+                    <li class="list-item">
+                        Village: Prodduturu
+                    </li>
+                </ul>
+            </div>
+            <div class="right col-lg-3">
+                <ul class="list-unstyled">
+                    <li class="list-item">
+                        Mandal: Chintakani
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="d-flex align-content-center mt-5 overflow-auto">
+            <div class="col-lg-3 col-0"></div>
+            <table class="table table-bordered w-50 text-center">
+                <thead>
+                    <tr class="bg-secondary text-white">
+                        <th class="col-lg-2" style="font-size:0.8rem"><input type="checkbox" ng-model="IsAllChecked"
+                                ng-change="CheckUncheckAll()" class="mx-1">Select All</th>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                    </tr>
+                </thead>
+                <tbody ng-repeat="detail in details track by $index">
+                    <tr>
+                        <td style="font-size:0.8rem"><input type="checkbox" ng-model="detail.Selected"
+                                ng-change="CheckUncheckHeader()" class="mx-1"></td>
+                        <td>{{detail.id}}</td>
+                        <td>{{detail.name}}</td>
+                        <td>{{detail.age}}</td>
+                        <td>{{detail.phNo}}</td>
+                        <td>{{detail.email}}</td>
+                        <td>{{detail.address}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="button" ng-hide="(details | filter: { 'Selected' : 'true'}).length == 0"
+                class="btn btn-primary h-100 ms-5" data-bs-toggle="modal" data-bs-target="#saveDetails">Save</button>
+        </div>
+        <div class="modal fade" id="saveDetails" tabindex="-1" aria-labelledby="saveDetailsLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="saveDetailsLabel">Voter Details</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body  overflow-auto">
+                        <table class="table table-bordered w-50 text-center">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Age</th>
+                                    <th>Phone Number</th>
+                                    <th>Email</th>
+                                    <th>Address</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="detail in details | filter : { 'Selected' : 'true' }">
+                                    <td>{{detail.id}}</td>
+                                    <td>{{detail.name}}</td>
+                                    <td>{{detail.age}}</td>
+                                    <td>{{detail.phNo}}</td>
+                                    <td>{{detail.email}}</td>
+                                    <td>{{detail.address}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
