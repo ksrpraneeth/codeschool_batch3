@@ -1,0 +1,213 @@
+<div ng-controller="employeeController">
+
+    <div class="row mt-2">
+        <div class="col-2">
+            
+            <input type="text" class="form-control" placeholder="Employee Name" ng-model="searchText.concat">
+
+        </div>
+        <div class="col-2">
+            <input type="text" class="form-control" placeholder="Gender" ng-model="searchText.gender">
+
+        </div>
+        <div class="col-2">
+            <input type="text" class="form-control" placeholder="Working Status"
+                ng-model="searchText.status_description">
+
+        </div>
+        <div class="col-2">
+            <input type="text" class="form-control" placeholder="Position" ng-model="searchText.description">
+        </div>
+
+        <div class="col-2">
+            <input type="text" class="form-control" placeholder="Salary" ng-model="searchText.gross">
+        </div>
+
+        <div class="col-2">
+            <input type="text" class="form-control" placeholder="Location" ng-model="searchText.district">
+        </div>
+
+    </div>
+
+
+
+    <table class="table table-primary table-bordered mt-4">
+        <thead>
+            <tr>
+                <th scope="col">SL.NO</th>
+                <th scope="col">NAME</th>
+                <th scope="col">DOJ</th>
+                <th scope="col">DOB</th>
+                <th scope="col">GENDER</th>
+                <th scope="col">STATUS</th>
+                <th scope="col">POSITION</th>
+                <th scope="col">LOCATION</th>
+                <th scope="col">GROSS</th>
+                <th scope="col">SALRY IN WORD</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="data in emp | filter:searchText">
+                <th scope="row">{{$index+1}}</th>
+                <td>{{data.concat|uppercase}}</td>
+                <td>{{data.doj}}</td>
+                <td>{{data.dob}}</td>
+                <td>{{data.gender}}</td>
+                <td>{{data.status_description}}</td>
+
+                <td>{{data.description}}</td>
+                <td>{{data.district}}</td>
+                <td>{{data.gross|number}}</td>
+                <td>{{data.gross|numbertoword}}</td>
+                <td>
+
+                    <div class="row ps-2"><button type="button" class="btn btn-success col-11"
+                            ng-click="monthlysalary(data.id)" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">View</button></div>
+                    <div class="row ps-2 mt-2"><button type="button" class="btn btn-danger col-11" ng-click="deleteemployee(data.id)">Delete</button></div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{employeename| uppercase}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered table-active">
+                        <thead>
+                            <tr>
+                                <th scope="col">SLNO</th>
+                                <th scope="col">MONTH</th>
+                                <th scope="col">YEAR</th>
+                                <th scope="col">PAID ON</th>
+                                <th scope="col">GROSS</th>
+                                <th scope="col">DEDUCTION</th>
+                                <th scope="col">NET</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="data in monthlysalary2">
+                                <th scope="row">{{$index+1}}</th>
+                                <td>{{data.month}}</td>
+                                <td>{{data.year}}</td>
+                                <td>{{data.paid_on}}</td>
+                                <td>{{data.gross}}</td>
+                                <td>{{data.deduction}}</td>
+                                <td>{{data.net}}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row d-flex align-items-center justify-content-center">
+        <button type="button" class="btn btn-primary col-4" data-bs-toggle="modal" data-bs-target="#exampleModal2" ng-click="addemployeebutton()">Add Employee</button>
+    </div>
+
+ 
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body container">
+
+         <div class="row mt-1">
+            <div class="col-4">Surname<span class="text-danger"></span></div>
+            <div class="col-7"><input type="text" class="form-control"  placeholder="Surname" ng-model="empsurname"></div>
+         </div>
+
+         
+         <div class="row mt-2">
+            <div class="col-4">First Name<span class="text-danger"></span></div>
+            <div class="col-7"><input type="text" class="form-control"  placeholder="First Name" ng-model="empfirstname"></div>
+         </div>
+
+         
+         <div class="row mt-2">
+            <div class="col-4">Last Name<span class="text-danger"></span></div>
+            <div class="col-7"><input type="text" class="form-control"  placeholder="Last Name" ng-model="emplastname"></div>
+         </div>
+
+         
+         <div class="row mt-2">
+            <div class="col-4">Date Of Joining<span class="text-danger"></span></div>
+            <div class="col-7"><input type="date" class="form-control" ng-model="empdoj"></div>
+         </div>
+
+         
+         <div class="row mt-2">
+            <div class="col-4">DOB<span class="text-danger"></span></div>
+            <div class="col-7"><input type="date" class="form-control" ng-model="empdob" ></div>
+         </div>
+
+         
+         <div class="row mt-2">
+            <div class="col-4">WORKING STATUS<span class="text-danger"></span></div>
+            <div class="col-7">
+                <select class="form-select" aria-label="Default select example" ng-model="empworkingstatus">
+                    <option selected disabled value="">Open this select menu</option>
+                    <option ng-repeat="data in empposition" ng-value="data.id">{{data.status_description}}</option>
+                   
+                  </select>
+            </div>
+         </div>
+
+         <div class="row mt-2">
+            <div class="col-4">DESIGNATION<span class="text-danger"></span></div>
+            <div class="col-7">
+                <select class="form-select" aria-label="Default select example" ng-model="empdesignation" >
+                    <option selected disabled value="">Open this select menu</option>
+                    <option ng-repeat="data in empstatus" ng-value="data.id">{{data.description}}</option>
+                   
+                  </select>
+            </div>
+         </div>
+
+         <div class="row mt-2">
+            <div class="col-4">LOCATION<span class="text-danger"></span></div>
+            <div class="col-7">
+                <select class="form-select" aria-label="Default select example" ng-model="emplocation">
+                    <option selected disabled value="">Open this select menu</option>
+                    <option ng-repeat="data in emplocation" ng-value="data.id">{{data.district}}</option>
+                   
+                  </select>
+            </div>
+         </div>
+
+         <div class="row mt-2">
+            <div class="col-4">GROSS<span class="text-danger"></span></div>
+            <div class="col-7"><input type="number" class="form-control"  ng-model="empgross"></div>
+         </div>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" ng-click="savenewemployee()">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
