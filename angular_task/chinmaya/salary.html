@@ -1,0 +1,144 @@
+<div ng-controller="salaryController">
+    <table class="table table-bordered min-vh-100">
+        <thead>
+            <tr>
+                <th scope="col">SL.NO</th>
+                <th scope="col">NAME</th>
+                <th scope="col">MONTH</th>
+                <th scope="col">YEAR</th>
+                <th scope="col">PAID ON</th>
+                <th scope="col">GROSS</th>
+                <th scope="col">DEDUCTION</th>
+                <th scope="col">NET</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="sal in salary">
+                <th scope="row">{{$index+1}}</th>
+                <td>{{sal.concat}}</td>
+                <td>{{sal.month}}</td>
+                <td>{{sal.year}}</td>
+                <td>{{sal.paid_on}}</td>
+                <td>{{sal.gross}}</td>
+                <td>{{sal.deduction}}</td>
+                <td>{{sal.net}}</td>
+                <td>
+                    <div class="row ps-2">
+                        <button type="button" class="btn btn-success col-11" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal"
+                            ng-click="viewsalary(sal.id,sal.employee_id,sal.year,sal.month)">View</button>
+                    </div>
+                    <div class="row ps-2 mt-2"><button type="button" class="btn btn-danger col-11">Delete</button></div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+    <!-- Button trigger modal -->
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Employee Salary</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body container">
+                    <div class="row py-2">
+                        <div class="col-6">
+                            <div class="slaryheader">Employee Name:</div>
+                            <div class="salarytext">{{salarypageemployee[0].concat}}</div>
+                        </div>
+                        <div class="col-6">
+                            <div class="slaryheader">Working Status</div>
+                            <div class="salarytext">{{salarypageemployee[0].status_description}}</div>
+                        </div>
+                    </div>
+                    <div class="row mt-2 py-2">
+                        <div class="col-6">
+                            <div class="slaryheader">Location:</div>
+                            <div class="salarytext">{{salarypageemployee[0].district}}</div>
+                        </div>
+                        <div class="col-6 mt-2 py-2">
+                            <div class="slaryheader">Working Position:</div>
+                            <div class="salarytext">{{salarypageemployee[0].description}}</div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2 py-2">
+                        <div class="col-6">
+                            <div class="slaryheader">Month:</div>
+                            <div class="salarytext">{{salarypageemployee[0].month}}</div>
+                        </div>
+                        <div class="col-6">
+                            <div class="slaryheader">Year:</div>
+                            <div class="salarytext">{{salarypageemployee[0].year}}</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <hr>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-6">
+                            <div class="salaryBreakupTableHead">Earnings</div>
+                            <table class="table mt-2 table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">SLNO</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">Amount</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="data in earningdetail">
+                                        <th scope="row">{{$index+1}}</th>
+                                        <td>{{data.description|uppercase}}</td>
+                                        <td>{{data.amount}}</td>
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-6">
+                            <div class="salaryBreakupTableHead">Deduction</div>
+                            <table class="table mt-2 table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">SLNO</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">Amount</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="data in deduction">
+                                        <th scope="row">{{$index+1}}</th>
+                                        <td>{{data.description|uppercase}}</td>
+                                        <td>{{data.amount}}</td>
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
