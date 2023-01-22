@@ -1,0 +1,427 @@
+<div class="table-responsive-xl" id="employees-data-container">
+  <p class="h3 text-center mb-3">Employees Data</p>
+  <!--  Row Containing Filters Dropdowns and Buttons -->
+  <div class="row mb-3">
+    <!-- Working Status Dropdown -->
+    <div class="col-12 col-lg-3 my-1">
+      <label class="form-label m-0">Working Status</label>
+      <select class="form-select form-select-sm" ng-model="selectedWorkingStatus">
+        <option value="">All</option>
+        <option ng-repeat="item in workingStatusArr" value="{{ item.id }}">{{ item.description }}</option>
+      </select>
+    </div>
+    <!-- Designation Dropdown -->
+    <div class="col-12 col-lg-3 my-1">
+      <label class="form-label m-0">Designation</label>
+      <select class="form-select form-select-sm" ng-model="selectedDesignation">
+        <option value="">All</option>
+        <option ng-repeat="item in designationsArr" value="{{ item.id }}">{{ item.description }}</option>
+      </select>
+    </div>
+    <!-- Location Dropdown -->
+    <div class="col-12 col-lg-3 my-1">
+      <label class="form-label m-0">Location</label>
+      <select class="form-select form-select-sm" ng-model="selectedLocation">
+        <option value="">All</option>
+        <option ng-repeat="item in locationsArr" value="{{ item.id }}">{{ item.district }}</option>
+      </select>
+    </div>
+    <!-- Search Filters Button -->
+    <div class="col-12 col-lg-1 w-auto my-1 text-center">
+      <button class="btn btn-info btn-sm mt-4" ng-click="filterBy(selectedWorkingStatus, selectedDesignation, selectedLocation)">Search</button>
+    </div>
+    <!-- Clear Filters Button -->
+    <div class="col-12 col-lg-1 w-auto my-1 text-center">
+      <button class="btn btn-secondary btn-sm mt-4" ng-click="clearFilters()">Clear</button>
+    </div>
+    <!-- Add New Employee Button -->
+    <div class="col-12 col-lg-1 w-auto my-1 ms-auto text-center">
+      <button class="btn btn-primary btn-sm mt-4" data-bs-toggle="modal" data-bs-target="#addNewEmployeeModal" ng-click="resetForm('addNewEmployeeForm')">Add New Employee</button>
+    </div>
+  <!-- End of Filters Row -->
+  </div>
+
+
+  <!-- Table Container For Employees Data -->
+  <div class="row p-3">
+    <table class="table table-sm table-striped table-bordered" id="employeesDataTable">
+      <thead>
+        <tr>
+          <th scope="col">S.No</th>
+          <th scope="col">Name</th>
+          <th scope="col">Date of Joining</th>
+          <th scope="col">Date of Birth</th>
+          <th scope="col">Gender</th>
+          <th scope="col">Phone</th>
+          <th scope="col">Working Status</th>
+          <th scope="col">Designation</th>
+          <th scope="col">Location</th>
+          <th scope="col">Gross Salary</th>
+          <th scope="col">Date Created</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="employee in employeesData">
+          <td>{{ $index + 1}}</td>
+          <td>{{ employee.name }}</td>
+          <td>{{ employee.date_of_joining }}</td>
+          <td>{{ employee.date_of_birth }}</td>
+          <td>{{ employee.gender }}</td>
+          <td>{{ employee.phone }}</td>
+          <td>{{ employee.working_status }}</td>
+          <td>{{ employee.designation }}</td>
+          <td>{{ employee.location }}</td>
+          <td>{{ employee.gross_salary }}</td>
+          <td>{{ employee.created_at }}</td>
+          <td>
+            <a class="btn btn-info btn-sm m-1" data-bs-toggle="modal" data-bs-target="#viewSalariesModal" ng-click="getEmployeeDetails(employee); getEmployeeSalaries()">View Salaries</a>
+            <a class="btn btn-warning btn-sm m-1" data-bs-toggle="modal" data-bs-target="#editEmployeeDetailsModal" ng-click="getEmployeeData(employee.id)">Edit Employee Details</a>
+            <a class="btn btn-danger btn-sm m-1" ng-click="deleteEmployeeDetails(employee.id)">Delete Employee Details</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="text-center">{{ employeesDataError }}</p>
+  <!-- End of Table Container -->
+  </div>
+
+
+  <!-- Modal for Add New Employee -->
+  <div class="modal fade" id="addNewEmployeeModal" tabindex="-1" aria-labelledby="addNewEmployeeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="addNewEmployeeModalLabel">Add New Employee</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form class="container-fluid" id="addNewEmployeeForm" name="addNewEmployeeForm" ng-submit="addNewEmployee()">
+          <div class="modal-body">
+            <div class="row mb-3">
+              <div class="col-2">
+                <div class="form-outline">
+                  <label class="form-label" for="surname">Surname</label>
+                  <select class="form-select" id="surname" name="surname" ng-model="surname" ng-required="true">
+                    <option value="" hidden disabled>Select</option>
+                    <option value="Mr.">Mr.</option>
+                    <option value="Ms.">Ms.</option>
+                    <option value="Mrs.">Mrs.</option>
+                  </select>
+                  <p class="errorMsgs" ng-show="addNewEmployeeForm.surname.$invalid && addNewEmployeeForm.surname.$touched">Required</p>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="form-outline">
+                  <label class="form-label" for="firstName">First Name</label>
+                  <input type="text" id="firstName" name="firstName" class="form-control" ng-model="firstName" ng-required="true" ng-pattern="nameRegex"/>
+                  <p class="errorMsgs" ng-show="addNewEmployeeForm.firstName.$invalid && addNewEmployeeForm.firstName.$touched">Required, Should only contain alphabets</p>
+                  <p class="errorMsgs" id="firstNameError">{{ addNewEmployeeFormErrors.firstNameError }}</p>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-outline">
+                  <label class="form-label" for="lastName">Last Name</label>
+                  <input type="text" id="lastName" name="lastName" class="form-control" ng-model="lastName" ng-required="true" ng-pattern="nameRegex"/>
+                  <p class="errorMsgs" ng-show="addNewEmployeeForm.lastName.$invalid && addNewEmployeeForm.lastName.$touched">Required, Should only contain alphabets</p>
+                  <p class="errorMsgs" id="lastNameError">{{ addNewEmployeeFormErrors.lastNameError }}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-6">
+                <div class="form-outline">
+                  <label class="form-label" for="dateOfJoining">Date of Joining</label>
+                  <input type="date" min="2000-01-01" max="{{ todaysDate }}" id="dateOfJoining" name="dateOfJoining" class="form-control" ng-model="dateOfJoining" ng-required="true"/>
+                  <p class="errorMsgs" ng-show="addNewEmployeeForm.dateOfJoining.$invalid && addNewEmployeeForm.dateOfJoining.$touched">Enter a valid date of joining</p>
+                  <p class="errorMsgs" id="dateOfJoiningError">{{ addNewEmployeeFormErrors.dateOfJoiningError }}</p>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-outline">
+                  <label class="form-label" for="dateOfBirth">Date of Birth</label>
+                  <input type="date" min="1970-01-01" max="{{ minDateOfBirth }}" id="dateOfBirth" name="dateOfBirth" class="form-control" ng-model="dateOfBirth" ng-required="true"/>
+                  <p class="errorMsgs" ng-show="addNewEmployeeForm.dateOfBirth.$invalid && addNewEmployeeForm.dateOfBirth.$touched">Enter a valid date of birth</p>
+                  <p class="errorMsgs" id="dateOfBirthError">{{ addNewEmployeeFormErrors.dateOfBirthError }}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-6">
+                <div class="form-outline">
+                  <label class="form-label" for="mobileNumber">Mobile Number</label>
+                  <input type="number" id="mobileNumber" name="mobileNumber" class="form-control"  ng-model="mobileNumber" ng-required="true" ng-pattern="mobileNumberRegex"/>
+                  <p class="errorMsgs" ng-show="addNewEmployeeForm.mobileNumber.$invalid && addNewEmployeeForm.mobileNumber.$touched">Required, Should be of 10 digits numbers</p>
+                  <p class="errorMsgs" id="mobileNumberError">{{ addNewEmployeeFormErrors.mobileNumberError }}</p>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-outline">
+                  <label class="form-label" for="grossSalary">Gross Salary</label>
+                  <input type="number" id="grossSalary" name="grossSalary" class="form-control"  ng-model="grossSalary" ng-required="true"/>
+                  <p class="errorMsgs" ng-show="addNewEmployeeForm.grossSalary.$invalid && addNewEmployeeForm.grossSalary.$touched">Required, Should contain only Numbers</p>
+                  <p class="errorMsgs" id="grossSalaryError">{{ addNewEmployeeFormErrors.grossSalaryError }}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-6">
+                <div class="form-outline">
+                  <label class="form-label" for="gender">Gender</label>
+                  <select class="form-select" id="gender" name="gender" ng-model="gender" ng-required="true">
+                    <option value="" hidden disabled>Select</option>
+                    <option value="Male" selected>Male</option>
+                    <option value="Female">Female</option>
+                  </select>
+                  <p class="errorMsgs" ng-show="addNewEmployeeForm.gender.$invalid && addNewEmployeeForm.gender.$touched">Required</p>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-outline">
+                  <label class="form-label" for="workingStatus">Working Status</label>
+                  <select class="form-select" id="workingStatus" name="workingStatus" ng-model="workingStatus" ng-required="true">
+                    <option value="" hidden disabled>Select</option>
+                    <option ng-repeat="item in workingStatusArr" value="{{ item.id }}">{{ item.description }}</option>
+                  </select>
+                  <p class="errorMsgs" ng-show="addNewEmployeeForm.workingStatus.$invalid && addNewEmployeeForm.workingStatus.$touched">Required</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-6">
+                <div class="form-outline">
+                  <label class="form-label" for="designation">Designation</label>
+                  <select class="form-select" id="designation" name="designation" ng-model="designation" ng-required="true">
+                    <option value="" hidden disabled>Select</option>
+                    <option ng-repeat="item in designationsArr" value="{{ item.id }}">{{ item.description }}</option>
+                  </select>
+                  <p class="errorMsgs" ng-show="addNewEmployeeForm.designation.$invalid && addNewEmployeeForm.designation.$touched">Required</p>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-outline">
+                  <label class="form-label" for="location">Location</label>
+                  <select class="form-select" id="location" name="location" ng-model="location" ng-required="true">
+                    <option value="" hidden disabled>Select</option>
+                    <option ng-repeat="item in locationsArr" value="{{ item.id }}">{{ item.district }}</option>
+                  </select>
+                  <p class="errorMsgs" ng-show="addNewEmployeeForm.location.$invalid && addNewEmployeeForm.location.$touched">Required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  <!-- End of Add New Employee Modal -->
+  </div>
+
+
+  <!-- Modal for View Salaries -->
+  <div class="modal fade" id="viewSalariesModal" tabindex="-1" aria-labelledby="viewSalariesModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="viewSalariesModalLabel">Employee Salary Details</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+          <!-- Employee Details -->
+          <div>
+            <div class="row">
+              <p class="col-sm-6"><strong>Name:</strong> {{ employeeDetails.name }}</p>
+              <p class="col-sm-6"><strong>Gender:</strong> {{ employeeDetails.gender }}</p>
+            </div>
+            <div class="row">
+              <p class="col-sm-6"><strong>Date of Birth:</strong> {{ employeeDetails.date_of_birth }}</p>
+              <p class="col-sm-6"><strong>Date of Joining:</strong> {{ employeeDetails.date_of_joining }}</p>
+            </div>
+            <div class="row">
+              <p class="col-sm-6"><strong>Phone:</strong> {{ employeeDetails.phone }}</p>
+              <p class="col-sm-6"><strong>Location:</strong> {{ employeeDetails.location }}</p>
+            </div>
+            <div class="row">
+              <p class="col-sm-6"><strong>Working Status:</strong> {{ employeeDetails.working_status }}</p>
+              <p class="col-sm-6"><strong>Designation:</strong> {{ employeeDetails.designation }}</p>
+            </div>
+          </div>
+
+          <!-- Employee Salaries -->
+          <table class="table table-sm table-responsive-md table-striped table-bordered" id="viewSalariesModalTable">
+            <thead>
+              <tr>
+                <th scope="col">S.No</th>
+                <th scope="col">Salary Month</th>
+                <th scope="col">Salary Year</th>
+                <th scope="col">Date of Payment</th>
+                <th scope="col">Net Salary</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="salaryData in employeeSalaries">
+                <td>{{ $index + 1 }}</td>
+                <td>{{ salaryData.salary_month | capitalize }}</td>
+                <td>{{ salaryData.salary_year }}</td>
+                <td>{{ salaryData.paid_on }}</td>
+                <td>{{ salaryData.net_salary }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="text-center">{{ employeeSalariesError }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  <!-- End of View Salaries Modal -->
+  </div>
+
+
+  <!-- Modal for Edit Employee Details -->
+  <div class="modal fade" id="editEmployeeDetailsModal" tabindex="-1" aria-labelledby="editEmployeeDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="editEmployeeDetailsModalLabel">Edit Employee Details</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form class="container-fluid" id="editEmployeeDetailsForm" name="editEmployeeDetailsForm" ng-submit="updateEmployeeDetails()">
+          <div class="modal-body">
+            <!-- for name -->
+            <div class="row mb-3">
+              <div class="col-2">
+                <div class="form-outline">
+                  <label class="form-label" for="surname">Surname</label>
+                  <select class="form-select" id="surname" name="surname" ng-model="employeeData.surname">
+                    <option value="" hidden disabled>Select</option>
+                    <option value="Mr.">Mr.</option>
+                    <option value="Ms.">Ms.</option>
+                    <option value="Mrs.">Mrs.</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="form-outline">
+                  <label class="form-label" for="firstname">First Name</label>
+                  <input type="text" id="firstname" name="firstname" class="form-control" ng-model="employeeData.firstname" ng-required="true" ng-pattern="nameRegex" />
+                  <p class="errorMsgs" ng-show="editEmployeeDetailsForm.firstname.$invalid && editEmployeeDetailsForm.firstname.$touched">Required, Should only contain alphabets</p>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-outline">
+                  <label class="form-label" for="lastname">Last Name</label>
+                  <input type="text" id="lastName" name="lastname" class="form-control" ng-model="employeeData.lastname" ng-required="true" ng-pattern="nameRegex" />
+                  <p class="errorMsgs" ng-show="editEmployeeDetailsForm.lastname.$invalid && editEmployeeDetailsForm.lastname.$touched">Required, Should only contain alphabets</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- for dates -->
+            <div class="row mb-3">
+              <div class="col-6">
+                <div class="form-outline">
+                  <label class="form-label" for="date_of_joining">Date of Joining</label>
+                  <input type="date" min="2000-01-01" max="{{ todaysDate }}" id="date_of_joining" name="date_of_joining" class="form-control" ng-model="employeeData.date_of_joining" ng-required="true" />
+                  <p class="errorMsgs" ng-show="editEmployeeDetailsForm.date_of_joining.$invalid && editEmployeeDetailsForm.date_of_joining.$touched">Enter a valid date of joining</p>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-outline">
+                  <label class="form-label" for="date_of_birth">Date of Birth</label>
+                  <input type="date" id="date_of_birth" name="date_of_birth" class="form-control" ng-model="employeeData.date_of_birth" ng-required="true" />
+                  <p class="errorMsgs" ng-show="editEmployeeDetailsForm.date_of_birth.$invalid && editEmployeeDetailsForm.date_of_birth.$touched">Enter a valid date of birth</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- for input -->
+            <div class="row mb-3">
+              <div class="col-6">
+                <div class="form-outline">
+                  <label class="form-label" for="phone">Mobile Number</label>
+                  <input type="text" id="phone" name="phone" class="form-control"  ng-model="employeeData.phone" ng-required="true" ng-pattern="mobileNumberRegex" />
+                  <p class="errorMsgs" ng-show="editEmployeeDetailsForm.phone.$invalid && editEmployeeDetailsForm.phone.$touched">Required, Should be of 10 digits numbers</p>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-outline">
+                  <label class="form-label" for="gross_salary">Gross Salary</label>
+                  <input type="number" id="gross_salary" name="gross_salary" class="form-control" ng-model="employeeData.gross_salary" ng-required="true" />
+                  <p class="errorMsgs" ng-show="editEmployeeDetailsForm.gross_salary.$invalid && editEmployeeDetailsForm.gross_salary.$touched">Required, Should contain only Numbers</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- for dropdowns -->
+            <div class="row mb-3">
+              <div class="col-6">
+                <div class="form-outline">
+                  <label class="form-label" for="gender">Gender</label>
+                  <select class="form-select" id="gender" name="gender" ng-model="employeeData.gender">
+                    <option value="" hidden disabled>Select</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-outline">
+                  <label class="form-label" for="working_status_id">Working Status</label>
+                  <select class="form-select" id="working_status_id" name="working_status_id" value="employeeData.working_status_id">
+                    <option value="" hidden disabled>Select</option>
+                    <option ng-repeat="item in workingStatusArr" value="{{ item.id }}">{{ item.description }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- for dropdowns -->
+            <div class="row mb-3">
+              <div class="col-6">
+                <div class="form-outline">
+                  <label class="form-label" for="designation_id">Designation</label>
+                  <select class="form-select" id="designation_id" name="designation_id" value="employeeData.designation_id">
+                    <option value="" hidden disabled>Select</option>
+                    <option ng-repeat="item in designationsArr" value="{{ item.id }}">{{ item.description }}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-outline">
+                  <label class="form-label" for="location_id">Location</label>
+                  <select class="form-select" id="location_id" name="location_id" value="employeeData.location_id">
+                    <option value="" hidden disabled>Select</option>
+                    <option ng-repeat="item in locationsArr" value="{{ item.id }}">{{ item.district }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Update</button>
+          </div>
+        </form>        
+      </div>
+    </div>
+  <!-- End of Edit Employee Details Modal -->
+  </div>
+
+<!-- End of Employees Data Container -->
+</div>
+
+<!-- TODO: -->
+<!-- Data not updating auto when deleted -->
+<!-- Modal/Swal backdrop shadow when pressed back -->
