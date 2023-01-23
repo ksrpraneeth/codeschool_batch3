@@ -30,9 +30,9 @@ try {
 
 
     // for salary filter by employee name on employeeSalaries.php
-    // if(array_key_exists('forSalariesFilter', $request) && $request['forSalariesFilter']) {
-    //     $query = "SELECT id, CONCAT(surname, ' ', firstname, ' ', lastname) AS name FROM employees";
-    // }
+    if(array_key_exists('forSalariesFilter', $request) && $request['forSalariesFilter'] == true) {
+        $query = "SELECT CONCAT(e.surname, ' ', e.firstname, ' ', e.lastname) AS name, to_char(e.date_of_joining, 'DD/MM/YYYY') AS date_of_joining, w.description AS working_status, d.description AS designation FROM employees AS e, working_status AS w, designations AS d WHERE e.working_status_id = w.id AND e.designation_id = d.id";
+    }
 
     $statement = $pdo->query($query);
     $result = $statement->fetchAll(PDO::FETCH_ASSOC);

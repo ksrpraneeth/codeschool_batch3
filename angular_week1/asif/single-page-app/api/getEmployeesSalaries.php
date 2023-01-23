@@ -17,11 +17,11 @@ try {
 
         // get salary of all employees with some filters
         if(array_key_exists('salaryMonth', $request) && $request['salaryMonth'] != "") {
-            $query .= ' AND s.for_month = '.'"'.$request['salaryMonth'].'"';
+            $query .= " AND s.for_month = ". "'". $request["salaryMonth"] ."'";
         } if(array_key_exists('dateOfPayment', $request) && $request['dateOfPayment'] != "") {
-            $query .= ' AND s.paid_on = '.'"'.$request['dateOfPayment'].'"';
+            $query .= " AND s.paid_on = ". "'". $request["dateOfPayment"] ."'";
         } if(array_key_exists('employeeId', $request) && $request['employeeId'] != "") {
-            $query .= ' AND s.employee_id = '.'"'.$request['employeeId'].'"';
+            $query .= " AND s.employee_id = ". "'". $request["employeeId"] ."'";
         } 
         $query .= ' ORDER BY s.id';
     }

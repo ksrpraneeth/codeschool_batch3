@@ -6,7 +6,7 @@ app.filter('capitalize', function() {
 });
 
 // Controller Functions for the Page employeesData.html
-app.controller("getEmployeesData", function($scope, $http) {
+app.controller("EmployeesDataController", function($scope, $http) {
 
     // DOM Functionalities
     $scope.dismissModal = function(modalId) {
@@ -22,7 +22,7 @@ app.controller("getEmployeesData", function($scope, $http) {
     // get employeesData table data
     $scope.employeesData = [];
     $scope.getEmployeesData = function() {
-        $http.get('api/getEmployeesdata.php')
+        $http.get('api/getEmployeesData.php')
         .then(function(response) {
             const resData = response.data;
             if(resData.status) {
@@ -310,4 +310,204 @@ app.controller("getEmployeesData", function($scope, $http) {
 
 
 // Controller Functions for the Page employeesData.html
-app.controller('', []);
+app.controller('EmployeesSalariesController', function($scope, $http) {
+
+    // DOM Functionalities
+    $scope.dismissModal = function(modalId) {
+        var myModal = document.getElementById(modalId);
+        var modal = bootstrap.Modal.getInstance(myModal);
+        modal.hide();
+    }
+    $scope.resetForm = function(formId) {
+        document.getElementById(formId).reset();
+    }
+
+
+    // get employeesSalaries table data
+    $scope.employeesSalariesData = [];
+    $scope.getEmployeesSalaries = function() {
+        $http.get('api/getEmployeesSalaries.php')
+        .then(function(response) {
+            const resData = response.data;
+            if(resData.status) {
+                $scope.employeesSalariesError = "";
+                $scope.employeesSalariesData = resData.data;
+            }
+            else {
+                $scope.employeesSalariesError = resData.message;
+            }
+        });
+    };
+    $scope.getEmployeesSalaries();
+
+
+    // get filters options/data 
+    $scope.salaryMonthFilterArr = [];
+    $scope.getSalaryMonth = function() {
+        $http.get('api/getSalaryMonth.php')
+        .then(function(response) {
+            const resData = response.data;
+            if(resData.status) {
+                $scope.salaryMonthFilterArr = resData.data;
+            }
+        });
+    }
+    $scope.getSalaryMonth();
+ 
+
+    $scope.dateOfPaymentFilterArr = [];
+    $scope.getDateOfPayment = function() {
+        $http({
+            method: 'POST',
+            url: 'api/getDateOfPayment.php',
+            data: {
+                salaryMonth: $scope.selectedSalaryMonth
+            }
+        })
+        .then(function(response) {
+            const resData = response.data;
+            if(resData.status) {
+                $scope.dateOfPaymentFilterArr = resData.data;
+            }
+        });
+    }
+    $scope.getDateOfPayment();
+
+
+    $scope.employeesList = [];
+    $scope.getEmployeesList = function() {
+        $http.get('api/getEmployeesList.php')
+        .then(function(response) {
+            const resData = response.data;
+            if(resData.status) {
+                $scope.employeesList = resData.data;
+            }
+        });
+    }
+    $scope.getEmployeesList();
+
+
+
+    // search salaries by filter
+    $scope.filterSalaries = function() {
+        $scope.employeesSalariesData = [];
+        $http({
+            method: 'POST',
+            url: 'api/getEmployeesSalaries.php',
+            data: {
+                salaryMonth: $scope.selectedSalaryMonth,
+                dateOfPayment: $scope.selectedDateOfPayment,
+                employeeId: $scope.selectedEmployeeName
+            }
+        })
+        .then(function(response) {
+            const resData = response.data;
+            if(resData.status) {
+                $scope.employeesSalariesError = "";
+                $scope.employeesSalariesData = resData.data;
+            }
+            else {
+                $scope.employeesSalariesError = resData.message;
+            }
+        });
+    };
+
+
+    // clear filters 
+    $scope.clearFilters = function() {
+        $scope.selectedSalaryMonth = "";
+        $scope.selectedDateOfPayment = "";
+        $scope.selectedEmployeeName = "";
+        $scope.getEmployeesSalaries();
+    };
+
+
+    // add new salary dependencies
+    $scope.getEmployeeData = function(employeeId, forSalaryBreakup) {
+        $scope.employeeData = [];
+        $http({
+            method: 'POST',
+            url: 'api/getEmployeesData.php',
+            data: {
+                id: employeeId,
+                forSalariesFilter: forSalaryBreakup
+            }
+        })
+        .then(function(response) {
+            const resData = response.data;
+            if(resData.status) {
+                $scope.employeeData = resData.data[0];
+                var dob = new Date($scope.employeeData.date_of_birth);
+                var doj = new Date($scope.employeeData.date_of_joining);
+                $scope.employeeData.date_of_birth = dob;
+                $scope.employeeData.date_of_joining = doj;
+            }
+        });
+    };
+    
+
+
+    $scope.viewSalaryBreakup = function(salaryVal) {
+        // $scope.getEmployeeData(salaryVal.employee_id, true);
+        $scope.employeeSalaryBreakupData = [];
+        $http({
+            method: 'POST',
+            url: 'api/getSalaryBreakup.php',
+            data: {
+                id: salaryVal.id
+            }
+        })
+        .then(function(response) {
+            const resData = response.data;
+            if(resData.status) {
+                $scope.employeeSalaryBreakupData = resData.data;
+                console.log($scope.employeeSalaryBreakupData);
+                // $scope.employeeSalaryData = resData.data[0];
+            }
+            else {
+                $scope.viewSalaryBreakupError = resData.message;
+            }
+        });
+    }
+
+
+    $scope.deleteSalary = function(salaryId) {
+        swal({
+            title: "Are you sure?",
+            text: "Do you want to delete this employee salary data?",
+            icon: "warning",
+            buttons: ["Cancel", "Delete"],
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                $http({
+                    method: 'POST',
+                    url: 'api/deleteSalary.php',
+                    data: {id: salaryId}
+                })
+                .then(
+                    function(response) {
+                        let resData = response.data;
+                        if(resData.status) {
+                            swal({
+                                title: "Success",
+                                text: resData.message,
+                                icon: "success",
+                                button: "Close",
+                            });
+                        }
+                        else {
+                            swal({
+                                title: "Error",
+                                text: resData.message,
+                                icon: "error",
+                                button: "Close",
+                            });
+                        }
+                    }
+                );
+            }
+            getEmployeesSalaries();
+        });
+    }
+});

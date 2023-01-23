@@ -20,6 +20,16 @@
     <script src="js/controllers.js" defer></script>
     <!-- Swal -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        if(!localStorage.getItem('user_data')){
+            window.location.replace("login.html");
+        }
+        
+        function logout() {
+            localStorage.removeItem("user_data");
+            window.location.replace("login.html ");
+        }
+    </script>
 </head>
 <body ng-app="myApp">
 <header class="container-fluid g-0">
@@ -30,14 +40,10 @@
 
         <ul class="navbar-nav col-auto ms-auto">
 
-            <li class="nav-item mx-2 my-auto col-1 w-auto text-end" id="login-time">
-                <a class="nav-link text-light">Last Login: <br> <span id="current-date"></span> <br> <span id="current-time"></span></a>
-            </li>
-
             <li class="nav-item navbar-collapse mx-2 my-auto header-li rounded-1 col-2 w-auto">
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown" id="user-dropdown">
-                        <a class="nav-link text-light dropdown-toggle" role="button" data-bs-toggle="dropdown" href="#"><i class="fa-solid fa-user"></i><span class="d-none d-sm-none d-md-inline ms-2" id="username">Welcome to </span></a>
+                        <a class="nav-link text-light dropdown-toggle" role="button" data-bs-toggle="dropdown" href="#"><i class="fa-solid fa-user"></i><span class="d-none d-sm-none d-md-inline ms-2" id="username">Welcome</span></a>
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start bg-light">
                             <li><a href="#" class="dropdown-item text-dark"><i class="text-danger fa-solid fa-user me-2"></i>Profile</a></li>
                             <li><a href="#" class="dropdown-item text-dark"><i class="text-danger fa-solid fa-key me-2"></i>Change Password</a></li>

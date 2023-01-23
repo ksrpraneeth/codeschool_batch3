@@ -17,6 +17,11 @@
             margin: 0.5em;
         }
     </style>
+    <script>
+        if(localStorage.getItem('user_data')){
+            window.location.replace("index.html");
+        }
+    </script>
 </head>
 <body>
     <main class="my-5" ng-app="loginModule" ng-controller="loginCtrl">
@@ -43,7 +48,7 @@
         </div>
     </main>
     <script>
-        var loginApp = angular.module("loginModule", []).controller("loginCtrl", function($rootScope, $scope, $http) {
+        var loginApp = angular.module("loginModule", []).controller("loginCtrl", function($scope, $http) {
             $scope.loginFormSubmit = function(user) {
                 $http({
                     method: 'POST',
@@ -53,15 +58,11 @@
                     let output = response.data;
                     let data = output.data[0];
                     if(output.status) {
-                        $rootScope.username = data.name;
-                        $rootScope.token = data.token;
+                        localStorage.setItem("user_data",JSON.stringify(output.data[0]));
+                        window.location.replace("index.html");
                     } else {
-                        // $scope.emailError = data.emailError;
-                        // $scope.passwordError = data.passwordError;
                         $scope.error = output.message;
                     }
-                }, function error(response) {
-                    console.log(response);
                 });
             }
         });

@@ -3,7 +3,9 @@
 include_once 'dbconnection.php';
 include_once 'response.php';
 
-if(!array_key_exists('id', $_POST)) {
+$request = (array) json_decode(file_get_contents('php://input'), true);
+
+if(!array_key_exists('id', $request)) {
     $response['status'] = false;
     $response['message'] = 'Invalid Request';
     echo json_encode($response);
@@ -11,10 +13,13 @@ if(!array_key_exists('id', $_POST)) {
 }
 
 try {
-    $query = "DELETE FROM salaries, salary_details USING salaries, salary_details WHERE salary_details.salary_id = salaries.id AND salaries.id = ?";
-    
+    // $query = "DELETE FROM salaries USING salary_details WHERE salary_details.salary_id = salaries.id AND salaries.id = ?";
+    $query = "DELETE FROM salaries
+    WHERE id IN (SELECT id FROM salaries 
+                 WHERE salaries.id = ?
+                 AND id IN (SELECT id FROM salary_details WHERE salary_details.salary_id = ?))";
     $statement = $pdo->prepare($query);
-    $isQueryExecuted = $statement->execute([$_POST['id']]);
+    $isQueryExecuted = $statement->execute([$request['id'], $request['id']]);
     
     if($isQueryExecuted > 0) {
         $response['status'] = true;

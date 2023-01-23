@@ -17,11 +17,12 @@ app.config(["$stateProvider", "$urlRouterProvider", "$locationProvider", functio
     .state('employeesData', {
         url: '/employeesData',
         templateUrl: 'employeesData.html',
-        controller: 'getEmployeesData'
+        controller: 'EmployeesDataController'
     })
     .state('employeesSalaries', {   
         url: '/employeesSalaries',
-        templateUrl: 'employeesSalaries.html'
+        templateUrl: 'employeesSalaries.html',
+        controller: 'EmployeesSalariesController'
     })
     
 
