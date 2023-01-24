@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+body {
+    background-color: #5a7586;
+    font-family: 'Poppins', sans-serif;
+}
+
+#introSectionHomePage {
+    background: url('../assets/images/field-pic.jpg') no-repeat;
+    background-size: cover;
+}
+
+input[type='number'] {
+    -moz-appearance: textfield;
+    -webkit-appearance: textfield;
+    appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
+#registrationContainer, #loginContainer {
+    background-color: #f7f0de; 
+}
