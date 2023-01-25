@@ -15,4 +15,9 @@ class Employee extends Model
         "salary",
         "gender"
     ];
+
+    public function salaries()
+    {
+        return $this->hasMany(Salary::class);
+    }
 }
