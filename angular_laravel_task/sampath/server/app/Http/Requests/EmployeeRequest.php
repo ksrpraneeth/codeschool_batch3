@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class EmployeeRequest extends FormRequest
 {
@@ -66,5 +67,16 @@ class EmployeeRequest extends FormRequest
             "gender.in" => "Gender must be male or female",
 
         ];
+    }
+
+    protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
+    {
+        $response = new JsonResponse([
+            "status" => false,
+            "message" => "Errors Occured",
+            "errors" => $validator->errors()
+        ], 422);
+
+        throw new \Illuminate\Validation\ValidationException($validator, $response);
     }
 }

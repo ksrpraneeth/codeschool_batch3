@@ -16,31 +16,37 @@
                 <th>Name</th>
                 <td ng-hide="editable">{{ employee.name }}</td>
                 <td ng-hide="!editable"><input type="text" class="form-control" ng-model="employee.name"></td>
+                <td ng-hide="!editable">{{errors.name[0]}}</td>
             </tr>
             <tr>
                 <th>Email</th>
                 <td ng-hide="editable">{{ employee.email }}</td>
                 <td ng-hide="!editable"><input type="email" class="form-control" ng-model="employee.email"></td>
+                <td ng-hide="!editable">{{errors.email[0]}}</td>
             </tr>
             <tr>
                 <th>Phone</th>
                 <td ng-hide="editable">{{ employee.phone }}</td>
                 <td ng-hide="!editable"><input type="tel" class="form-control" ng-model="employee.phone"></td>
+                <td ng-hide="!editable">{{errors.phone[0]}}</td>
             </tr>
             <tr>
                 <th>Date of Birth</th>
                 <td ng-hide="editable">{{ employee.dob | date: 'dd-MM-yyyy' }}</td>
                 <td ng-hide="!editable"><input type="date" class="form-control" ng-model="employee.dob"></td>
+                <td ng-hide="!editable">{{errors.dob[0]}}</td>
             </tr>
             <tr>
                 <th>Salary</th>
                 <td ng-hide="editable">{{ employee.salary }}</td>
                 <td ng-hide="!editable"><input type="text" class="form-control" ng-model="employee.salary"></td>
+                <td ng-hide="!editable">{{errors.salary[0]}}</td>
             </tr>
             <tr>
                 <th>Position</th>
                 <td ng-hide="editable">{{ employee.position }}</td>
                 <td ng-hide="!editable"><input type="text" class="form-control" ng-model="employee.position"></td>
+                <td ng-hide="!editable">{{errors.position[0]}}</td>
             </tr>
             <tr>
                 <th>Gender</th>
@@ -50,6 +56,7 @@
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                     </select>
+                    <td ng-hide="!editable">{{errors.gender[0]}}</td>
                 </td>
             </tr>
         </tbody>

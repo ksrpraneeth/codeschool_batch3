@@ -10,6 +10,9 @@
                     id="employeeName"
                     ng-model="employee.name"
                 />
+                <div class="text-danger" ng-repeat="error in errors.name">
+                    {{error}}
+                </div>
             </div>
             <div class="form-group col-12 col-md-6 col-lg-4">
                 <label for="employeeDob">DOB</label>
@@ -19,6 +22,9 @@
                     id="employeeDob"
                     ng-model="employee.dob"
                 />
+                <div class="text-danger" ng-repeat="error in errors.dob">
+                    {{error}}
+                </div>
             </div>
         </div>
         <div class="row mb-3">
@@ -30,6 +36,9 @@
                     id="employeeEmail"
                     ng-model="employee.email"
                 />
+                <div class="text-danger" ng-repeat="error in errors.email">
+                    {{error}}
+                </div>
             </div>
             <div class="form-group col-12 col-md-6 col-lg-4">
                 <label for="employeePhone">Phone</label>
@@ -39,6 +48,9 @@
                     id="employeePhone"
                     ng-model="employee.phone"
                 />
+                <div class="text-danger" ng-repeat="error in errors.phone">
+                    {{error}}
+                </div>
             </div>
         </div>
         <div class="row mb-3">
@@ -50,6 +62,9 @@
                     id="employeePosition"
                     ng-model="employee.position"
                 />
+                <div class="text-danger" ng-repeat="error in errors.position">
+                    {{error}}
+                </div>
             </div>
             <div class="form-group col-12 col-md-6 col-lg-4">
                 <label for="employeeSalary">Salary</label>
@@ -59,6 +74,9 @@
                     id="employeeSalary"
                     ng-model="employee.salary"
                 />
+                <div class="text-danger" ng-repeat="error in errors.salary">
+                    {{error}}
+                </div>
             </div>
         </div>
         <div class="form-group">
@@ -84,6 +102,9 @@
                     ng-model="employee.gender"
                 />
                 <label class="form-check-label" for="female"> Female </label>
+            </div>
+            <div class="text-danger" ng-repeat="error in errors.gender">
+                {{error}}
             </div>
         </div>
         <button

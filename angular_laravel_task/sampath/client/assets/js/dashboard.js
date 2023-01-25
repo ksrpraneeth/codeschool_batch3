@@ -43,6 +43,7 @@ app.controller("NavbarController", function ($scope) {
     ];
 });
 app.controller("EmployeeController", function ($scope, $http) {
+    toggleLoading();
     $scope.employees = [];
     $http({
         url: "http://127.0.0.1:8000/api/employees",
@@ -57,6 +58,9 @@ app.controller("EmployeeController", function ($scope, $http) {
         })
         .catch((response) => {
             showError(response.data.message);
+        })
+        .finally(() => {
+            toggleLoading();
         });
 });
 app.controller("TabController", function ($scope) {
@@ -69,6 +73,8 @@ app.controller("AddEmployeeController", function ($scope, $http) {
     $scope.employee = {};
 
     $scope.addEmployee = function (employee) {
+        $scope.errors = [];
+        toggleLoading();
         $http({
             url: "http://127.0.0.1:8000/api/employees",
             method: "POST",
@@ -83,7 +89,15 @@ app.controller("AddEmployeeController", function ($scope, $http) {
                 }
             })
             .catch((response) => {
+                if (response.data.status == false) {
+                    $scope.errors = response.data.errors;
+                    showError("Errors Occured!");
+                    return;
+                }
                 showError("Not found");
+            })
+            .finally(() => {
+                toggleLoading();
             });
     };
 });
@@ -91,6 +105,7 @@ app.controller(
     "ViewEmployeeController",
     function ($scope, $http, $stateParams) {
         $scope.editable = false;
+        toggleLoading();
         $http({
             url: "http://127.0.0.1:8000/api/employees/" + $stateParams.id,
             method: "GET",
@@ -105,8 +120,13 @@ app.controller(
             })
             .catch((response) => {
                 showError("Not found");
+            })
+            .finally(() => {
+                toggleLoading();
             });
         $scope.saveEmployee = function (employee) {
+            $scope.errors = [];
+            toggleLoading();
             $http({
                 url: "http://127.0.0.1:8000/api/employees/" + $stateParams.id,
                 method: "PUT",
@@ -122,12 +142,16 @@ app.controller(
                     }
                 })
                 .catch((response) => {
-                    showError("Not found");
-                    $scope.editable = false;
+                    $scope.errors = response.data.errors;
+                    showError("Error updating employee");
+                })
+                .finally(() => {
+                    toggleLoading();
                 });
         };
     }
 );
+app.controller("DashboardController", function ($scope) {});
 function showError(message) {
     Toastify({
         text: message,
@@ -141,4 +165,8 @@ function showError(message) {
             background: "linear-gradient(to right, #00b09b, #96c93d)",
         },
     }).showToast();
+}
+
+function toggleLoading() {
+    document.getElementById("loading").classList.toggle("d-none");
 }
