@@ -1,0 +1,57 @@
+<div class="container mt-3" ng-controller="ViewEmployeeController">
+    <div class="d-flex align-items-center justify-content-between mb-3 ">
+        <h5 class="m-0">Employee Details</h5>
+        <button class="btn btn-warning" ng-hide="editable" ng-click="editable=true">
+            <i class="fa-solid fa-pencil"></i>
+            <span>Edit</span>
+        </button>
+        <button class="btn btn-success" ng-hide="!editable" ng-click="saveEmployee(employee)">
+            <i class="fa-solid fa-save"></i>
+            <span>Save</span>
+        </button>
+    </div>
+    <table class="table table-striped table-bordered">
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <td ng-hide="editable">{{ employee.name }}</td>
+                <td ng-hide="!editable"><input type="text" class="form-control" ng-model="employee.name"></td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td ng-hide="editable">{{ employee.email }}</td>
+                <td ng-hide="!editable"><input type="email" class="form-control" ng-model="employee.email"></td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td ng-hide="editable">{{ employee.phone }}</td>
+                <td ng-hide="!editable"><input type="tel" class="form-control" ng-model="employee.phone"></td>
+            </tr>
+            <tr>
+                <th>Date of Birth</th>
+                <td ng-hide="editable">{{ employee.dob | date: 'dd-MM-yyyy' }}</td>
+                <td ng-hide="!editable"><input type="date" class="form-control" ng-model="employee.dob"></td>
+            </tr>
+            <tr>
+                <th>Salary</th>
+                <td ng-hide="editable">{{ employee.salary }}</td>
+                <td ng-hide="!editable"><input type="text" class="form-control" ng-model="employee.salary"></td>
+            </tr>
+            <tr>
+                <th>Position</th>
+                <td ng-hide="editable">{{ employee.position }}</td>
+                <td ng-hide="!editable"><input type="text" class="form-control" ng-model="employee.position"></td>
+            </tr>
+            <tr>
+                <th>Gender</th>
+                <td ng-hide="editable" class="text-capitalize">{{ employee.gender }}</td>
+                <td ng-hide="!editable">
+                    <select class="form-select" name="" id="" ng-model="employee.gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
