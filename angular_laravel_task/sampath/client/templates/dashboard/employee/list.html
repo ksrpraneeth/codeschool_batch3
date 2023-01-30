@@ -1,27 +1,72 @@
 <div class="container">
     <div ng-controller="EmployeeController">
         <h5 class="mt-3 fw-semibold">Employees List</h5>
-        <table class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Salary</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="employee in employees">
-                    <td>{{employee.name}}</td>
-                    <td>{{employee.position}}</td>
-                    <td>Rs. {{employee.salary}}</td>
-                    <td>
-                        <button class="btn text-primary" ui-sref="employees.view({id:employee.id})">
-                            <i class="fa-regular fa-eye"></i>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="overflow-auto table-responsive"  style="max-height: 500px;">
+            <table class="table table-striped table-bordered overflow-auto">
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Salary</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="employee in employees">
+                        <td>{{$index+1}}</td>
+                        <td>{{employee.name}}</td>
+                        <td>{{employee.position}}</td>
+                        <td>Rs. {{employee.salary}}</td>
+                        <td>
+                            <button
+                                class="btn text-primary"
+                                ui-sref="employees.view({id:employee.id})"
+                            >
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr ng-show="employees.length == 0">
+                        <th><span class="skeleton-loader"></span></th>
+                        <th><span class="skeleton-loader"></span></th>
+                        <th><span class="skeleton-loader"></span></th>
+                        <th><span class="skeleton-loader"></span></th>
+                        <th><span class="skeleton-loader"></span></th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="overflow-auto mt-3">
+            <nav  ng-show="employees.length != 0">
+                <ul class="pagination">
+                    <li
+                        class="page-item"
+                        role="button"
+                        ng-click="getEmployees(currentPage - 2)"
+                        ng-class="{'disabled': prev == ''}"
+                    >
+                        <a class="page-link">Previous</a>
+                    </li>
+                    <li
+                        class="page-item"
+                        ng-repeat="x in [].constructor(pages) track by $index"
+                        ng-class="{'active': $index+1 == currentPage}"
+                        ng-click="getEmployees($index)"
+                        role="button"
+                    >
+                        <a class="page-link">{{$index+1}}</a>
+                    </li>
+                    <li
+                        role="button"
+                        class="page-item"
+                        ng-click="getEmployees(currentPage)"
+                        ng-class="{'disabled': next == ''}"
+                    >
+                        <a class="page-link">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
 </div>

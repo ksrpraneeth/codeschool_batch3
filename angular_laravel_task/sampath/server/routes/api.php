@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,8 +28,13 @@ Route::group(["prefix" => "user"], function () {
             "message" => "LOGOUT"
         ]);
     });
+    Route::get("/logoutUser", [AuthController::class, "logout"]);
 });
 
 Route::apiResource("employees", EmployeeController::class)->only([
     'index', 'show', 'update', 'store'
-]);
+])->middleware('auth');
+Route::apiResource("employees.salaries", SalaryController::class)->only([
+    'index', 'show', 'update', 'store'
+])->middleware('auth');
+
