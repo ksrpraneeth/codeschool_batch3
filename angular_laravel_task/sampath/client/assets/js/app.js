@@ -17,6 +17,7 @@ app.controller("RegisterController", function ($scope, $http, $state) {
     $scope.errors = {};
     $scope.register = ($event) => {
         $event.preventDefault();
+        $scope.errors = {};
         if (!$scope.email || !$scope.name || !$scope.password) {
             alert("Please enter all the details!");
             return;

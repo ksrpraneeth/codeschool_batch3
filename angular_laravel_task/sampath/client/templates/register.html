@@ -12,7 +12,7 @@
             </div>
             <div class="d-flex justify-content-center mt-3">
                 <form ng-submit="register($event)" action="#" method="POST">
-                    <div class="input-group mb-3">
+                    <div class="input-group">
                         <span class="input-group-text" id="usernameLabel">
                             <i class="fas fa-envelope"></i>
                         </span>
@@ -25,7 +25,13 @@
                             ng-model="email"
                         />
                     </div>
-                    <div class="input-group mb-3">
+                    <p
+                        class="m-0 text-danger"
+                        ng-repeat="error in errors.email"
+                    >
+                        {{error}}
+                    </p>
+                    <div class="input-group mt-3">
                         <span class="input-group-text" id="passwordLabel">
                             <i class="fas fa-key"></i>
                         </span>
@@ -38,7 +44,13 @@
                             ng-model="password"
                         />
                     </div>
-                    <div class="input-group mb-3">
+                    <p
+                        class="m-0 text-danger"
+                        ng-repeat="error in errors.password"
+                    >
+                        {{error}}
+                    </p>
+                    <div class="input-group mt-3">
                         <span class="input-group-text" id="userNameLabel">
                             <i class="fas fa-user"></i>
                         </span>
@@ -51,6 +63,12 @@
                             ng-model="name"
                         />
                     </div>
+                    <p
+                        class="m-0 text-danger"
+                        ng-repeat="error in errors.name"
+                    >
+                        {{error}}
+                    </p>
                     <div
                         class="d-flex justify-content-center mt-3 login_container"
                     >
