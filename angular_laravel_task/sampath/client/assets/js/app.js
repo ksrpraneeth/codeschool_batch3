@@ -13,7 +13,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         });
     $urlRouterProvider.otherwise("/login");
 });
-app.controller("RegisterController", function ($scope, $http) {
+app.controller("RegisterController", function ($scope, $http, $state) {
     $scope.errors = {};
     $scope.register = ($event) => {
         $event.preventDefault();
@@ -34,7 +34,7 @@ app.controller("RegisterController", function ($scope, $http) {
         }).then(
             (response) => {
                 if (response.data.status) {
-                    $scope.changeType("login");
+                    $state.go('login')
                     showError("User Regsitered Succesffully!");
                 } else {
                     if (response.data.message) {
@@ -55,9 +55,13 @@ app.controller("RegisterController", function ($scope, $http) {
     };
 });
 app.controller("LoginController", function ($scope, $http) {
+    if(localStorage.getItem('token')){
+        location.href = './dashboard.html';
+    }
     $scope.errors = {};
     $scope.login = ($event) => {
         $event.preventDefault();
+        $scope.errors = {};
         if (!$scope.email || !$scope.password) {
             alert("Please enter all the details!");
             return;
@@ -90,6 +94,10 @@ app.controller("LoginController", function ($scope, $http) {
                 if (response.data.errors) {
                     $scope.errors = response.data.errors;
                 } else {
+                    if(response.data.message){
+                        showError(response.data.message);
+                        return; 
+                    }
                     showError("Something went wrong!");
                 }
             }

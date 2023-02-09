@@ -12,7 +12,7 @@
             </div>
             <div class="d-flex justify-content-center mt-3">
                 <form ng-submit="login($event)">
-                    <div class="input-group mb-3">
+                    <div class="input-group">
                         <span class="input-group-text" id="basic-addon1">
                             <i class="fas fa-envelope"></i>
                         </span>
@@ -24,7 +24,13 @@
                             ng-model="email"
                         />
                     </div>
-                    <div class="input-group mb-3">
+                    <p
+                        class="m-0 text-danger"
+                        ng-repeat="error in errors.email"
+                    >
+                        {{error}}
+                    </p>
+                    <div class="input-group mt-3">
                         <span class="input-group-text" id="basic-addon1">
                             <i class="fas fa-key"></i>
                         </span>
@@ -36,6 +42,12 @@
                             ng-model="password"
                         />
                     </div>
+                    <p
+                        class="m-0 text-danger"
+                        ng-repeat="error in errors.password"
+                    >
+                        {{error}}
+                    </p>
                     <div
                         class="d-flex justify-content-center mt-3 login_container"
                     >
