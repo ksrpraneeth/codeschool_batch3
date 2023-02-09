@@ -35,7 +35,7 @@ app.controller("RegisterController", function ($scope, $http, $state) {
         }).then(
             (response) => {
                 if (response.data.status) {
-                    $state.go('login')
+                    $state.go("login");
                     showError("User Regsitered Succesffully!");
                 } else {
                     if (response.data.message) {
@@ -46,8 +46,9 @@ app.controller("RegisterController", function ($scope, $http, $state) {
                 }
             },
             (response) => {
-                if (response.data.errors) {
-                    $scope.errors = response.data.errors;
+                if (!response.data.status) {
+                    showError(response.data.message);
+                    $scope.errors = response.data.data;
                 } else {
                     showError("Something went wrong!");
                 }
@@ -56,8 +57,8 @@ app.controller("RegisterController", function ($scope, $http, $state) {
     };
 });
 app.controller("LoginController", function ($scope, $http) {
-    if(localStorage.getItem('token')){
-        location.href = './dashboard.html';
+    if (localStorage.getItem("token")) {
+        location.href = "./dashboard.html";
     }
     $scope.errors = {};
     $scope.login = ($event) => {
@@ -92,13 +93,10 @@ app.controller("LoginController", function ($scope, $http) {
                 }
             },
             (response) => {
-                if (response.data.errors) {
-                    $scope.errors = response.data.errors;
+                if (!response.data.status) {
+                    showError(response.data.message);
+                    $scope.errors = response.data.data;
                 } else {
-                    if(response.data.message){
-                        showError(response.data.message);
-                        return; 
-                    }
                     showError("Something went wrong!");
                 }
             }

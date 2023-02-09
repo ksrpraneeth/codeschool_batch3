@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator as ValidationValidator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class UserRegisterRequest extends FormRequest
 {
@@ -43,5 +45,17 @@ class UserRegisterRequest extends FormRequest
             "password.required" => "Password is required",
             "password:min" => "Password should be at least 5 characters"
         ];
+    }
+
+    protected function failedValidation(ValidationValidator $validator)
+    {
+        throw new HttpResponseException(response()->json(
+            [
+                "status" => false,
+                "message" => "Please Check Errors",
+                "data" => $validator->errors()
+            ],
+            422
+        ));
     }
 }
