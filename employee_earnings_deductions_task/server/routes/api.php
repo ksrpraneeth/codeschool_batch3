@@ -19,11 +19,15 @@ use Illuminate\Support\Facades\Route;
 Route::group(["prefix" => "user"], function () {
     Route::post("/register", [AuthController::class, "register"]);
     Route::post("/login", [AuthController::class, "login"]);
-    Route::get("/get", [UserController::class, "get"])->middleware('auth');
     Route::get("/logout", function () {
         return response()->json([
             "status" => false,
             "message" => "LOGOUT"
         ]);
     });
+});
+
+Route::group(["prefix" => "user", "middleware" => "auth"], function () {
+    Route::get("/get", [UserController::class, "get"]);
+    Route::get("/getModules", [UserController::class, "getModules"]);
 });
