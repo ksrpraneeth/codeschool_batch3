@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -31,3 +32,5 @@ Route::group(["prefix" => "user", "middleware" => "auth"], function () {
     Route::get("/get", [UserController::class, "get"]);
     Route::get("/getModules", [UserController::class, "getModules"]);
 });
+
+Route::get("/module/{id}", [ModuleController::class, 'getModule']);

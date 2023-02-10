@@ -31,6 +31,9 @@
                         >{{menuItem.title}}</a
                     >
                 </li>
+                <li class="nav-item" ng-if="loggedIn==true">
+                    <button class="btn border-0 text-danger" ng-click="logout()">Logout</button>
+                </li>
             </ul>
         </div>
     </div>

@@ -7,19 +7,6 @@ app.run(function ($rootScope) {
     }
 });
 
-app.run(function ($rootScope, $state) {
-    $rootScope.$on(
-        "$stateChangeStart",
-        function (event, toState) {
-            console.log("change started");
-            if (toState.name === "loginState" && $rootScope.loggedIn) {
-                event.preventDefault();
-                $state.go("homeState");
-            }
-        }
-    );
-});
-
 // Constants
 let SERVER_URL = "http://127.0.0.1:8000/api";
 

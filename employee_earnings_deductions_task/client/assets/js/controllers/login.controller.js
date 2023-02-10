@@ -1,6 +1,9 @@
 app.controller(
     "LoginController",
     function ($scope, $rootScope, $state, userService) {
+        if($rootScope.loggedIn){
+            $state.go('dashboardState')
+        }
         $scope.formErrors = {};
         $scope.rememberMe = false;
 
@@ -26,7 +29,7 @@ app.controller(
                             showError("Logged In Successfully");
                             localStorage.setItem("token", response.data.data);
                             $rootScope.loggedIn = true;
-                            $state.go("homeState");
+                            $state.go("dashboardState");
                         } else {
                             if (response.data.message) {
                                 showError(response.data.message);

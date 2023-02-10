@@ -1,0 +1,32 @@
+<div class="moduleDiv d-flex position-relative">
+    <div class="sidebar p-3 bg-light position-absolute">
+        <ul class="list-unstyled">
+            <li class="list-item" ng-repeat="menuItem in module.menu_items">
+                <a
+                    ui-sref=".{{menuItem.state}}"
+                    ui-sref-active-eq="text-black"
+                    class="text-decoration-none"
+                >
+                    {{menuItem.name}}
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="body p-3">
+        <ui-view> Welcome to {{module.name}} </ui-view>
+    </div>
+</div>
+
+<style>
+    .moduleDiv {
+        min-height: calc(100vh - 56px);
+    }
+    .sidebar {
+        width: 250px;
+        min-height: 100%;
+    }
+    .body {
+        margin-left: 250px;
+        width: calc(100% - 250px);
+    }
+</style>

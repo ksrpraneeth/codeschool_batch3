@@ -17,6 +17,10 @@ class UserModuleSeeder extends Seeder
     {
         UserModule::create([
             "user_id" => '2',
+            "module_id" => '1'
+        ]);
+        UserModule::create([
+            "user_id" => '2',
             "module_id" => '2'
         ]);
     }
