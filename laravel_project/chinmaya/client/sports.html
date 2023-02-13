@@ -1,0 +1,18 @@
+<div class="container-fluid min-vh-100 " style="background-image: url(image/stadiumbg.jpg);" ng-controller="sportscontroller">
+    <div class="row  sportscard ms-3 px-4">
+
+        <div class="col-3 offset-1 mt-3" ng-repeat="data in sports">
+            <div class="card" >
+                <img class="card-img-top" ng-src="{{data.imagelink}}" alt="Card image cap" style="height: 300px;">
+                <div class="card-body">
+                    <h4 class="card-title ">{{data.name | uppercase}}</h5>
+                    
+                    <a href="#" class="btn btn-primary" >Book Ground</a>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+    
+
+</div>
