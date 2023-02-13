@@ -1,0 +1,17 @@
+<div class="container" ng controller="productCtrl">
+    <div class="row">
+        <div class="col-md-12" style="text-align: center;">
+            <h3>OUR PRODUCTS</h3>
+        </div>
+    </div>
+    <div class="row">
+        <h4 style="text-align: center;">Directly From Reliance Platform</h4>
+    </div>
+    <div class="row">
+        <div class="col-md-4" ng-repeat="product in products">
+           <a ui-sref="productDetails({id:product.productid})"><img ng-src="{{product.productimg}}" style="height: 60%;width: 90%;"></a>
+            <p style="text-align: center;">{{product.productname}}</p>
+            <p style="text-align: center;">{{product.price}}</p>
+        </div>
+    </div>
+</div>

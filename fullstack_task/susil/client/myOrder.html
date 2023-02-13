@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body >
+
+    <div ng-repeat="order in myorder">
+        <div style="text-align: center;">orderid:{{order.orderid}}</div>
+        <hr>
+        <diV ng-repeat="detail in order.details"><img ng-src="{{detail.product.productimg}}" style="width: 30%;"></diV>
+        <div ng-repeat="detail in order.details">{{detail.product.productname}}</div>
+        <div ng-repeat="detail in order.details">Quantity:{{detail.quantity}}</div>
+    </div>
+</body>
+</html>
