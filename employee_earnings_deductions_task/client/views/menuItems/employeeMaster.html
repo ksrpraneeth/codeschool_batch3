@@ -1,5 +1,74 @@
 <div id="employeeMaster" ng-controller="employeeMasterController">
-    <h6>Employee Master</h6>
+    <h6>Employee Filter By</h6>
+    <div class="d-flex align-items-center gap-3">
+        <div class="form-check">
+            <input
+                class="form-check-input"
+                type="radio"
+                name="flexRadioDefault"
+                id="billIdFilter"
+                value="billIdFilter"
+                ng-model="filter"
+                ng-click="changedFilter('billIdFilter')"
+            />
+            <label class="form-check-label" for="billIdFilter"> Bill ID </label>
+        </div>
+        <div class="form-check">
+            <input
+                class="form-check-input"
+                type="radio"
+                name="flexRadioDefault"
+                id="bankAcNoFilter"
+                value="bankAcNoFilter"
+                ng-model="filter"
+                ng-click="changedFilter('bankAcNoFilter')"
+            />
+            <label class="form-check-label" for="bankAcNoFilter">
+                Bank Account Number
+            </label>
+        </div>
+        <div class="form-check">
+            <input
+                class="form-check-input"
+                type="radio"
+                name="flexRadioDefault"
+                id="empCodeFilter"
+                value="employeeCodeFilter"
+                ng-model="filter"
+                ng-click="changedFilter('empCodeFilter')"
+            />
+            <label class="form-check-label" for="empCodeFilter">
+                Employee Code
+            </label>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+        <select
+            name=""
+            class="form-select"
+            ng-if="filter=='billIdFilter'"
+            ng-model="billIdInput"
+        >
+            <option value="">Select Bill ID</option>
+            <option value="{{billId.id}}" ng-repeat="billId in billIds">
+                {{billId.name}}
+            </option>
+        </select>
+        <input
+            type="text"
+            ng-if="filter=='employeeCodeFilter'"
+            placeholder="Enter Employee Code"
+            class="form-control"
+            ng-model="employeeCodeInput"
+        />
+        <input
+            type="text"
+            ng-if="filter=='bankAcNoFilter'"
+            placeholder="Enter Bank Account Number"
+            class="form-control"
+            ng-model="bankAcNoInput"
+        />
+    </div>
     <hr />
     <table class="table table-bordered">
         <thead>
@@ -31,6 +100,4 @@
         </tbody>
     </table>
 </div>
-<div id="viewEmployee">
-    
-</div>
+<div id="viewEmployee"></div>

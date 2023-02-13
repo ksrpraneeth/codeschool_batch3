@@ -32,6 +32,6 @@ Route::group(["prefix" => "user", "middleware" => "auth"], function () {
     Route::get("/get", [UserController::class, "get"]);
     Route::get("/getModules", [UserController::class, "getModules"]);
     Route::get("/getEmployees", [UserController::class, "getEmployees"]);
+    Route::get("/getBillIds", [UserController::class, "getBillIds"]);
 });
 Route::get("/module/{module}", [ModuleController::class, 'getModule'])->middleware("auth");
-

@@ -54,4 +54,22 @@ class UserController extends Controller
             ]);
         }
     }
+
+    function getBillIds()
+    {
+        try {
+            $billIds = Auth::user()->billIds;
+            return response()->json([
+                "status" => true,
+                "message" => "Success",
+                "data" => $billIds
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json([
+                "status" => false,
+                "message" => "Something went wrong",
+                "data" => $e->getMessage()
+            ]);
+        }
+    }
 }

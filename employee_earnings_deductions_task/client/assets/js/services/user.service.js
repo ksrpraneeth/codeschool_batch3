@@ -28,4 +28,11 @@ app.service("userService", function ($http, $state, $rootScope) {
             method: "GET"
         });
     }
+
+    this.getBillIds = function () {
+        return $http({
+            url: SERVER_URL + "/user/getBillIds",
+            method: "GET"
+        });
+    }
 });
