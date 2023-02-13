@@ -21,4 +21,11 @@ app.service("userService", function ($http, $state, $rootScope) {
             method: "GET"
         });
     }
+
+    this.getEmployees = function () {
+        return $http({
+            url: SERVER_URL + "/user/getEmployees",
+            method: "GET"
+        });
+    }
 });

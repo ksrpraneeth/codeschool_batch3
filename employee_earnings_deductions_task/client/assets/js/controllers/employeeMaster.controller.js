@@ -1,20 +1,20 @@
 app.controller(
-    "DashboardController",
-    function ($scope, $rootScope, $state, userService) {
+    "employeeMasterController",
+    function ($scope, $rootScope, userService) {
         if (!$rootScope.loggedIn) {
             $state.go("loginState");
         }
 
-        // Modules
-        $scope.modules = [];
+        // Employees
+        $scope.employees = [];
         $scope.loading = true;
         userService
-            .getModules()
+            .getEmployees()
             .then((response) => {
                 if (response.data.status) {
-                    $scope.modules = response.data.data;
+                    $scope.employees = response.data.data;
                     if (response.data.data.length == 0) {
-                        showError("No Modules Found");
+                        showError("No Employees Found");
                     }
                 } else {
                     if (response.data.message) {

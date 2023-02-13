@@ -13,9 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('modules', function (Blueprint $table) {
-            $table->dropColumn('state');
-    });
+        Schema::create('bill_ids', function (Blueprint $table) {
+            $table->id();
+            $table->string("name");
+            $table->unsignedBigInteger("user_id");
+            $table->timestamps();
+
+            $table->foreign("user_id")->references("id")->on("users");
+        });
     }
 
     /**
@@ -25,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('bill_ids');
     }
 };

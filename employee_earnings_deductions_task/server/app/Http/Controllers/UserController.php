@@ -36,4 +36,22 @@ class UserController extends Controller
             ]);
         }
     }
+
+    function getEmployees()
+    {
+        try {
+            $employees = Auth::user()->employees;
+            return response()->json([
+                "status" => true,
+                "message" => "Success",
+                "data" => $employees
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json([
+                "status" => false,
+                "message" => "Something went wrong",
+                "data" => $e->getMessage()
+            ]);
+        }
+    }
 }

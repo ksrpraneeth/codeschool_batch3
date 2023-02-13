@@ -48,4 +48,14 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(UserModule::class);
     }
+
+    public function billIds()
+    {
+        return $this->hasMany(BillId::class);
+    }
+
+    public function employees()
+    {
+        return $this->hasManyThrough(Employee::class, BillId::class, 'user_id', 'bill_ids_id', 'id', 'id');
+    }
 }

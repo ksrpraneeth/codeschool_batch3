@@ -13,11 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('modules', function (Blueprint $table) {
+        Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table->string("name")->unique();
-            $table->string("icon");
+            $table->string('name');
+            $table->string('department');
+            $table->string('designation');
+            $table->integer('bill_ids_id');
+            $table->string('employee_code')->unique();
+            $table->string('bank_ac_no')->unique();
             $table->timestamps();
+
+            $table->foreign('bill_ids_id')->references('id')->on('bill_ids');
         });
     }
 
@@ -28,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('modules');
+        Schema::dropIfExists('employees');
     }
 };

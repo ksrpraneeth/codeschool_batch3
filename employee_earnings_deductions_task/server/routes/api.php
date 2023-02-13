@@ -31,6 +31,7 @@ Route::group(["prefix" => "user"], function () {
 Route::group(["prefix" => "user", "middleware" => "auth"], function () {
     Route::get("/get", [UserController::class, "get"]);
     Route::get("/getModules", [UserController::class, "getModules"]);
+    Route::get("/getEmployees", [UserController::class, "getEmployees"]);
 });
+Route::get("/module/{module}", [ModuleController::class, 'getModule'])->middleware("auth");
 
-Route::get("/module/{id}", [ModuleController::class, 'getModule']);
