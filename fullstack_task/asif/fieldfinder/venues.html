@@ -1,0 +1,42 @@
+<section class="min-vh-100 m-1">
+
+  <!-- For Filters -->
+  <div class="row d-flex justify-content-center border border-start-0 border-end-0 border-top-0 m-1 py-3">
+    <div class="col-12 col-md-5 my-2">
+      <label for="searchBox" class="form-label">Search Venue</label>
+      <div class="input-group">
+        <input type="text" id="searchBox" class="form-control" placeholder="Search by Venue Name, City, Sport">
+        <a href="" class="btn btn-primary" class="input-group-text">Search</a>
+      </div>
+    </div>
+    <div class="col-12 col-md-3 my-2">
+      <label for="citySelect" class="form-label">City</label>
+      <select class="form-select cursor-pointer" id="citySelect">
+        <option value="" selected>All</option>
+        <option ng-repeat="item in citiesList" value="{{ item.city }}">{{ item.city }}</option>
+      </select>
+    </div>
+    <div class="col-12 col-md-3 my-2">
+      <label for="sportSelect" class="form-label">Sports</label>
+      <select class="form-select cursor-pointer" id="sportSelect">
+        <option value="" selected>All</option>
+        <option ng-repeat="sport in sportsList" value="{{ sport.id }}">{{ sport.name }}</option>
+      </select>
+    </div>
+  </div>
+  
+
+  <!-- For Venues  -->
+  <div class="row d-flex justify-content-center m-1">
+    <div class="card col-11 col-md-3 m-3 p-0 shadow cursor-pointer scale" ng-repeat="venue in venuesList" >
+      <img ng-src="{{ venue.thumbnail }}" class="card-img-top" alt="Venue Image" style="width: auto; height: 12rem;">
+      <div class="card-body bg-primary-subtle">
+        <h5 class="card-title">{{ venue.name }}</h5>
+        <p class="card-text">{{ venue.area }}</p>
+        <p class="card-text"><strong>Sports:</strong> <span ng-repeat="sport in venue.sports">{{ sport }}{{$last ? '' : ', '}}</span></p>
+        <a ng-click="bookVenue(venue.id, venue.name, venue.area)" class="btn btn-primary">Book Now</a>
+      </div>
+    </div>
+  </div>
+
+</section>

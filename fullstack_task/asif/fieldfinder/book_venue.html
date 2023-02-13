@@ -1,0 +1,61 @@
+<section class="min-vh-100 my-5 mx-2">
+    <div class="row m-1">
+        <div class="col-12">
+            <h1 class="border border-top-0 border-start-0 border-end-0 pb-2">{{ venueDetails.name }}</h1>
+        </div>
+    </div>
+    
+    <div class="row m-1">
+        <div class="col-md-6">
+            <div class="col-12 my-3">
+                <img ng-src="{{ venueDetails.thumbnail }}" alt="Venue Image" class="col-12 rounded-1">
+                <p class="col-12 py-2">
+                    <strong>Address</strong>
+                    <br>
+                    <span>{{ venueDetails.address + ", " + venueDetails.area + ", " + venueDetails.city + ", " + venueDetails.state + " - " + venueDetails.pincode }}</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="col-12 my-3 p-3 rounded-1 border shadow">
+                <h2 class="mb-3 text-center">Book Venue</h2>
+                <form action="#">
+                    <div class="row mb-3 mx-auto">
+                        <label for="sport" class="form-label col-md-4 my-auto">Sport</label>
+                        <div class="col-md-6 offset-md-2">
+                            <select class="form-select cursor-pointer" id="sport" name="sport">
+                                <option value="" hidden disabled>Select</option>
+                                <option ng-repeat="sport in venueDetails.sports" value="{{ sport.id }}">{{ sport.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3 mx-auto">
+                        <label for="date" class="form-label col-md-4 my-auto">Date</label>
+                        <div class="col-md-6 offset-md-2">
+                            <input type="date" class="form-control cursor-pointer" id="date" name="date" min="{{ todaysDate }}" max="{{ dateAfterFourDays }}" value="{{ todaysDate }}">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3 mx-auto">
+                        <label for="timeSlots" class="form-label col-md-4 my-auto">Available Time Slots</label>
+                        <div class="col-md-6 offset-md-2">
+                            <select class="form-select cursor-pointer" id="timeSlots" name="timeSlots">
+                                <option selected>Select</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Book Now</button>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+        
+    </div>
+</section>
