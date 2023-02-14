@@ -28,7 +28,7 @@ class StoreAgencyRequest extends FormRequest
         return [
             "agency_name" => ["required", "min:3", "max:50"],
             "account_number" => ["required", "min:5", "unique:agencies,account_number"],
-            "ifsc_code" => ["required", "digits:11", "exists:ifsc_codes,ifsc_code"]
+            "ifsc_code" => ["required", "size:11", "exists:ifsc_codes,ifsc_code"]
         ];
     }
 
@@ -55,6 +55,6 @@ class StoreAgencyRequest extends FormRequest
             "status" => false,
             "message" => "Please check the errors",
             "data" => $validator->errors()
-        ]));
+        ], 500));
     }
 }

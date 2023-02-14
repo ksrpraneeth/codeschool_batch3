@@ -8,4 +8,29 @@ app.service("AddAgencyService", function ($http) {
             }
         })
     };
+    this.createAgency = function (agencyDetails) {
+        return $http({
+            url: SERVER + '/agency/create',
+            method: "POST",
+            data: agencyDetails
+        })
+    };
+
+    this.getAgencyByAccountNumber = function (account_number) {
+        return $http({
+            url: SERVER + '/agency/getByAccountNumber',
+            method: "POST",
+            data: {
+                account_number
+            }
+        })
+    };
+
+    this.updateAgency = function (id, data) {
+        return $http({
+            url: SERVER + '/agency/update/'+id,
+            method: "POST",
+            data: data
+        })
+    };
 });

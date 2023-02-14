@@ -20,5 +20,7 @@ Route::group(["prefix" => "ifscCode"], function () {
 });
 
 Route::group(["prefix" => "agency"], function () {
-    Route::get("get/{agency}", [AgencyController::class, 'get']);
+    Route::post("getByAccountNumber", [AgencyController::class, 'getAgencyByAcNo']);
+    Route::post("create", [AgencyController::class, 'createAgency']);
+    Route::post("update/{agency}", [AgencyController::class, 'updateAgency']);
 });
