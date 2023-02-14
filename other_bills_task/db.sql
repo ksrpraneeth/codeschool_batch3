@@ -75,9 +75,9 @@ CREATE TABLE transactions(
 
 CREATE TABLE bill_multiple_party(
     id BIGSERIAL PRIMARY KEY,
-    bill_id INT REFERENCES bills(id),
-    name VARCHAR(200),
-    account_number VARCHAR(20) UNIQUE,
+    transaction_id INT REFERENCES transactions(id),
+    agency_name VARCHAR(200),
+    agency_account_number VARCHAR(20),
     ifsc_code INT
     gross BIGINT,
     pt_deduction BIGINT,

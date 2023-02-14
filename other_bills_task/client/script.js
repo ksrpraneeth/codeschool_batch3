@@ -6,6 +6,11 @@ app.config(['$stateProvider', function ($stateProvider) {
         url: '/addAgency',
         templateUrl: 'addAgency.html'
       });
+      $stateProvider
+      .state('billEntry', {
+        url: '/billEntry',
+        templateUrl: 'billEntry.html'
+      });
     }
 ]);
 app.controller('AddAgencyController',function($scope){
