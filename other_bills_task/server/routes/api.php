@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\AgencyController;
+use App\Http\Controllers\IfscCodeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(["prefix" => "ifscCode"], function () {
+    Route::post("getByCode", [IfscCodeController::class, 'getByCode']);
+});
+
+Route::group(["prefix" => "agency"], function () {
+    Route::get("get/{agency}", [AgencyController::class, 'get']);
 });

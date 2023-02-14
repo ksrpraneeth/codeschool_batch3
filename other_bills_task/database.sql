@@ -94,7 +94,7 @@ CREATE DATABASE other_bills_task;
     )
 
     -- Bill Table
-    CREATE TABLE IF NOT EXISTS bills
+    CREATE TABLE IF NOT EXISTS transactions
     (
         id INTEGER GENERATED ALWAYS AS IDENTITY,
         form_type_id INTEGER REFERENCES form_types(id),
@@ -114,15 +114,14 @@ CREATE DATABASE other_bills_task;
     )
 
     -- Bill Details Table
-    CREATE TABLE IF NOT EXISTS bill_details
+    CREATE TABLE IF NOT EXISTS bill_multiple_parties
     (
         id INTEGER GENERATED ALWAYS AS IDENTITY,
         bill_id INTEGER REFERENCES bills(id) NOT NULL,
-        -- agency_id INTEGER REFERENCES agencies(id) NOT NULL,
         agency_account_number INTEGER REFERENCES agencies(account_no) NOT NULL,
-        agency_name INTEGER REFERENCES agencies(agency_name) NOT NULL,
-        agency_gst_no INTEGER REFERENCES agencies(gst_no) NOT NULL,
-        agency_ifsc_code INTEGER REFERENCES agencies(ifsc_code) NOT NULL,
+        agency_name VARCHAR(255) NOT NULL,
+        agency_gst_no VARCHAR(255),
+        agency_ifsc_code VARCHAR(11) NOT NULL,
         gross BIGINT NOT NULL DEFAULT 0,
         pt BIGINT NOT NULL DEFAULT 0,
         tds BIGINT NOT NULL DEFAULT 0,

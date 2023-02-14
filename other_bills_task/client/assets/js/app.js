@@ -1,8 +1,5 @@
-let app = angular.module('app', ['ui.router']);
-
-
-
-
+let app = angular.module("app", ["ui.router"]);
+let SERVER = "http://127.0.0.1:8000/api";
 
 // Custom Functions
 function showError(err) {
@@ -15,9 +12,9 @@ function showError(err) {
         position: "left", // `left`, `center` or `right`
         stopOnFocus: true, // Prevents dismissing of toast on hover
         style: {
-          background: "linear-gradient(to right, #b02900, #c9853d)",
+            background: "linear-gradient(to right, #b02900, #c9853d)",
         },
-      }).showToast();
+    }).showToast();
 }
 
 function showSuccess(msg) {
@@ -30,7 +27,7 @@ function showSuccess(msg) {
         position: "left", // `left`, `center` or `right`
         stopOnFocus: true, // Prevents dismissing of toast on hover
         style: {
-          background: "linear-gradient(to right, #00b09b, #96c93d)",
+            background: "linear-gradient(to right, #00b09b, #96c93d)",
         },
-      }).showToast();
+    }).showToast();
 }
