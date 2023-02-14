@@ -1,0 +1,79 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap");
+* {
+  font-family: "Open Sans", sans-serif;
+}
+
+.fs-7 {
+  font-size: 11px !important;
+}
+
+.border-bottom-dashed {
+  border-bottom: dashed 1px gray;
+}
+
+.btn-secondary {
+  background-color: #4d6273 !important;
+}
+
+.addAgencyTitle {
+  background-color: #cee5ff !important;
+  color: #2261b2 !important;
+}
+
+.header {
+  background-image: url("./../images/header-bg.jpg");
+  border-bottom: solid 4px #f0b2b9;
+}
+.header .left .brand img {
+  height: 40px;
+}
+
+body {
+  background-color: #e2e2e2;
+}
+
+.body .sidebar {
+  background-color: #1b354d;
+  transition: all ease 0.5s;
+  width: 250px;
+  min-height: 100%;
+}
+.body .sidebar .menu li {
+  border-left: solid 3px transparent;
+  border-bottom: solid 1px rgba(211, 211, 211, 0.2274509804);
+  padding: 12px;
+}
+.body .sidebar .menu .active {
+  background-color: rgba(255, 255, 255, 0.1333333333);
+  border-left: solid 3px #f0b2b9;
+}
+.body .content {
+  width: calc(100% - 250px);
+  margin-left: 250px;
+  transition: all ease 0.5s;
+}
+
+.toggled .sidebar {
+  margin-left: -250px;
+}
+.toggled .content {
+  width: 100%;
+  margin-left: 0;
+}
+
+@media screen and (max-width: 769px) {
+  .sidebar {
+    margin-left: -250px;
+  }
+  .content {
+    width: 100% !important;
+    margin-left: 0 !important;
+  }
+  .toggled .sidebar {
+    margin-left: 0;
+  }
+  .toggled .content {
+    width: calc(100% - 250px);
+    margin-left: 250px;
+  }
+}

@@ -1,0 +1,12 @@
+<ul class="list-unstyled text-white menu">
+    <li
+        role="button"
+        class="d-flex align-items-center gap-3"
+        ng-repeat="menuItem in menu"
+        ui-sref="{{menuItem.state}}"
+        ui-sref-active="active"
+    >
+        <i class="{{menuItem.icon}}"></i>
+        <span> {{menuItem.name}} </span>
+    </li>
+</ul>

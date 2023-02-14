@@ -1,0 +1,91 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap");
+* {
+    font-family: "Open Sans", sans-serif;
+}
+
+.fs-7 {
+    font-size: 11px !important;
+}
+
+.border-bottom-dashed {
+    border-bottom: dashed 1px gray;
+}
+
+.btn-secondary {
+    background-color: #4d6273 !important;
+}
+
+.addAgencyTitle {
+    background-color: #cee5ff !important;
+    color: #2261b2 !important;
+}
+
+.header {
+    background-image: url("./../images/header-bg.jpg");
+    border-bottom: solid 4px #f0b2b9;
+    .left {
+        .brand {
+            img {
+                height: 40px;
+            }
+        }
+    }
+}
+
+body {
+    background-color: #e2e2e2;
+}
+
+.body {
+    .sidebar {
+        background-color: #1b354d;
+        transition: all ease 0.5s;
+        width: 250px;
+        min-height: 100%;
+        .menu {
+            li {
+                border-left: solid 3px transparent;
+                border-bottom: solid 1px #d3d3d33a;
+                // font-size: 14px;
+                padding: 12px;
+            }
+            .active {
+                background-color: #ffffff22;
+                border-left: solid 3px #f0b2b9;
+            }
+        }
+    }
+    .content {
+        width: calc(100% - 250px);
+        margin-left: 250px;
+        transition: all ease 0.5s;
+    }
+}
+.toggled {
+    .sidebar {
+        margin-left: -250px;
+    }
+    .content {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 769px) {
+    .sidebar {
+        margin-left: -250px;
+    }
+    .content {
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+    .toggled {
+        .sidebar {
+            margin-left: 0;
+        }
+        .content {
+            width: calc(100% - 250px);
+            margin-left: 250px;
+        }
+    }
+}
