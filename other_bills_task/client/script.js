@@ -8,3 +8,6 @@ app.config(['$stateProvider', function ($stateProvider) {
       });
     }
 ]);
+app.controller('AddAgencyController',function($scope){
+  $scope.editable="false"
+})

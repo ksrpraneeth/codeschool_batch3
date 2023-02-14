@@ -61,7 +61,7 @@ CREATE TABLE transactions(
     id BIGSERIAL PRIMARY KEY,
     form_type INT;
     form_number varchar(10),
-    hoa INT,
+    hoa VARCHAR(20),
     gross BIGINT,
     pt_deduction BIGINT,
     tds BIGINT,
@@ -76,16 +76,21 @@ CREATE TABLE transactions(
 CREATE TABLE bill_multiple_party(
     id BIGSERIAL PRIMARY KEY,
     bill_id INT REFERENCES bills(id),
-    account_number VARCHAR(20),
-    ifsc_code INT,
+    name VARCHAR(200),
+    account_number VARCHAR(20) UNIQUE,
+    ifsc_code INT
     gross BIGINT,
     pt_deduction BIGINT,
+    tds BIGINT,
+    gst BIGINT,
+    gis BIGINT,
+    telangana_haritha_nidhi BIGINT,
     net_amount BIGINT,
 );
 
 -- Tranasaction Documents
 
-CREATE TABLE tranasaction_documents(
+CREATE TABLE attachments(
     id BIGSERIAL PRIMARY KEY,
     file_path varchar(200),
     transaction_id INT REFERENCES transactions(id)
