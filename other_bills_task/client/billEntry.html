@@ -1,4 +1,4 @@
-<div class="billEntryForm bg-white p-2 rounded-2 overflow-auto">
+<div class="billEntryForm bg-white p-2 rounded-2">
     <div class="heading bg-primary bg-opacity-25  m-1 p-2 rounded-1" style="color: rgba(5, 78, 195, 0.96);">
         <p class="m-0 p-0 fw-bold">OTHER BILLS</p>
     </div>
@@ -81,20 +81,20 @@
                 <a class="btn ms-2 px-4 text-white" style="background-color: #1b354d;">Search</a>
             </div>
         </div>
-        <div class="entry border border-1 rounded-1 mt-3 bg-primary bg-opacity-10 p-2">
-            <div class="d-flex fw-semibold">
+        <!-- <div class="entry border border-2 rounded-2 mt-3 bg-primary bg-opacity-10 p-2">
+            <div class="d-flex fw-semibold justify-content-between align-items-center">
                 <p class="col-5 fw-bold">Name</p>
                 <p class="col-7">..</p>
             </div>
-            <div class="d-flex fw-semibold">
+            <div class="d-flex fw-semibold justify-content-between align-items-center">
                 <p class="col-5 fw-bold">Account No</p>
                 <p class="col-7">..</p>
             </div>
-            <div class="d-flex fw-semibold">
+            <div class="d-flex fw-semibold justify-content-between align-items-center">
                 <p class="col-5 fw-bold">Bank Name</p>
                 <p class="col-7">..</p>
             </div>
-            <div class="d-flex fw-semibold">
+            <div class="d-flex fw-semibold justify-content-between align-items-center">
                 <p class="col-5 fw-bold">Branch</p>
                 <p class="col-7">..</p>
             </div>
@@ -102,6 +102,126 @@
                 <p class="col-5 fw-bold">IFSCCODE</p>
                 <p class="col-7">..</p>
             </div>
+            <div class="d-flex mt-1  fw-bold justify-content-between align-items-center">
+                <p class="col-5">Select Form No:</p>
+                <div class="col-7">
+                    <input type="text" class="form-control mb-2">
+                </div>
+            </div>
+            <div class="d-flex my-2 justify-content-between align-items-center">
+                <div class="col-5">
+                    <p class="m-0 p-0 fw-bold">PT Dedn<span class="text-danger">*</span></p>
+                    <p class="m-0 p-0 fw-semibold" style="font-size: 13px;">(Any amount added in PT Dedn will be
+                        credited to DDO's account)</p>
+                </div>
+                <div class="col-7">
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+            <div class="d-flex my-2 justify-content-between align-items-center">
+                <div class="col-5">
+                    <p class="m-0 p-0 fw-bold">TDS(IT)<span class="text-danger">*</span></p>
+                    <p class="m-0 p-0 fw-semibold" style="font-size: 13px;">(Any amount added in TDS(IT) will be
+                        credited to DDO's account)</p>
+                </div>
+                <div class="col-7">
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+            <div class="d-flex my-2 justify-content-between align-items-center">
+                <div class="col-5">
+                    <p class="m-0 p-0 fw-bold">GST<span class="text-danger">*</span></p>
+                    <p class="m-0 p-0 fw-semibold" style="font-size: 13px;">(Any amount added in GST will be
+                        credited to DDO's account)</p>
+                </div>
+                <div class="col-7">
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+            <div class="d-flex mb-3 justify-content-between align-items-center">
+                <div class="col-5">
+                    <p class="m-0 p-0 fw-bold">GIS<span class="text-danger">*</span></p>
+                    <p class="m-0 p-0 fw-semibold" style="font-size: 13px;"> </p>
+                </div>
+                <div class="col-7">
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+            <div class="d-flex my-2 justify-content-between align-items-center">
+                <div class="col-5">
+                    <p class="m-0 p-0 fw-bold">Telangana Haritha Nidhi<span class="text-danger">*</span></p>
+                    <p class="m-0 p-0 fw-semibold" style="font-size: 13px;">(Any amount added in Telangana Haritha Nidhi
+                        will be
+                        credited to DDO's account)</p>
+                </div>
+                <div class="col-7">
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+            <div class="d-flex my-2 justify-content-between align-items-center border-bottom">
+                <div class="col-5">
+                    <p class="m-0 p-0 fw-bold">Agency Net Amount<span class="text-danger">*</span></p>
+                    <p class="m-0 p-0 fw-semibold" style="font-size: 13px;"></p>
+                </div>
+                <p class="col-7">.</p>
+            </div>
+            <div class="d-flex justify-content-center">
+                <a class="btn text-white" href="" style="background-color: #1b354d;">ADD</a>
+            </div>
+        </div> -->
+    </div>
+    <div class="transactions mt-3 mx-3">
+        <div class="d-flex justify-content-between align-items-center border-bottom fs-10">
+            <p class="fw-bold mt-2">AGENCY/EMPLOYEE LIST</p>
+            <a class="btn btn-success btn-sm d-flex gap-2 justify-content-between align-items-center bg-opacity-75" href="">
+                <i class="fas fa-solid fa-print"></i>
+                <p class="m-0 p-0 fw-semibold">OFFICE COPY</p>
+            </a>
+        </div>
+        <table class="table table-bordered">
+            <thead class="bg-primary bg-opacity-10" style="color: rgba(5, 78, 195, 0.96);">
+                <tr>
+                    <th>S.No</th>
+                    <th>Name/GST No.</th>
+                    <th>Bank Name</th>
+                    <th>Bank Branch</th>
+                    <th>IFSC CODE</th>
+                    <th>A/c No</th>
+                    <th>Gross<span>(in Rs.)</span></th>
+                    <th>PT Dedn<span>(in Rs.)</span></th>
+                    <th>TDS(IT)<span>(in Rs.)</span></th>
+                    <th>GST<span>(in Rs.)</span></th>
+                    <th>GIS<span>(in Rs.)</span></th>
+                    <th>Telangana Haritha Nidhi<span>(in Rs.)</span></th>
+                    <th>Net Amount<span>(in Rs.)</span></th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </tbody>
+        </table>
+        <div class="bg-warning bg-opacity-10 ms-3 mt-3 p-2 rounded-2 fw-semibold"
+            style="font-size: 15px;color: rgb(170, 72, 6);">
+            <p class="p-0 m-0">If you dont find HOA for the bill please select <strong class="mx-1">Other</strong>option</p>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <p class="p-0 m-0 fw-semibold">Select Head of Account <span class="text-danger">*</span></p>
         </div>
     </div>
 </div>

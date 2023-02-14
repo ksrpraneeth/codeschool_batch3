@@ -8,3 +8,9 @@
    padding-left: 25px;
    border-bottom:1px solid #6b686875;
 }
+body{
+    font-size: 15px;
+}
+table th span{
+    font-size: 10px;
+}
