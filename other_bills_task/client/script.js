@@ -13,6 +13,8 @@ app.config(['$stateProvider', function ($stateProvider) {
       });
     }
 ]);
-app.controller('AddAgencyController',function($scope){
-  $scope.editable="false"
+app.controller('AddAgencyController',function($scope,$http){
+  $scope.editable="false",
+  $scope.ifscCode=""
+  $scope.searchIfscCode=function()
 })

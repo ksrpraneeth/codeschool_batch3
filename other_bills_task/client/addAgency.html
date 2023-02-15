@@ -27,34 +27,37 @@
             <div class="d-flex mt-3 fw-semibold ">
                 <p class="col-4">Agency Name<span class="text-danger">*</span></p>
                 <div class="col-5">
-                    <input type="text" class="form-control" name="agencyName" required>
+                    <input type="text" class="form-control" name="agencyName" ng-model="agencyNameInput" required>
                 </div>
             </div>
             <div class="d-flex mt-1 fw-semibold ">
                 <p class="col-4">Bank Account Number<span class="text-danger">*</span></p>
                 <div class="col-5">
-                    <input type="password" class="form-control" name="agencyName" required>
+                    <input type="password" class="form-control" name="bankAccountNumber"
+                        ng-model="bankAccountNumberInput" required>
                 </div>
             </div>
             <div class="d-flex mt-1 fw-semibold ">
                 <p class="col-4"> Confirm Bank Account Number<span class="text-danger">*</span></p>
                 <div class="col-5">
-                    <input type="password" class="form-control" name="agencyName" required>
+                    <input type="password" class="form-control" name="confirmBankAccountNumber"
+                        ng-model="confirmBankAccountNumberInput" required>
                 </div>
             </div>
             <div class="d-flex fw-semibold ">
                 <p class="col-4">GST no.</p>
                 <div class="col-5">
-                    <input type="text" class="form-control" name="agencyName">
+                    <input type="text" class="form-control" name="agencyGst">
                 </div>
             </div>
             <div class="ifscCode m-2 p-2 bg-primary bg-opacity-10 rounded-2 border border-primary">
                 <div class="d-flex mt-3 fw-semibold ">
                     <p class="col-4">Enter IFSC code<span class="text-danger">*</span></p>
                     <div class="col-4">
-                        <input type="text" class="form-control" name="agencyName" required>
+                        <input type="text" class="form-control" name="ifscCode" ng-model="ifscCode" required>
                     </div>
-                    <a class="btn ms-5 text-white" style="background-color: #1b354d;">Search</a>
+                    <a class="btn ms-5 text-white" style="background-color: #1b354d;"
+                        ng-click="searchIfscCode()">Search</a>
                 </div>
                 <div class="d-flex mt-2 fw-semibold ">
                     <p class="col-4">Bank Name</p>
@@ -75,7 +78,7 @@
             </div>
         </div>
         <div class="submit d-flex justify-content-center mt-3">
-            <a class="btn text-white" style="background-color: #1b354d;">ADD NEW AGENCY</a>
+            <a class="btn text-white" style="background-color: #1b354d;" ng-click="addAgency()">ADD NEW AGENCY</a>
         </div>
     </div>
     <div class="editAgency col-md-7 m-4 border p-2 rounded-2" ng-if="editable=='true'">
