@@ -57,3 +57,6 @@ function onlyNumbers(event) {
         event.preventDefault();
     }
 }
+$(document).ready(function () {
+    $(".js-example-basic-single").select2();
+});

@@ -64,14 +64,14 @@
                     <div class="col-12 col-md-6 col-lg-7 p-0">
                         <select
                             id="formNumber"
-                            class="form-select"
+                            class="form-select js-example-basic-single"
                             ng-change="getFormTypes()"
                             ng-model="formNumber"
                         >
                             <option value="" hidden>Select Form Number</option>
                             <option
                                 value="{{number.id}}"
-                                ng-repeat="number in formNumbers"
+                                ng-repeat="number in formNumbers | filter: formNumberFilter"
                             >
                                 {{number.form_number}}
                             </option>
@@ -573,6 +573,240 @@
                 <div class="warning p-2">
                     If you don't find HOA for the bill please select
                     <strong>Other</strong> option
+                </div>
+
+                <!-- HOA and Reference Number -->
+                <div class="col-12 col-md-10 col-lg-8 mt-4">
+                    <!-- Hoa -->
+                    <div class="row m-0 align-items-center">
+                        <div class="col-12 col-md-6 col-lg-5">
+                            <label for="headOfAccount" class="fw-bolder">
+                                Select Head of Account:
+                                <span class="text-danger">*</span>
+                            </label>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-7">
+                            <select
+                                ng-model="headOfAccount"
+                                id="headOfAccount"
+                                class="form-select"
+                            >
+                                <option value="" hidden>
+                                    Select an Option
+                                </option>
+                                <option
+                                    value="{{hoa.hoa}}"
+                                    ng-repeat="hoa in hoas"
+                                >
+                                    {{hoa.hoa}}
+                                </option>
+                            </select>
+                            <p
+                                class="text-danger m-0"
+                                ng-repeat="error in errors.hoa"
+                            ></p>
+                        </div>
+                    </div>
+
+                    <!-- Reference Number -->
+                    <div class="row m-0 align-items-center mt-3">
+                        <div class="col-12 col-md-6 col-lg-5">
+                            <label for="referenceNumber" class="fw-bolder">
+                                Agency Reference Number
+                                <span class="text-danger">*</span>
+                            </label>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-7">
+                            <input
+                                type="text"
+                                class="form-control"
+                                ng-model="referenceNumber"
+                                id="referenceNumber"
+                            />
+                            <small class="fs-7"
+                                >* Enter phoneno of telephone bill, Water can
+                                number of water bill. etc..</small
+                            >
+                            <p
+                                class="text-danger m-0"
+                                ng-repeat="error in errors.reference_number"
+                            ></p>
+                        </div>
+                    </div>
+
+                    <!-- Purpose -->
+                    <div class="row m-0 align-items-center mt-3">
+                        <div class="col-12 col-md-6 col-lg-5">
+                            <label for="purpose" class="fw-bolder">
+                                Purpose
+                                <span class="text-danger">*</span>
+                            </label>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-7">
+                            <input
+                                type="text"
+                                class="form-control"
+                                ng-model="purpose"
+                                id="purpose"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scrutiny Items -->
+                <div class="my-3">
+                    <h6 class="m-0 fw-bolder">SCRUTINY ITEMS</h6>
+                    <hr class="m-0 my-2" />
+                    <div class="overflow-auto mt-4">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr class="table-primary title smallText">
+                                    <th>S.No</th>
+                                    <th>Description</th>
+                                    <th>Yes</th>
+                                    <th>No</th>
+                                    <th>N/A</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    ng-repeat="item in scrutinyItems"
+                                    class="smallText"
+                                >
+                                    <td>{{$index+1}}</td>
+                                    <td>{{item.desc}}</td>
+                                    <td>
+                                        <input
+                                            class="form-check-input"
+                                            type="radio"
+                                            name="{{'scrutinyItem'+$index}}"
+                                            ng-model="item.answer"
+                                            value="yes"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            class="form-check-input"
+                                            type="radio"
+                                            name="{{'scrutinyItem'+$index}}"
+                                            ng-model="item.answer"
+                                            value="no"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            class="form-check-input"
+                                            type="radio"
+                                            name="{{'scrutinyItem'+$index}}"
+                                            ng-model="item.answer"
+                                            value="na"
+                                        />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Attachments -->
+                <div class="my-3">
+                    <h6 class="m-0 fw-bolder">ATTACHMENTS</h6>
+                    <hr class="m-0 my-2" />
+                    <div class="overflow-auto mt-4">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr class="table-primary title smallText">
+                                    <th>S.No</th>
+                                    <th>Description</th>
+                                    <th>Upload</th>
+                                    <th>Upload Files</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="smallText">
+                                    <td>1</td>
+                                    <td>Other</td>
+                                    <td>
+                                        <input
+                                            class="form-control"
+                                            type="file"
+                                            id="formFile"
+                                        />
+                                        <div class="form-floating mt-3">
+                                            <textarea
+                                                class="form-control"
+                                                placeholder="Enter remarks here"
+                                                id="floatingTextarea2"
+                                                style="height: 100px"
+                                                ng-model="remark"
+                                            ></textarea>
+                                            <label for="floatingTextarea2"
+                                                >Remarks</label
+                                            >
+                                        </div>
+                                        <button
+                                            class="btn btn-success mt-3"
+                                            ng-click="addFile()"
+                                        >
+                                            Add
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <ul class="list-group">
+                                            <li
+                                                class="list-item d-flex align-items-center justify-content-between"
+                                                ng-repeat="attachment in attachments"
+                                            >
+                                                <div class="left">
+                                                    <p class="m-0">
+                                                        <i
+                                                            class="fas fa-file"
+                                                        ></i>
+                                                        {{attachment.name}}
+                                                    </p>
+                                                    <p class="m-0 text-warning">
+                                                        {{attachment.remark}}
+                                                    </p>
+                                                </div>
+                                                <div class="right">
+                                                    <button
+                                                        class="btn"
+                                                        ng-click="attachments.splice($index, 1)"
+                                                    >
+                                                        <i class="fas fa-x"></i>
+                                                    </button>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- OTP Generate -->
+                <div class="d-flex">
+                    <div class="">
+                        <select
+                            name=""
+                            class="form-select shadow-none rounded-0"
+                            id=""
+                        >
+                            <option value="">Select Phone Number</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-success btn-sm">GENERATE OTP</button>
+                </div>
+
+                <hr />
+                <div class="d-flex align-items-center justify-content-center">
+                    <button
+                        class="btn btn-dark searchBtn"
+                        ng-click="submitBill()"
+                    >
+                        SUBMIT BILL
+                    </button>
                 </div>
             </div>
         </div>

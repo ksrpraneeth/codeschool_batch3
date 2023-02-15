@@ -12,4 +12,18 @@ app.service("BillEntryService", function ($http) {
             method: "GET",
         });
     };
+
+    this.getHoasByFormType = function (id) {
+        return $http({
+            url: SERVER + `/formNumber/formType/${id}/hoas`,
+            method: "GET",
+        });
+    };
+
+    this.getScrutinyItemsByFormType = function (id) {
+        return $http({
+            url: SERVER + `/formNumber/formType/${id}/scrutinyItems`,
+            method: "GET",
+        });
+    };
 });

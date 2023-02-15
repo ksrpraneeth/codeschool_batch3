@@ -1,6 +1,6 @@
 app.controller(
     "BillEntryController",
-    function ($scope, BillEntryService, AddAgencyService) {
+    function ($scope, BillEntryService, AddAgencyService, $filter) {
         $scope.billTypeRadio = "otherBill";
         $scope.formNumbers = [];
         $scope.formTypes = [];
@@ -14,6 +14,12 @@ app.controller(
         $scope.thnAmount = 0;
         $scope.agencyNet = 0;
         $scope.agencyList = [];
+        $scope.headOfAccount = "";
+        $scope.referenceNumber = "";
+        $scope.purpose = "";
+        $scope.scrutinyItems = [];
+        $scope.attachments = [];
+        $scope.remark = "";
 
         // Constructer HTTP calls
         BillEntryService.getFormNumbers()
@@ -64,6 +70,15 @@ app.controller(
             $scope.thnAmount = 0;
             $scope.agencyNet = 0;
             $scope.agencyAcNoChanged();
+            $scope.agencyList = [];
+            $scope.headOfAccount = "";
+            $scope.referenceNumber = "";
+            $scope.purpose = "";
+            $scope.scrutinyItems = [];
+            $scope.attachments = [];
+            $scope.remark = "";
+            $scope.getHoas();
+            $scope.getScrutinyItems();
         };
 
         $scope.searchAgency = function () {
@@ -95,6 +110,8 @@ app.controller(
             $scope.gisAmount = 0;
             $scope.thnAmount = 0;
             $scope.agencyNet = 0;
+            $scope.attachments = [];
+            $scope.remark = "";
         };
 
         $scope.updateAgencyNet = function () {
@@ -144,6 +161,84 @@ app.controller(
             $scope.gisAmount = 0;
             $scope.thnAmount = 0;
             $scope.agencyNet = 0;
+        };
+
+        $scope.getHoas = function () {
+            if (!$scope.formType) return;
+            BillEntryService.getHoasByFormType($scope.formType)
+                .then((response) => {
+                    $scope.hoas = response.data.data;
+                })
+                .catch((response) => {
+                    if (response.data.message != undefined) {
+                        showError(response.data.message);
+                    } else {
+                        showError("Something went wrong!");
+                    }
+                });
+        };
+
+        $scope.getScrutinyItems = function () {
+            $scope.scrutinyItems = [];
+            if (!$scope.formType) return;
+            BillEntryService.getScrutinyItemsByFormType($scope.formType)
+                .then((response) => {
+                    $scope.scrutinyItems = response.data.data;
+                    response.data.data.forEach((item, index) => {
+                        $scope.scrutinyItems[index] = {
+                            desc: item.scrutiny_desc,
+                            answer: "yes",
+                        };
+                    });
+                })
+                .catch((response) => {
+                    if (response.data.message != undefined) {
+                        showError(response.data.message);
+                    } else {
+                        showError("Something went wrong!");
+                    }
+                });
+        };
+
+        $scope.addFile = function () {
+            var file = document.getElementById("formFile").files[0];
+            if (file == undefined) {
+                showError("No File Selected!");
+                return;
+            }
+            $scope.attachments.push({
+                name: file.name,
+                remark: $scope.remark,
+                file: file,
+            });
+            $scope.remark = "";
+            document.getElementById("formFile").value = null;
+        };
+
+        $scope.submitBill = function () {
+            let formData = new FormData();
+            let data = {
+                form_type_id: $scope.formType,
+                hoa: $scope.headOfAccount,
+                reference_number: $scope.referenceNumber,
+                purpose: $scope.purpose,
+                gross: $filter("sumOfAmount")($scope.agencyList, "gross"),
+                pt: $filter("sumOfAmount")($scope.agencyList, "pt"),
+                tds: $filter("sumOfAmount")($scope.agencyList, "tds"),
+                gst: $filter("sumOfAmount")($scope.agencyList, "gst"),
+                gis: $filter("sumOfAmount")($scope.agencyList, "gis"),
+                thn: $filter("sumOfAmount")($scope.agencyList, "thn"),
+                net: $filter("sumOfAmount")($scope.agencyList, "net"),
+                bill_agencies: JSON.stringify($scope.agencyList),
+                scrunity_answers: JSON.stringify($scope.scrutinyItems),
+            };
+            for (let key in data) {
+                formData.append(key, data[key]);
+            }
+            $scope.attachments.forEach((file) => {
+                formData.append("files[]", file.file);
+            });
+            
         };
     }
 );

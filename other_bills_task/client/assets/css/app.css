@@ -67,8 +67,9 @@ body {
   border-left: solid 3px #f0b2b9;
 }
 .body .content {
-  width: calc(100% - 250px);
-  margin-left: 250px;
+  width: calc(100% - 260px);
+  margin: 10px;
+  margin-left: 260px;
   transition: all ease 0.5s;
 }
 

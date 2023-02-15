@@ -36,11 +36,21 @@ class FormNumberController extends Controller
         ]);
     }
 
-    function getHeadOfAccounts(FormType $formType){
+    function getHeadOfAccounts(FormType $formType)
+    {
         return response()->json([
             "status" => true,
             "message" => "Success",
             "data" => $formType->hoas
+        ]);
+    }
+
+    function getScrutinyItems(FormType $formType)
+    {
+        return response()->json([
+            "status" => true,
+            "message" => "Success",
+            "data" => $formType->scrutinyItems
         ]);
     }
 }

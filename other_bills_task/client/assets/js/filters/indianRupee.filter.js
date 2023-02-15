@@ -1,8 +1,10 @@
 app.filter("indianRupees", function () {
     return function (input) {
-        if (isNaN(input)) return input;
-        console.log(typeof(input));
-        var rupees = parseInt(input).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-        return rupees;
+      if (isNaN(input)) return input;
+      var rupees = parseFloat(input).toLocaleString("en-IN", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+      return rupees;
     };
-});
+  });

@@ -8,6 +8,7 @@ use App\Models\FormNumber;
 use App\Models\FormTypeHoa;
 use App\Models\HeadOfAccount;
 use App\Models\IfscCode;
+use App\Models\ScrutinyItem;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -48,5 +49,25 @@ class DatabaseSeeder extends Seeder
         ]);
 
         FormTypeHoa::firstOrCreate(["form_type_id" => $formType->id, "head_of_account_id" => $hoa->id]);
+        ScrutinyItem::firstOrCreate([
+            "form_type_id" => $formType->id,
+            "scrutiny_desc" => "Whether corresponding vouchers are enclosed"
+        ]);
+        ScrutinyItem::firstOrCreate([
+            "form_type_id" => $formType->id,
+            "scrutiny_desc" => "Whether the bill is signed by theD D O, head of a/c is noted in 7 tier system, disccharge endorsement and non-drawl certificate with official seal in original(corbon copy not accepted)"
+        ]);
+        ScrutinyItem::firstOrCreate([
+            "form_type_id" => $formType->id,
+            "scrutiny_desc" => "Whether the claim is with in alloted budget	"
+        ]);
+        ScrutinyItem::firstOrCreate([
+            "form_type_id" => $formType->id,
+            "scrutiny_desc" => "Whether the claim is with in alloted budget	"
+        ]);
+        ScrutinyItem::firstOrCreate([
+            "form_type_id" => $formType->id,
+            "scrutiny_desc" => "Whether the work order/purchase order is enclosed"
+        ]);
     }
 }

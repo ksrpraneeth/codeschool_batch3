@@ -13,4 +13,9 @@ class FormType extends Model
     {
         return $this->belongsToMany(HeadOfAccount::class, "form_type_hoas")->withPivot('id');
     }
+
+    function scrutinyItems()
+    {
+        return $this->hasMany(ScrutinyItem::class);
+    }
 }

@@ -30,4 +30,5 @@ Route::group(["prefix" => "formNumber"], function () {
     Route::get("all", [FormNumberController::class, "getAll"]);
     Route::get("{formNumber}/formTypes", [FormNumberController::class, "getFormTypes"]);
     Route::get("/formType/{formType}/hoas", [FormNumberController::class, "getHeadOfAccounts"]);
+    Route::get("/formType/{formType}/scrutinyItems", [FormNumberController::class, "getScrutinyItems"]);
 });
