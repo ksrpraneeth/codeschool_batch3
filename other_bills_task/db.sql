@@ -96,7 +96,7 @@ CREATE TABLE attachments(
     transaction_id INT REFERENCES transactions(id)
 );
 
-CREATE TABLE scrutini_items(
+CREATE TABLE scrutiny_items(
     id BIGSERIAL PRIMARY KEY,
     description VARCHAR(200),
     form_type_id INT REFERENCES form_type(id)

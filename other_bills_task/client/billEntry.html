@@ -5,19 +5,16 @@
     <div class="col-md-7 ms-3 mt-3 border p-2 bg-secondary bg-opacity-10 rounded-2 fw-semibold"
         style="font-size: 15px;">
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="false"
-                ng-model="editable">
-            <label class="form-check-label" for="inlineRadio1">FORM 47-Salary Bills</label>
+            <input class="form-check-input" type="radio" name="formTypeRadio" id="formTypeRadio1" value="">
+            <label class="form-check-label" for="formTypeRadio1">FORM 47-Salary Bills</label>
         </div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="false"
-                ng-model="editable">
-            <label class="form-check-label" for="inlineRadio1">Other Bills</label>
+            <input class="form-check-input" type="radio" name="formTypeRadio" id="formTypeRadio2" value="">
+            <label class="form-check-label" for="formTypeRadio2">Other Bills</label>
         </div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="true"
-                ng-model="editable">
-            <label class="form-check-label" for="inlineRadio2">Form 47-Supplementary Bills</label>
+            <input class="form-check-input" type="radio" name="formTypeRadio" id="formTypeRadio3" value="">
+            <label class="form-check-label" for="formTypeRadio3">Form 47-Supplementary Bills</label>
         </div>
     </div>
     <div class="col-md-7 ms-3 p-2">
@@ -43,12 +40,13 @@
             <p class="col-5"></p>
             <div class="col-7 bg-secondary bg-opacity-10 p-2 rounded-2 border border-1">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1">
-                    <label class="form-check-label" for="inlineRadio1">Non-adjustment</label>
+                    <input class="form-check-input" type="radio" name="adjustmentRadio" id="adjustmentRadio1" value=""
+                        checked>
+                    <label class="form-check-label" for="adjustmentRadio1">Non-adjustment</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1">
-                    <label class="form-check-label" for="inlineRadio1">Adjustment</label>
+                    <input class="form-check-input" type="radio" name="adjustmentRadio" id="adjustmentRadio2">
+                    <label class="form-check-label" for="adjustmentRadio2">Adjustment</label>
                 </div>
             </div>
         </div>
@@ -56,7 +54,7 @@
             <p class="col-5 fw-bold">Search By:</p>
             <div class="col-7 bg-secondary bg-opacity-10 p-2 rounded-2 border border-1">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" checked>
+                    <input class="form-check-input" type="radio" name="" id="inlineRadioAccNO" value="" checked>
                     <label class="form-check-label" for="inlineRadio1">Account Number</label>
                 </div>
             </div>
@@ -65,12 +63,13 @@
             <p class="col-5 fw-bold">Select Entry type:</p>
             <div class="col-7 bg-secondary bg-opacity-10 p-2 rounded-2 border border-1">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" checked>
-                    <label class="form-check-label" for="inlineRadio1">Single</label>
+                    <input class="form-check-input" type="radio" name="entryTypeRadio" id="entryTypeRadio1" value=""
+                        checked>
+                    <label class="form-check-label" for="entryTypeRadio2">Single</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1">
-                    <label class="form-check-label" for="inlineRadio1">Bulk</label>
+                    <input class="form-check-input" type="radio" name="entryTypeRadio" id="entryTypeRadio2">
+                    <label class="form-check-label" for="entryTypeRadio2">Bulk</label>
                 </div>
             </div>
         </div>
@@ -173,7 +172,8 @@
     <div class="transactions mt-3 mx-3">
         <div class="d-flex justify-content-between align-items-center  fs-10">
             <p class="fw-bold mt-2">AGENCY/EMPLOYEE LIST</p>
-            <a class="btn btn-success btn-sm d-flex gap-2 justify-content-between align-items-center bg-opacity-75" href="">
+            <a class="btn btn-success btn-sm d-flex gap-2 justify-content-between align-items-center bg-opacity-75"
+                href="">
                 <i class="fas fa-solid fa-print"></i>
                 <p class="m-0 p-0 fw-semibold">OFFICE COPY</p>
             </a>
@@ -218,9 +218,10 @@
         </table>
         <div class="bg-warning bg-opacity-10 ms-3 mt-3 p-2 rounded-2 fw-semibold"
             style="font-size: 15px;color: rgb(170, 72, 6);">
-            <p class="p-0 m-0">If you dont find HOA for the bill please select <strong class="mx-1">Other</strong>option</p>
+            <p class="p-0 m-0">If you dont find HOA for the bill please select <strong class="mx-1">Other</strong>option
+            </p>
         </div>
-        <div class="col-md-9 mt-3 ms-2">
+        <div class="col-md-8 mt-3 ms-2">
             <div class="d-flex align-items-center">
                 <p class="p-0 m-0 col-4 fw-bold">Select Head of Account<span class="text-danger">*</span></p>
                 <select class="form-control my-1">
@@ -233,7 +234,8 @@
             </div>
             <div class="d-flex align-items-center">
                 <p class="p-0 m-0 col-4 fw-bold"></p>
-                <p class="m-0 p-0 fw-semibold" style="font-size: 12px;">* Enter phoneno of telephone bill,Water can number of water bill ...etc</p>
+                <p class="m-0 p-0 fw-semibold" style="font-size: 12px;">* Enter phoneno of telephone bill,Water can
+                    number of water bill ...etc</p>
             </div>
             <div class="d-flex align-items-center">
                 <p class="p-0 m-0 col-4 fw-bold">Enter Service Major Head<span class="text-danger">*</span></p>
@@ -286,8 +288,9 @@
                             <div class="file">
                                 <input type="file" class="form-control">
                             </div>
-                            <textarea type="textarea" class="form-control mt-2" placeholder="Enter Remarks here..."></textarea>
-                            <a class="btn btn-success text-white mx-1 my-3" >ADD</a>
+                            <textarea type="textarea" class="form-control mt-2"
+                                placeholder="Enter Remarks here..."></textarea>
+                            <a class="btn btn-success text-white mx-1 my-3">ADD</a>
                         </td>
                         <td></td>
                     </tr>
@@ -298,7 +301,8 @@
             <select class="form-select border-0">
                 <option selected disabled>Select Phone Number</option>
             </select>
-            <a class="btn btn-success btn-sm text-white col-4 align-items-center pt-2" style="font-size: 12px;">GENERATE OTP</a>
+            <a class="btn btn-success text-white col-4 align-items-center pt-2" style="font-size: 12px;">GENERATE
+                OTP</a>
         </div>
         <p style="border-bottom:2px dashed lightgray; "></p>
         <div class="d-flex justify-content-center mb-3">
