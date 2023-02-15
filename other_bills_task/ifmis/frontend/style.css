@@ -39,6 +39,10 @@ p {
 .header{
   border-bottom: pink;
 }
+.menubar a
+{
+border-bottom: 1px solid rgb(17, 17, 18);
+}
 
 
 

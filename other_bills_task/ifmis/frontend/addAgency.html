@@ -1,6 +1,6 @@
 <!--Heading-->
 <div class="content" ng-controller="AgencyController">
-<div class="bg-white col-10">
+<div class="bg-white col-12">
     <div class="heading bg-primary bg-opacity-25">
    <p class="fw-bold text-primary p-2">ADD OTHER ESTABLISHMENT AGENCY</p>
 </div>
@@ -16,7 +16,7 @@
       </div>
 </div>
 <!--yellow bg-->
-<div class="addAgency" ng-if="edit=='true'">
+<div class="addAgency" ng-show="edit=='true'">
 <div class="heading bg-warning bg-opacity-25 mt-2 mb-2 p-2 col-12">
 <div class="text-danger opacity-95">You can see agency status report for the agencies you have added in Reports=>Agency Details report</div>
 </div>
@@ -67,39 +67,40 @@
     <p class="fw-bolder">Enter IFSC code<span class="text-danger">*</span></p>
 </div>
 <div class="col-md-4">
-    <input type="text" class="form-control">
+    <input type="text" class="form-control" ng-model="ifsc_code">
     </div>
     <div class="col-md-3">
-        <button type="button" class="btn btn-dark text-white">SEARCH</button>
+        <button type="button" class="btn btn-dark text-white" ng-click="IfscCodeBtn()">SEARCH</button>
         </div>
+        <div class="text-danger">{{ifscError}}</div>
 </div>
 <!--bank name-->
 <div class="row mt-3">
     <div class="col-md-3">
 <p class="fw-bolder">Bank Name:</p>
 </div>
-<div class="col-md-3">-</div>
+<div class="col-md-3" ng-bind="ifscdetails.bank_name">-</div>
 </div>
 <!--state-->
 <div class="row mt-3">
     <div class="col-md-3">
 <p class="fw-bolder">State:</p>
 </div>
-<div class="col-md-3">-</div>
+<div class="col-md-3" ng-bind="ifscdetails.state">-</div>
 </div>
 <!--branch-->
 <div class="row mt-3">
     <div class="col-md-3">
 <p class="fw-bolder">Branch:</p>
 </div>
-<div class="col-md-3">-</div>
+<div class="col-md-3" ng-bind="ifscdetails.branch">-</div>
 </div>
 <!--IFSC Code-->
 <div class="row mt-3">
     <div class="col-md-3">
 <p class="fw-bolder">IFSC code:</p>
 </div>
-<div class="col-md-3">-</div>
+<div class="col-md-3" ng-bind="ifscdetails.ifsc_code">-</div>
 </div>
 </div>
 </div>
