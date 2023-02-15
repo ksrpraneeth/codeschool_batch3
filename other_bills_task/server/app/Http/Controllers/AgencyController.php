@@ -29,7 +29,7 @@ class AgencyController extends Controller
 
     public function getAgencyByAcNo(CheckingAccountNumberRequest $request)
     {
-        $agency = Agency::where(["account_number" => $request->account_number])->first();
+        $agency = Agency::where(["account_number" => $request->account_number])->with("ifscCodeDetails")->first();
         return response()->json([
             'status' => true,
             "message" => "Agency Found",

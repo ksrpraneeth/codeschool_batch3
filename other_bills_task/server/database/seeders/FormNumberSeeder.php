@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\FormNumber;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class AgencySeeder extends Seeder
+class FormNumberSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +15,6 @@ class AgencySeeder extends Seeder
      */
     public function run()
     {
-        //
+        FormNumber::create(["form_number" => '58']);
     }
 }

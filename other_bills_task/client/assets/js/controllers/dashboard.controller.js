@@ -10,5 +10,10 @@ app.controller("DashboardController", function ($scope) {
             state: "addAgencyRoute",
             icon: "fas fa-plus"
         },
+        {
+            name: "Bill Entry",
+            state: "billEntryRoute",
+            icon: "fas fa-receipt"
+        },
     ];
 });

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AgencyController;
+use App\Http\Controllers\FormNumberController;
 use App\Http\Controllers\IfscCodeController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,4 +24,10 @@ Route::group(["prefix" => "agency"], function () {
     Route::post("getByAccountNumber", [AgencyController::class, 'getAgencyByAcNo']);
     Route::post("create", [AgencyController::class, 'createAgency']);
     Route::post("update/{agency}", [AgencyController::class, 'updateAgency']);
+});
+
+Route::group(["prefix" => "formNumber"], function () {
+    Route::get("all", [FormNumberController::class, "getAll"]);
+    Route::get("{formNumber}/formTypes", [FormNumberController::class, "getFormTypes"]);
+    Route::get("/formType/{formType}/hoas", [FormNumberController::class, "getHeadOfAccounts"]);
 });

@@ -1,0 +1,580 @@
+<div class="bg-white p-2">
+    <div class="title p-2 rounded-0 m-0">
+        <p class="m-0 fw-bold">OTHER BILLS</p>
+    </div>
+
+    <div class="p-2">
+        <!-- Bill Type Radio Buttons -->
+        <div
+            class="billTypes col-12 col-md-10 col-lg-8 typesMenu p-2 border rounded-2 mt-3 d-flex align-items-center gap-3 flex-wrap"
+        >
+            <!-- Salary Bill Radio -->
+            <div class="form-check nowrap">
+                <input
+                    class="form-check-input"
+                    type="radio"
+                    value="salaryBill"
+                    ng-model="billTypeRadio"
+                    id="salaryBillRadio"
+                />
+                <label class="form-check-label" for="salaryBillRadio">
+                    FORM 47 - Salary Bills
+                </label>
+            </div>
+
+            <!-- Other Bill Radio -->
+            <div class="form-check">
+                <input
+                    class="form-check-input"
+                    type="radio"
+                    id="otherBillRadio"
+                    value="otherBill"
+                    ng-model="billTypeRadio"
+                />
+                <label class="form-check-label" for="otherBillRadio">
+                    Other Bills
+                </label>
+            </div>
+
+            <!-- Supplementary Bill Radio -->
+            <div class="form-check">
+                <input
+                    class="form-check-input"
+                    type="radio"
+                    id="supplementaryBillRadio"
+                    value="supplementaryBill"
+                    ng-model="billTypeRadio"
+                />
+                <label class="form-check-label" for="supplementaryBillRadio">
+                    FORM 47 - Supplementary Bills
+                </label>
+            </div>
+        </div>
+
+        <!-- Other Bill Div -->
+        <div class="otherBillDiv" ng-show="billTypeRadio=='otherBill'">
+            <div class="col-12 col-md-10 col-lg-8">
+                <!-- Form No -->
+                <div class="row m-0 py-2 mt-2">
+                    <div class="col-12 col-md-6 col-lg-5">
+                        <label for="formNumber" class="fw-semibold"
+                            >Select Form No:</label
+                        >
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-7 p-0">
+                        <select
+                            id="formNumber"
+                            class="form-select"
+                            ng-change="getFormTypes()"
+                            ng-model="formNumber"
+                        >
+                            <option value="" hidden>Select Form Number</option>
+                            <option
+                                value="{{number.id}}"
+                                ng-repeat="number in formNumbers"
+                            >
+                                {{number.form_number}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Form Type -->
+                <div class="row m-0 py-2 mt-2" ng-show="formTypes.length > 0">
+                    <div class="col-12 col-md-6 col-lg-5">
+                        <label for="formType" class="fw-semibold"
+                            >Select Form Type:</label
+                        >
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-7 p-0">
+                        <select
+                            id="formType"
+                            class="form-select"
+                            ng-model="formType"
+                            ng-change="formTypeChanged()"
+                        >
+                            <option value="" hidden>Select Form Type</option>
+                            <option
+                                value="{{number.id}}"
+                                ng-repeat="number in formTypes"
+                            >
+                                {{number.form_type}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Static Data Starts Here -->
+                <div class="row m-0 py-2 mt-2" ng-show="formType">
+                    <div class="col-12 col-md-6 col-lg-5"></div>
+                    <div
+                        class="col-12 col-md-6 col-lg-7 p-0 d-flex align-items-center typesMenu p-2 rounded gap-2"
+                    >
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="adjustment"
+                                id="nonAdjustment"
+                                checked
+                            />
+                            <label class="form-check-label" for="nonAdjustment">
+                                Non-adjustment
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="adjustment"
+                                id="adjustment"
+                            />
+                            <label class="form-check-label" for="adjustment">
+                                Adjustment
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row m-0 py-2 mt-2" ng-show="formType">
+                    <div class="col-12 col-md-6 col-lg-5 fw-semibold">
+                        Search By:
+                    </div>
+                    <div
+                        class="col-12 col-md-6 col-lg-7 p-0 d-flex align-items-center typesMenu p-2 rounded gap-2"
+                    >
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="searchBy"
+                                id="searchByAcNo"
+                                checked
+                            />
+                            <label class="form-check-label" for="searchByAcNo">
+                                Account Number
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row m-0 py-2 mt-2" ng-show="formType">
+                    <div class="col-12 col-md-6 col-lg-5 fw-semibold">
+                        Select Entry Type:
+                    </div>
+                    <div
+                        class="col-12 col-md-6 col-lg-7 p-0 d-flex align-items-center typesMenu p-2 rounded gap-2"
+                    >
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="entryType"
+                                id="singleEntry"
+                                checked
+                            />
+                            <label class="form-check-label" for="singleEntry">
+                                Single
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="entryType"
+                                id="bulkEntry"
+                            />
+                            <label class="form-check-label" for="bulkEntry">
+                                Bulk
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <!-- Static Data Ends Here -->
+
+                <!-- Agency Ac No -->
+                <div class="row m-0 py-2 mt-2" ng-show="formType">
+                    <div class="col-12 col-md-6 col-lg-5">
+                        <label for="formNumber" class="fw-semibold"
+                            >Enter Agency/Party A/c No:</label
+                        >
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-7 p-0">
+                        <div class="d-flex align-items-center gap-2">
+                            <input
+                                type="text"
+                                ng-model="agencyAcNo"
+                                class="form-control"
+                            />
+                            <button
+                                class="btn btn-dark searchBtn"
+                                ng-click="searchAgency()"
+                            >
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Details -->
+                <div
+                    class="bg-lightBlue border rounded-2 mt-3 p-2"
+                    ng-show="agencyFound"
+                >
+                    <!-- Name -->
+                    <div class="row p-2 align-items-center">
+                        <div class="col-12 col-md-6 col-lg-5">
+                            <span class="fw-bold"> Name </span>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-7">
+                            <p class="m-0">{{agencyDetails.agency_name}}</p>
+                        </div>
+                    </div>
+
+                    <!-- Bank Ac No -->
+                    <div class="row p-2 align-items-center">
+                        <div class="col-12 col-md-6 col-lg-5">
+                            <span class="fw-bold"> Account No. </span>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-7">
+                            <p class="m-0">{{agencyDetails.account_number}}</p>
+                        </div>
+                    </div>
+
+                    <!-- Bank Name -->
+                    <div class="row p-2 align-items-center">
+                        <div class="col-12 col-md-6 col-lg-5">
+                            <span class="fw-bold"> BankName: </span>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-7">
+                            <p class="m-0">
+                                {{agencyDetails.ifsc_code_details.bank_name}}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Branch -->
+                    <div class="row p-2 align-items-center">
+                        <div class="col-12 col-md-6 col-lg-5">
+                            <span class="fw-bold"> Branch: </span>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-7">
+                            <p class="m-0">
+                                {{agencyDetails.ifsc_code_details.branch}}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- IFSC Code -->
+                    <div class="row p-2 align-items-center">
+                        <div class="col-12 col-md-6 col-lg-5">
+                            <span class="fw-bold"> IFSC Code: </span>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-7">
+                            <p class="m-0">{{agencyDetails.ifsc_code}}</p>
+                        </div>
+                    </div>
+
+                    <!-- Gross Amount -->
+                    <div class="row m-0 py-2 pe-2 mt-2" ng-show="formType">
+                        <div class="col-12 col-md-6 col-lg-5">
+                            <label for="grossAmount" class="fw-bold">
+                                Gross
+                                <span class="text-danger">*</span>
+                            </label>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-7 p-0">
+                            <input
+                                type="text"
+                                ng-model="grossAmount"
+                                class="form-control"
+                                id="grossAmount"
+                                onkeypress="onlyNumbers(event)"
+                                ng-change="updateAgencyNet()"
+                            />
+                            <p
+                                class="m-0 text-danger"
+                                ng-repeat="error in errors.gross"
+                            >
+                                {{error}}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- PT Dedn Amount -->
+                    <div class="row m-0 py-2 pe-2 mt-2" ng-show="formType">
+                        <div class="col-12 col-md-6 col-lg-5">
+                            <label for="ptAmount" class="fw-bold">
+                                PT Dedn
+                                <span class="text-danger">*</span>
+                            </label>
+                            <small class="d-block fs-7">
+                                (Any Amount added in PT Dedn will be credited to
+                                DDO's account)
+                            </small>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-7 p-0">
+                            <input
+                                type="text"
+                                ng-model="ptAmount"
+                                class="form-control"
+                                id="ptAmount"
+                                onkeypress="onlyNumbers(event)"
+                                ng-change="updateAgencyNet()"
+                            />
+                            <p
+                                class="m-0 text-danger"
+                                ng-repeat="error in errors.ptAmount"
+                            >
+                                {{error}}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- TDS Amount -->
+                    <div class="row m-0 py-2 pe-2 mt-2" ng-show="formType">
+                        <div class="col-12 col-md-6 col-lg-5">
+                            <label for="tdsAmount" class="fw-bold">
+                                TDS(IT)
+                                <span class="text-danger">*</span>
+                            </label>
+                            <small class="d-block fs-7">
+                                (Any Amount added in TDS(IT) will be credited to
+                                DDO's account)
+                            </small>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-7 p-0">
+                            <input
+                                type="text"
+                                ng-model="tdsAmount"
+                                class="form-control"
+                                id="tdsAmount"
+                                onkeypress="onlyNumbers(event)"
+                                ng-change="updateAgencyNet()"
+                            />
+                            <p
+                                class="m-0 text-danger"
+                                ng-repeat="error in errors.tdsAmount"
+                            >
+                                {{error}}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- GST Amount -->
+                    <div class="row m-0 py-2 pe-2 mt-2" ng-show="formType">
+                        <div class="col-12 col-md-6 col-lg-5">
+                            <label for="gstAmount" class="fw-bold">
+                                GST
+                                <span class="text-danger">*</span>
+                            </label>
+                            <small class="d-block fs-7">
+                                (Any Amount added in GST will be credited to
+                                DDO's account)
+                            </small>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-7 p-0">
+                            <input
+                                type="text"
+                                ng-model="gstAmount"
+                                class="form-control"
+                                id="gstAmount"
+                                onkeypress="onlyNumbers(event)"
+                                ng-change="updateAgencyNet()"
+                            />
+                            <p
+                                class="m-0 text-danger"
+                                ng-repeat="error in errors.gstAmount"
+                            >
+                                {{error}}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- GIS Amount -->
+                    <div class="row m-0 py-2 pe-2 mt-2" ng-show="formType">
+                        <div class="col-12 col-md-6 col-lg-5">
+                            <label for="gisAmount" class="fw-bold">
+                                GIS
+                                <span class="text-danger">*</span>
+                            </label>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-7 p-0">
+                            <input
+                                type="text"
+                                ng-model="gisAmount"
+                                class="form-control"
+                                id="gisAmount"
+                                onkeypress="onlyNumbers(event)"
+                                ng-change="updateAgencyNet()"
+                            />
+                            <p
+                                class="m-0 text-danger"
+                                ng-repeat="error in errors.gisAmount"
+                            >
+                                {{error}}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Telangana Haritha Nidhi -->
+                    <div class="row m-0 py-2 pe-2 mt-2" ng-show="formType">
+                        <div class="col-12 col-md-6 col-lg-5">
+                            <label for="thnAmount" class="fw-bold">
+                                Telangana Haritha Nidhi
+                                <span class="text-danger">*</span>
+                            </label>
+                            <small class="d-block fs-7">
+                                (Any Amount added in Telangana Haritha Nidhi
+                                will be credited to Telangana Haritha Nidhi
+                                Account)
+                            </small>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-7 p-0">
+                            <input
+                                type="text"
+                                ng-model="thnAmount"
+                                class="form-control"
+                                id="thnAmount"
+                                onkeypress="onlyNumbers(event)"
+                                ng-change="updateAgencyNet()"
+                            />
+                            <p
+                                class="m-0 text-danger"
+                                ng-repeat="error in errors.thnAmount"
+                            >
+                                {{error}}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Agency Net Amount -->
+                    <div class="row p-2 align-items-center">
+                        <div class="col-12 col-md-6 col-lg-5">
+                            <span class="fw-bold"> Agency Net Amount: </span>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-7">
+                            <p class="m-0">{{agencyNet}}</p>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div
+                        class="d-flex align-items-center justify-content-center"
+                    >
+                        <button
+                            class="btn searchBtn btn-dark"
+                            ng-click="addAgency()"
+                        >
+                            ADD
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="" ng-show="agencyList.length > 0">
+                <!-- Agency List Table -->
+                <div class="my-3">
+                    <div
+                        class="d-flex justify-content-between mb-2 align-items-center"
+                    >
+                        <h6 class="m-0 fw-bolder">AGENCY/EMPLOYEE LIST</h6>
+                        <button class="btn btn-success">
+                            <i class="fas fa-print"></i>
+                            <span>OFFICE COPY</span>
+                        </button>
+                    </div>
+                    <hr class="m-0 mb-2" />
+                    <div class="overflow-auto">
+                        <table class="table table-bordered overflow-auto">
+                            <thead>
+                                <tr class="table-primary title smallText">
+                                    <th>S.No</th>
+                                    <th>Name/ GST.No</th>
+                                    <th>Bank Name</th>
+                                    <th>Bank Branch</th>
+                                    <th>IFSC Code</th>
+                                    <th>A/c No.</th>
+                                    <th>Gross(in Rs.)</th>
+                                    <th>PT Dedn(in Rs.)</th>
+                                    <th>TDS(IT)(in Rs.)</th>
+                                    <th>GST(in Rs.)</th>
+                                    <th>GIS(in Rs.)</th>
+                                    <th>Telangana Haritha Nidhi(in Rs.)</th>
+                                    <th>Net Amount(in Rs.)</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    ng-repeat="agency in agencyList"
+                                    class="smallText"
+                                >
+                                    <td>{{$index+1}}</td>
+                                    <td>{{agency.name}}</td>
+                                    <td>{{agency.bank_name}}</td>
+                                    <td>{{agency.branch}}</td>
+                                    <td>{{agency.ifsc_code}}</td>
+                                    <td>{{agency.ac_no}}</td>
+                                    <td>{{agency.gross | indianRupees}}</td>
+                                    <td>{{agency.pt | indianRupees}}</td>
+                                    <td>{{agency.tds | indianRupees}}</td>
+                                    <td>{{agency.gst | indianRupees}}</td>
+                                    <td>{{agency.gis | indianRupees}}</td>
+                                    <td>{{agency.thn | indianRupees}}</td>
+                                    <td>{{agency.net | indianRupees}}</td>
+                                    <td>
+                                        <button
+                                            class="btn btn-sm btn-danger d-flex flex-nowrap align-items-center gap-2"
+                                            ng-click="agencyList.splice($index, 1)"
+                                        >
+                                            <i class="fas fa-x"></i>
+                                            <span>Remove</span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="fw-bold smallText">
+                                    <td colspan="6" class="text-end">Total</td>
+                                    <td>
+                                        {{agencyList | sumOfAmount : 'gross' |
+                                        indianRupees}}
+                                    </td>
+                                    <td>
+                                        {{agencyList | sumOfAmount : 'pt' |
+                                        indianRupees}}
+                                    </td>
+                                    <td>
+                                        {{agencyList | sumOfAmount : 'tds' |
+                                        indianRupees}}
+                                    </td>
+                                    <td>
+                                        {{agencyList | sumOfAmount : 'gst' |
+                                        indianRupees}}
+                                    </td>
+                                    <td>
+                                        {{agencyList | sumOfAmount : 'gis' |
+                                        indianRupees}}
+                                    </td>
+                                    <td>
+                                        {{agencyList | sumOfAmount : 'thn' |
+                                        indianRupees}}
+                                    </td>
+                                    <td>
+                                        {{agencyList | sumOfAmount : 'net' |
+                                        indianRupees}}
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Warning -->
+                <div class="warning p-2">
+                    If you don't find HOA for the bill please select
+                    <strong>Other</strong> option
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
