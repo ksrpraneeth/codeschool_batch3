@@ -346,7 +346,7 @@
                                             <td>{{party.thn | indianRupees}}</td>
                                             <td>{{party.net | indianRupees}}</td>
                                         </tr>
-                                        <tr ng-repeat="party in bill.parties">
+                                        <tr>
                                             <td colspan="6" class="text-end">Total</td>
                                             <td>
                                                 {{bill.total_gross |
@@ -531,4 +531,33 @@
         </div>
     </div>
 </div>
-<script></script>
+
+
+<style>
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+        .modal-content * {
+            visibility: visible;
+            overflow: visible;
+        }
+        .main-page * {
+            display: none;
+        }
+        .modal {
+            position: absolute;
+            left: 0;
+            top: 0;
+            margin: 0;
+            padding: 0;
+            min-height: 550px;
+            visibility: visible;
+            overflow: visible !important; /* Remove scrollbar for printing. */
+        }
+        .modal-dialog {
+            visibility: visible !important;
+            overflow: visible !important; /* Remove scrollbar for printing. */
+        }
+    }
+</style>
