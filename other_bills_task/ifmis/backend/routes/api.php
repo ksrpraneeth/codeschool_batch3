@@ -19,3 +19,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::post('/ifsccode', [IfscController::class, "ifsccode"]);
+Route::post('/agencydetails', [IfscController::class, "agencydetails"]);
+Route::post('/searchagency', [IfscController::class, "searchagency"]);
+Route::post('/updateagency/{agency}', [IfscController::class, "updateagency"]);

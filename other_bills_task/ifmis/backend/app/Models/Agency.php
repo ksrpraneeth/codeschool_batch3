@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Agency extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        "agency_name",
+        "ifsc_code",
+        "account_number",
+
+    ];
 }

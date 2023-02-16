@@ -7,11 +7,11 @@
 <!--inline buttons-->
 <div class="heading border rounded bg-opacity-25 mt-2 p-2 col-8">
     <div class="form-check form-check-inline fw-bold">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="true" ng-model="edit">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="true" ng-model="edit" ng-click="remove()">
         <label class="form-check-label" for="inlineRadio1">Add Single Agency</label>
       </div>
       <div class="form-check form-check-inline fw-bold">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="false" ng-model="edit">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="false" ng-model="edit" ng-click="remove()">
         <label class="form-check-label" for="inlineRadio2">Edit Agency Details</label>
       </div>
 </div>
@@ -30,7 +30,7 @@
 <p class="fw-bolder">Agency Name: <span class="text-danger">*</span>:</p>
 </div>
 <div class="col-md-6">
-<input type="text" class="form-control">
+<input type="text" class="form-control" ng-model="agency_name">
 </div>
 </div>
 <!--Bank account number-->
@@ -39,7 +39,7 @@
 <p class="fw-bolder">Bank Account Number: <span class="text-danger">*</span>:</p>
 </div>
 <div class="col-md-6">
-<input type="text" class="form-control">
+<input type="text" class="form-control" ng-model="account_number">
 </div>
 </div>
 <!--Confirm-->
@@ -48,7 +48,7 @@
 <p class="fw-bolder"> Confirm Bank Account Number: <span class="text-danger">*</span>:</p>
 </div>
 <div class="col-md-6">
-<input type="text" class="form-control">
+<input type="text" class="form-control" ng-model="account_number_confirmation">
 </div>
 </div>
 <!--GST-->
@@ -106,13 +106,15 @@
 </div>
 <!--Add new agency button-->
 <div class="p-3 justify-content-center d-flex">
-    <button type="button" class="btn btn-dark">ADD NEW AGENCY</button>
+    <button type="button" class="btn btn-dark" ng-click="AgencyBtn()">ADD NEW AGENCY</button>
 </div>
+<div class="text-danger">{{agencyDetailsError}}</div>
+<div class="text-danger">{{ifscCodeError}}</div>
 </div>
 
 <!--Edit Agency-->
 <!--Heading-->
-<div class="editAgency" ng-if="edit=='false'">
+<div class="editAgency" ng-show="edit=='false'">
 <div class="bg-white col-12">
 <!--Bank details-->
 <div class="heading border rounded bg-opacity-25 mt-3 p-2 me-2 col-8">
@@ -121,33 +123,35 @@
 <p class="fw-bolder mt-3">Bank Ac No. :</p>
 </div>
 <div class="col-4">
-    <input type="text" class="form-control">
+    <input type="text" class="form-control" ng-model="accountNumber">
 </div>
 <div class="col-4">
-    <button type="button" class="btn btn-dark text-white">SEARCH AGENCY</button>
+    <button type="button" class="btn btn-dark text-white" ng-click="SearchAgencyBtn()">SEARCH AGENCY</button>
 </div>
+<div class="text-danger">{{InvalidAccNo}}</div>
     </div>
     <div class="col-12 border-bottom mt-5"></div>
     <!--Name-->
+    <div ng-show="agencyDetailsDisplay">
 <div class="row mt-3">
     <div class="col-md-3">
 <p class="fw-bolder">Name:</p>
 </div>
-<div class="col-md-3 fw-bold">AYESHA</div>
+<div class="col-md-3 fw-bold">{{searchAgencyDetails.agency_name}}</div>
 </div>
  <!--Bank Ac No-->
  <div class="row mt-3">
     <div class="col-md-3">
 <p class="fw-bolder">Bank Ac No:</p>
 </div>
-<div class="col-md-3 fw-bold">32539834984</div>
+<div class="col-md-3 fw-bold">{{searchAgencyDetails.account_number}}</div>
 </div>
  <!--IFSC-->
  <div class="row mt-3">
     <div class="col-md-3">
 <p class="fw-bolder">IFSC:</p>
 </div>
-<div class="col-md-3 fw-bold">SBI01929020</div>
+<div class="col-md-3 fw-bold">{{searchAgencyDetails.ifsc_code}}</div>
 </div>
  <!--PAN--->
  <div class="row mt-3">
@@ -163,8 +167,9 @@
 <p class="fw-bolder">New Agency Name:</p>
 </div>
 <div class="col-md-6">
-<input type="text" class="form-control">
+<input type="text" class="form-control" ng-model="agency_name">
 </div>
+<div class="text-danger">{{newAgencyNameError}}</div>
 </div>
 <!--GSTIN-->
 <div class="row p-2">
@@ -181,14 +186,32 @@
 <p class="fw-bolder">New IFSC:</p>
 </div>
 <div class="col-md-6 d-flex">
-<input type="text" class="form-control">
-<button type="button" class="btn btn-dark">SEARCH</button>
+<input type="text" class="form-control" ng-model="ifsc_code">
+<button type="button" class="btn btn-dark" ng-click="IfscCodeBtn()">SEARCH</button>
+</div>
+<div class="text-danger">{{ifscError}}</div>
+<div class="row">
+    <div class="col-4 fw-bold mt-3">Bank name:</div>
+    <div class="col-6 mt-3">{{ifscdetails.bank_name}}</div>
+</div>
+<div class="row">
+    <div class="col-4 fw-bold mt-3">State:</div>
+    <div class="col-6 mt-3">{{ifscdetails.state}}</div>
+</div>
+<div class="row">
+    <div class="col-4 fw-bold mt-3">Branch:</div>
+    <div class="col-6 mt-3">{{ifscdetails.branch}}</div>
+</div>
+<div class="row">
+    <div class="col-4 fw-bold mt-3">IFSC Code</div>
+    <div class="col-6 mt-3">{{ifscdetails.ifsc_code}}</div>
 </div>
 </div>
 <!--Update Button-->
 <div class="p-3 d-flex">
-    <button type="button" class="btn btn-success ms-5">UPDATE AGENCY</button>
+    <button type="button" class="btn btn-success ms-5" ng-click="UpdateAgencyBtn()">UPDATE AGENCY</button>
     </div>
     </div>
+</div>
 </div>
 </div>
