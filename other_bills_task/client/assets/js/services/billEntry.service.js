@@ -26,4 +26,14 @@ app.service("BillEntryService", function ($http) {
             method: "GET",
         });
     };
+
+    this.createBill = function (data) {
+        return $http({
+            url: SERVER + "/transaction/create",
+            method: "POST",
+            transformRequest: angular.identity,
+            headers: { "Content-Type": undefined },
+            data,
+        });
+    };
 });

@@ -37,7 +37,7 @@
                 <sidebar-directive
                     class="sidebar position-absolute"
                 ></sidebar-directive>
-                <div class="content p-2 bg-white">
+                <div class="content p-2 bg-white rounded-2">
                     <ui-view></ui-view>
                 </div>
             </div>
@@ -78,6 +78,8 @@
         type="text/javascript"
         src="https://cdn.jsdelivr.net/npm/toastify-js"
     ></script>
+    <!-- Sweet ALert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- Select 2 -->
@@ -95,13 +97,16 @@
     <!-- Filters -->
     <script src="./assets/js/filters/sumOfAmount.filter.js"></script>
     <script src="./assets/js/filters/indianRupee.filter.js"></script>
+    <script src="./assets/js/filters/inWords.filter.js"></script>
 
     <!-- Services -->
     <script src="./assets/js/services/addAgency.service.js"></script>
     <script src="./assets/js/services/billEntry.service.js"></script>
+    <script src="./assets/js/services/viewBill.service.js"></script>
 
     <!-- Controllers -->
     <script src="./assets/js/controllers/dashboard.controller.js"></script>
     <script src="./assets/js/controllers/addAgency.controller.js"></script>
     <script src="./assets/js/controllers/billEntry.controller.js"></script>
+    <script src="./assets/js/controllers/viewBill.controller.js"></script>
 </html>

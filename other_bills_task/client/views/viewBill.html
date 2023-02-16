@@ -1,0 +1,534 @@
+<div class="">
+    <div class="title p-2 rounded-0 m-0">
+        <p class="m-0 fw-bold">VIEW BILL</p>
+    </div>
+    <div class="d-flex align-items-center mt-3 flex-wrap">
+        <label for="transactionTbr" class="fw-semibold me-2"
+            >Transaction TBR:</label
+        >
+        <div class="">
+            <input
+                type="text"
+                id="transactionTbr"
+                ng-model="transactionTbr"
+                class="form-control"
+            />
+        </div>
+        <button class="btn btn-success ms-2" ng-click="viewBill()">
+            View Bill
+        </button>
+    </div>
+
+    <div>
+        <div
+            class="modal fade"
+            id="viewBillModal"
+            tabindex="-1"
+            aria-labelledby="viewBillModalLabel"
+            aria-hidden="false"
+        >
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="viewBillModalLabel">
+                            View Bill
+                        </h1>
+
+                        <button
+                            type="button"
+                            onclick="window.print()"
+                            class="btn btn-secondary ms-2"
+                        >
+                            Print
+                        </button>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="modal-body text-black" id="printSection">
+                        <div class="border p-2">
+                            <h5 class="text-center">
+                                TSTC FORM -
+                                {{bill.form_type_details.form_number_details.form_number}}
+                            </h5>
+                            <h5 class="text-center">
+                                FULLY VOUCHED CONTINGENT BILL
+                            </h5>
+                            <p class="m-0 text-center">
+                                Bill for
+                                <strong class="text-uppercase"
+                                    >{{bill.form_type_details.form_type}}</strong
+                                >
+                            </p>
+                            <p class="m-0 fw-bold text-center text-uppercase">
+                                {{bill.purpose}}
+                            </p>
+
+                            <!-- Container -->
+                            <div class="container mt-3">
+                                <div class="row">
+                                    <!-- Dist and TBR No -->
+                                    <div class="col-6 d-flex flex-column gap-2">
+                                        <!-- Dist -->
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p class="m-0 fw-semibold">
+                                                    Dist:
+                                                </p>
+                                            </div>
+                                            <div class="col-6">Hyderabad</div>
+                                        </div>
+
+                                        <!-- TBR No -->
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p class="m-0 fw-semibold">
+                                                    TBR No:
+                                                </p>
+                                            </div>
+                                            <div class="col-6">
+                                                {{bill.tbr_no}}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Treasure Use Only -->
+                                    <div
+                                        class="border col-6 d-flex flex-column gap-3 p-2"
+                                    >
+                                        <p class="text-center m-0">
+                                            (For Treasury use only)
+                                        </p>
+
+                                        <!-- Date -->
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p class="m-0 fw-semibold">
+                                                    Date:
+                                                </p>
+                                            </div>
+                                            <div class="col-6">
+                                                {{bill.created_at | date:
+                                                'dd-MM-yyyy'}}
+                                            </div>
+                                        </div>
+
+                                        <!-- Transaction ID -->
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p class="m-0 fw-semibold">
+                                                    Trans ID:
+                                                </p>
+                                            </div>
+                                            <div class="col-6"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- HOA and PAO Information -->
+                            <div
+                                class="border-2 border-dark border row m-0 mt-2"
+                            >
+                                <!-- PAO Details -->
+                                <div
+                                    class="col-6 d-flex flex-column gap-2 border-end border-2 border-dark p-3"
+                                >
+                                    <div class="row">
+                                        <div class="col-6 fw-bold text-black">
+                                            Treasure/PAO CODE:
+                                        </div>
+                                        <div class="col-6"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 fw-bold text-black">
+                                            DDO Code:
+                                        </div>
+                                        <div class="col-6">25001002018</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 fw-bold text-black">
+                                            DDO Designation:
+                                        </div>
+                                        <div class="col-6">
+                                            Asst Accounts Officer
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 fw-bold text-black">
+                                            DDO Office Name:
+                                        </div>
+                                        <div class="col-6">
+                                            Commissioner Of Police Hyderabad
+                                            City
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 fw-bold text-black">
+                                            BANK BRANCH CODE:
+                                        </div>
+                                        <div class="col-6">500004093</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 fw-bold text-black">
+                                            BANK BRANCH NAME:
+                                        </div>
+                                        <div class="col-6">
+                                            Treasury Branch
+                                            Hyderabad(GUNFOUNDRY)
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- HOA Details -->
+                                <div class="col-6 p-3 d-flex flex-column gap-2">
+                                    <div class="row">
+                                        <div class="col-6 fw-bold text-black">
+                                            Major Head:
+                                        </div>
+                                        <div class="col-6">
+                                            {{bill.hoa_details.mjh}}({{bill.hoa_details.mjh_desc}})
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 fw-bold text-black">
+                                            Sub Major Head:
+                                        </div>
+                                        <div class="col-6">
+                                            {{bill.hoa_details.smjh}}({{bill.hoa_details.smjh_desc}})
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 fw-bold text-black">
+                                            Minor Head:
+                                        </div>
+                                        <div class="col-6">
+                                            {{bill.hoa_details.mih}}({{bill.hoa_details.mih_desc}})
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 fw-bold text-black">
+                                            Group Sub Head:
+                                        </div>
+                                        <div class="col-6">
+                                            {{bill.hoa_details.gsh}}({{bill.hoa_details.gsh_desc}})
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 fw-bold text-black">
+                                            Sub Head:
+                                        </div>
+                                        <div class="col-6">
+                                            {{bill.hoa_details.sh}}({{bill.hoa_details.sh_desc}})
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 fw-bold text-black">
+                                            Detailed Head:
+                                        </div>
+                                        <div class="col-6">
+                                            {{bill.hoa_details.dh}}({{bill.hoa_details.dh_desc}})
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 fw-bold text-black">
+                                            Sub Detailed Head:
+                                        </div>
+                                        <div class="col-6">
+                                            {{bill.hoa_details.sdh}}({{bill.hoa_details.sdh_desc}})
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Total Amounts -->
+                            <div
+                                class="d-flex p-2 mt-3 flex-wrap gap-4 align-items-center border-top border-bottom border-2 border-dark"
+                            >
+                                <p class="m-0">
+                                    <strong>Gross:</strong>
+                                    <span
+                                        >{{bill.total_gross |
+                                        indianRupees}}</span
+                                    >
+                                </p>
+                                <p class="m-0">
+                                    <strong>PT Dedn:</strong>
+                                    <span
+                                        >{{bill.total_pt | indianRupees}}</span
+                                    >
+                                </p>
+                                <p class="m-0">
+                                    <strong>TDS(IT):</strong>
+                                    <span
+                                        >{{bill.total_tds | indianRupees}}</span
+                                    >
+                                </p>
+                                <p class="m-0">
+                                    <strong>GST:</strong>
+                                    <span
+                                        >{{bill.total_gst | indianRupees}}</span
+                                    >
+                                </p>
+                                <p class="m-0">
+                                    <strong>GIS:</strong>
+                                    <span
+                                        >{{bill.total_gis | indianRupees}}</span
+                                    >
+                                </p>
+                                <p class="m-0">
+                                    <strong>Telangana Haritha Nidhi:</strong>
+                                    <span
+                                        >{{bill.total_thn | indianRupees}}</span
+                                    >
+                                </p>
+                                <p class="m-0">
+                                    <strong>Net:</strong>
+                                    <span
+                                        >{{bill.total_net | indianRupees}}</span
+                                    >
+                                </p>
+                            </div>
+
+                            <!-- Agency Details -->
+                            <div class="mt-3">
+                                <p class="m-0">
+                                    <strong
+                                        >Passed for Rs: {{bill.total_net |
+                                        indianRupees }}</strong
+                                    >
+                                    (Rupees {{bill.total_net | inWords}} Only)
+                                    and the same amount may be credited in A/c
+                                    of.
+                                </p>
+
+                                <!-- Table -->
+                                <table
+                                    class="table table-bordered mt-3 smallText"
+                                >
+                                    <thead>
+                                        <tr>
+                                            <th>S.No</th>
+                                            <th>Name</th>
+                                            <th>A/c No</th>
+                                            <th>Bank Name</th>
+                                            <th>Bank Branch</th>
+                                            <th>IFSC CODE</th>
+                                            <th>Gross</th>
+                                            <th>PT Dedn</th>
+                                            <th>TDS(IT)</th>
+                                            <th>GST</th>
+                                            <th>GIS</th>
+                                            <th>Telangana Haritha Nidhi</th>
+                                            <th>Net</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="party in bill.parties">
+                                            <td>{{$index+1}}</td>
+                                            <td>{{party.agency_name}}</td>
+                                            <td>
+                                                {{party.agency_account_number}}
+                                            </td>
+                                            <td>{{party.agency_bank_name}}</td>
+                                            <td>
+                                                {{party.agency_bank_branch}}
+                                            </td>
+                                            <td>{{party.agency_ifsc_code}}</td>
+                                            <td>{{party.gross | indianRupees}}</td>
+                                            <td>{{party.pt | indianRupees}}</td>
+                                            <td>{{party.tds | indianRupees}}</td>
+                                            <td>{{party.gst | indianRupees}}</td>
+                                            <td>{{party.gis | indianRupees}}</td>
+                                            <td>{{party.thn | indianRupees}}</td>
+                                            <td>{{party.net | indianRupees}}</td>
+                                        </tr>
+                                        <tr ng-repeat="party in bill.parties">
+                                            <td colspan="6" class="text-end">Total</td>
+                                            <td>
+                                                {{bill.total_gross |
+                                                indianRupees}}
+                                            </td>
+                                            <td>
+                                                {{bill.total_pt | indianRupees}}
+                                            </td>
+                                            <td>
+                                                {{bill.total_tds |
+                                                indianRupees}}
+                                            </td>
+                                            <td>
+                                                {{bill.total_gst |
+                                                indianRupees}}
+                                            </td>
+                                            <td>
+                                                {{bill.total_gis |
+                                                indianRupees}}
+                                            </td>
+                                            <td>
+                                                {{bill.total_thn |
+                                                indianRupees}}
+                                            </td>
+                                            <td>
+                                                {{bill.total_net |
+                                                indianRupees}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Other Details -->
+                            <div class="mt-5">
+                                <p>Challan No(if any):</p>
+                                <p class="text-end">DDO's SIGNATURE</p>
+                                <hr class="m-0 mt-5 mb-2" />
+                                <p class="fw-bolder text-center fs-6">
+                                    (FOR US IN TREASURY / PAY & ACCOUNTS OFFICE
+                                    ONLY)
+                                </p>
+                                <p>
+                                    Pay Rs___________________________ (Rupees
+                                    __________________________________________________________________________
+                                    by cash/cheque/Account credit)
+                                </p>
+                                <p class="text-end mt-5">
+                                    Treasury Office/PAY & ACCOUNTS<br />
+                                    Officer
+                                </p>
+                                <p class="fw-semibold">Purpose</p>
+                                <p>For Month of January</p>
+                                <p class="fw-bold">
+                                    (Rupees {{bill.total_net | inWords}})
+                                </p>
+                            </div>
+
+                            <!-- Budget Particulars -->
+                            <div class="mt-5 pt-3 border-top border-2">
+                                <h5>
+                                    Designation of the Sanction Authority:-
+                                    Commissioner Of Police Hyderabad City
+                                    OFFICER, T.S. HYD.
+                                </h5>
+                                <p>
+                                    <strong>Note:</strong>
+                                    Original Sanction Order should be enclosed.
+                                </p>
+                                <div class="border border-2 p-3">
+                                    <h6 class="text-center">
+                                        BUDGET PARTICULARS
+                                    </h6>
+                                    <div class="d-flex justify-content-between">
+                                        <strong>Budget Provided</strong>
+                                        <p>12,00,000.00</p>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <strong>
+                                            Quarter Budget Allowance :
+                                        </strong>
+                                        <p>0.00</p>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <strong>
+                                            Expenditure including this bill:
+                                        </strong>
+                                        <p>5,38,875.00</p>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <strong> In Transit: </strong>
+                                        <p>0.00</p>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <strong> Balance: </strong>
+                                        <p>6,61,125.00</p>
+                                    </div>
+                                </div>
+                                <p class="mt-5 text-end">DDO's SIGNATURE</p>
+
+                                <!-- Non-Drawal Certificate -->
+                                <div class="border border-2 p-2">
+                                    <p class="fs-5 text-center fw-bold">
+                                        Non-Drawal Certificate
+                                    </p>
+                                    <p>
+                                        Certified that no amount either in part
+                                        or full pertining to the bill have been
+                                        drawn an note to the effect have been
+                                        recorded in the office copy and
+                                        preserved in this office.
+                                    </p>
+                                    <p class="mt-5 text-end">DDO's SIGNATURE</p>
+                                </div>
+
+                                <div class="border border-2 mt-5 p-4">
+                                    <p class="fs-5 fw-bold">
+                                        Budget Particulars
+                                    </p>
+                                    <p>
+                                        1.__________________________ Yearly
+                                        Estimate Budget.<br />
+                                        Rs.____________________________
+                                    </p>
+                                    <p>
+                                        2.__________________________ Yearly
+                                        Amount including this bil.<br />
+                                        Rs.____________________________
+                                    </p>
+                                    <p>
+                                        3.Balance__________________________
+                                        Rs.____________________________
+                                    </p>
+                                    <p class="mt-5">
+                                        Passed for Rs.
+                                        <span class="text-decoration-underline">
+                                            {{bill.total_net | indianRupees}}
+                                        </span>
+                                        Rupees
+                                        <span class="text-decoration-underline">
+                                            {{bill.total_net | inWords}} Only
+                                        </span>
+                                        Paid By Cash/ Adjustment/ Cheque/ Draft.
+                                    </p>
+                                    <p class="mt-5 text-end">
+                                        DDO's SIGNATURE*
+                                    </p>
+                                </div>
+
+                                <!-- Signature Valid -->
+                                <div
+                                    class="col-6 border border-2 border-dark mt-5 position-relative"
+                                >
+                                    <img
+                                        src="./assets/images/tick.png"
+                                        class="position-absolute top-0"
+                                        alt=""
+                                        height="200px"
+                                    />
+                                    <div
+                                        class="position-relative"
+                                        style="z-index: 1"
+                                    >
+                                        <p class="fw-bold mt-5 z10">
+                                            Signature Valid
+                                        </p>
+                                        <p class="fw-bold z10">
+                                            G. SATHYANARAYANA
+                                        </p>
+                                        <p>(Asst Accounts Officer)</p>
+                                        <p>
+                                            Dual Authenticated:
+                                            {{bill.created_at | date:'dd-MM-yyyy - hh:mm a'}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script></script>

@@ -1,4 +1,4 @@
-<div class="bg-white p-2">
+<div class="bg-white">
     <div class="title p-2 rounded-0 m-0">
         <p class="m-0 fw-bold">OTHER BILLS</p>
     </div>
@@ -510,11 +510,11 @@
                                     class="smallText"
                                 >
                                     <td>{{$index+1}}</td>
-                                    <td>{{agency.name}}</td>
-                                    <td>{{agency.bank_name}}</td>
-                                    <td>{{agency.branch}}</td>
-                                    <td>{{agency.ifsc_code}}</td>
-                                    <td>{{agency.ac_no}}</td>
+                                    <td>{{agency.agency_name}}</td>
+                                    <td>{{agency.agency_bank_name}}</td>
+                                    <td>{{agency.agency_bank_branch}}</td>
+                                    <td>{{agency.agency_ifsc_code}}</td>
+                                    <td>{{agency.agency_account_number}}</td>
                                     <td>{{agency.gross | indianRupees}}</td>
                                     <td>{{agency.pt | indianRupees}}</td>
                                     <td>{{agency.tds | indianRupees}}</td>
@@ -604,7 +604,9 @@
                             <p
                                 class="text-danger m-0"
                                 ng-repeat="error in errors.hoa"
-                            ></p>
+                            >
+                                {{error}}
+                            </p>
                         </div>
                     </div>
 
@@ -630,7 +632,9 @@
                             <p
                                 class="text-danger m-0"
                                 ng-repeat="error in errors.reference_number"
-                            ></p>
+                            >
+                                {{error}}
+                            </p>
                         </div>
                     </div>
 
@@ -649,6 +653,12 @@
                                 ng-model="purpose"
                                 id="purpose"
                             />
+                            <p
+                                class="text-danger m-0"
+                                ng-repeat="error in errors.purpose"
+                            >
+                                {{error}}
+                            </p>
                         </div>
                     </div>
                 </div>

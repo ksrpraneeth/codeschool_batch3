@@ -18,4 +18,8 @@ class FormType extends Model
     {
         return $this->hasMany(ScrutinyItem::class);
     }
+
+    function formNumberDetails(){
+        return $this->belongsTo(FormNumber::class, 'form_number_id', 'id');
+    }
 }

@@ -22,33 +22,45 @@ app.config(function ($httpProvider) {
 
 // Custom Functions
 function showError(err) {
-    Toastify({
+    // Toastify({
+    //     text: err,
+    //     duration: 3000,
+    //     newWindow: true,
+    //     close: true,
+    //     gravity: "top", // `top` or `bottom`
+    //     position: "left", // `left`, `center` or `right`
+    //     stopOnFocus: true, // Prevents dismissing of toast on hover
+    //     style: {
+    //         background: "linear-gradient(to right, #b02900, #c9853d)",
+    //     },
+    // }).showToast();
+    Swal.fire({
+        title: "Error",
         text: err,
-        duration: 3000,
-        newWindow: true,
-        close: true,
-        gravity: "top", // `top` or `bottom`
-        position: "left", // `left`, `center` or `right`
-        stopOnFocus: true, // Prevents dismissing of toast on hover
-        style: {
-            background: "linear-gradient(to right, #b02900, #c9853d)",
-        },
-    }).showToast();
+        icon: "error",
+        confirmButtonText: "Okay",
+    });
 }
 
 function showSuccess(msg) {
-    Toastify({
+    // Toastify({
+    //     text: msg,
+    //     duration: 3000,
+    //     newWindow: true,
+    //     close: true,
+    //     gravity: "top", // `top` or `bottom`
+    //     position: "left", // `left`, `center` or `right`
+    //     stopOnFocus: true, // Prevents dismissing of toast on hover
+    //     style: {
+    //         background: "linear-gradient(to right, #00b09b, #96c93d)",
+    //     },
+    // }).showToast();
+    Swal.fire({
+        title: "Success",
         text: msg,
-        duration: 3000,
-        newWindow: true,
-        close: true,
-        gravity: "top", // `top` or `bottom`
-        position: "left", // `left`, `center` or `right`
-        stopOnFocus: true, // Prevents dismissing of toast on hover
-        style: {
-            background: "linear-gradient(to right, #00b09b, #96c93d)",
-        },
-    }).showToast();
+        icon: "success",
+        confirmButtonText: "Okay",
+    });
 }
 
 function onlyNumbers(event) {

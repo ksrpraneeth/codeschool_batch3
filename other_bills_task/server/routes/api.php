@@ -3,6 +3,8 @@
 use App\Http\Controllers\AgencyController;
 use App\Http\Controllers\FormNumberController;
 use App\Http\Controllers\IfscCodeController;
+use App\Http\Controllers\TransactionController;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,4 +33,9 @@ Route::group(["prefix" => "formNumber"], function () {
     Route::get("{formNumber}/formTypes", [FormNumberController::class, "getFormTypes"]);
     Route::get("/formType/{formType}/hoas", [FormNumberController::class, "getHeadOfAccounts"]);
     Route::get("/formType/{formType}/scrutinyItems", [FormNumberController::class, "getScrutinyItems"]);
+});
+
+Route::group(["prefix" => "transaction"], function () {
+    Route::post("/create", [TransactionController::class, "createTransaction"]);
+    Route::post("/view", [TransactionController::class, "getBill"]);
 });

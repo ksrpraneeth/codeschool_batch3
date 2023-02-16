@@ -139,11 +139,14 @@ app.controller(
                 return;
             }
             $scope.agencyList.push({
-                name: $scope.agencyDetails.agency_name,
-                bank_name: $scope.agencyDetails.ifsc_code_details.bank_name,
-                branch: $scope.agencyDetails.ifsc_code_details.branch,
-                ifsc_code: $scope.agencyDetails.ifsc_code,
-                ac_no: $scope.agencyDetails.account_number,
+                agency_name: $scope.agencyDetails.agency_name,
+                agency_bank_name:
+                    $scope.agencyDetails.ifsc_code_details.bank_name,
+                agency_bank_branch:
+                    $scope.agencyDetails.ifsc_code_details.branch,
+                agency_ifsc_code: $scope.agencyDetails.ifsc_code,
+                agency_account_number: $scope.agencyDetails.account_number,
+                agency_gst: $scope.agencyDetails.gst_no,
                 gross: $scope.grossAmount,
                 pt: $scope.ptAmount,
                 tds: $scope.tdsAmount,
@@ -229,16 +232,92 @@ app.controller(
                 gis: $filter("sumOfAmount")($scope.agencyList, "gis"),
                 thn: $filter("sumOfAmount")($scope.agencyList, "thn"),
                 net: $filter("sumOfAmount")($scope.agencyList, "net"),
-                bill_agencies: JSON.stringify($scope.agencyList),
-                scrunity_answers: JSON.stringify($scope.scrutinyItems),
             };
+            for (let i = 0; i < $scope.agencyList.length; i++) {
+                formData.append(
+                    "bill_agencies[" + i + "][agency_name]",
+                    $scope.agencyList[i].agency_name
+                );
+                formData.append(
+                    "bill_agencies[" + i + "][agency_bank_name]",
+                    $scope.agencyList[i].agency_bank_name
+                );
+                formData.append(
+                    "bill_agencies[" + i + "][agency_bank_branch]",
+                    $scope.agencyList[i].agency_bank_branch
+                );
+                formData.append(
+                    "bill_agencies[" + i + "][agency_ifsc_code]",
+                    $scope.agencyList[i].agency_ifsc_code
+                );
+                formData.append(
+                    "bill_agencies[" + i + "][agency_account_number]",
+                    $scope.agencyList[i].agency_account_number
+                );
+                formData.append(
+                    "bill_agencies[" + i + "][agency_gst]",
+                    $scope.agencyList[i].agency_gst
+                );
+                formData.append(
+                    "bill_agencies[" + i + "][gross]",
+                    $scope.agencyList[i].gross
+                );
+                formData.append(
+                    "bill_agencies[" + i + "][pt]",
+                    $scope.agencyList[i].pt
+                );
+                formData.append(
+                    "bill_agencies[" + i + "][tds]",
+                    $scope.agencyList[i].tds
+                );
+                formData.append(
+                    "bill_agencies[" + i + "][gst]",
+                    $scope.agencyList[i].gst
+                );
+                formData.append(
+                    "bill_agencies[" + i + "][gis]",
+                    $scope.agencyList[i].gis
+                );
+                formData.append(
+                    "bill_agencies[" + i + "][thn]",
+                    $scope.agencyList[i].thn
+                );
+                formData.append(
+                    "bill_agencies[" + i + "][net]",
+                    $scope.agencyList[i].net
+                );
+            }
+            for (let i = 0; i < $scope.scrutinyItems.length; i++) {
+                formData.append(
+                    "scrutiny_answers[" + i + "][desc]",
+                    $scope.scrutinyItems[i].desc
+                );
+                formData.append(
+                    "scrutiny_answers[" + i + "][answer]",
+                    $scope.scrutinyItems[i].answer
+                );
+            }
             for (let key in data) {
                 formData.append(key, data[key]);
             }
             $scope.attachments.forEach((file) => {
                 formData.append("files[]", file.file);
             });
-            
+
+            BillEntryService.createBill(formData)
+                .then((response) => {
+                    showSuccess(response.data.message);
+                    $scope.getFormTypes();
+                })
+                .catch((response) => {
+                    if (response.data.data) {
+                        $scope.errors = response.data.data;
+                        showError(response.data.message);
+                    } else {
+                        showError("Something went wrong!");
+                        console.log(response.data);
+                    }
+                });
         };
     }
 );
