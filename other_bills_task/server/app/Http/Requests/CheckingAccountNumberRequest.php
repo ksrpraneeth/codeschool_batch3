@@ -27,9 +27,9 @@ class CheckingAccountNumberRequest extends FormRequest
     public function messages()
     {
         return [
-            "account_number.required" => "Account Number is required",
-            "account_number.min" => "Account Number should be at least 5 characters",
-            "account_number.exists" => "Account Number doesn't exists",
+            "account_number.required" => "Please enter your account number.",
+            "account_number.min" => "Your account number must be at least 5 characters long.",
+            "account_number.exists" => "The account number you entered does not match our records. Please double-check and try again."
         ];
     }
 

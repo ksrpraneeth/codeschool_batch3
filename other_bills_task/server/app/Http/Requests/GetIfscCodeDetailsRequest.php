@@ -33,9 +33,9 @@ class GetIfscCodeDetailsRequest extends FormRequest
     public function messages()
     {
         return [
-            "ifsc_code.required" => "IFSC Code is required",
-            "ifsc_code.digits" => "IFSC Code is invalid",
-            "ifsc_code.exists" => "IFSC Code doesn't exists"
+            "ifsc_code.required" => "Please provide the IFSC Code",
+            "ifsc_code.digits" => "The IFSC Code should be an 11-character alphanumeric code",
+            "ifsc_code.exists" => "The IFSC Code provided is not valid. Please double-check and try again"
         ];
     }
 

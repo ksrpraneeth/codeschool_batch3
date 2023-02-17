@@ -45,44 +45,43 @@ class CreateTransactionRequest extends FormRequest
     public function messages()
     {
         return [
-            "form_type_id.required" => "Form Type is required",
-            "form_type_id.exists" => "Form Type doesn't exists",
+            "ifsc_code.required" => "Please provide the IFSC code.",
+            "ifsc_code.digits" => "Invalid IFSC code provided.",
+            "ifsc_code.exists" => "The provided IFSC code does not exist in our records.",
 
-            "hoa.required" => "Head of Account is required",
-            "hoa.exists" => "Head of Account doesn't exists",
+            "form_type_id.required" => "Please select a form type.",
+            "form_type_id.exists" => "The selected form type does not exist in our records.",
 
-            "reference_number.required" => "Reference Number is required",
-            "reference_number.max" => "Reference Number should be at most 50 characters",
+            "hoa.required" => "Please select a head of account.",
+            "hoa.exists" => "The selected head of account does not exist in our records.",
 
-            "purpose.required" => "Purpose is required",
-            "purpose.max" => "Purpose should be at most 100 characters",
+            "reference_number.required" => "Please provide the reference number.",
+            "reference_number.max" => "The reference number cannot be longer than 50 characters.",
 
-            "gross.required" => "Gross Amount is required",
-            "gross.numeric" => "Gross Amount should be Number",
+            "purpose.required" => "Please provide the purpose of the transaction.",
+            "purpose.max" => "The purpose of the transaction cannot be longer than 100 characters.",
 
-            "pt.required" => "PT Amount is required (>= 0)",
-            "pt.numeric" => "PT Amount should be Number",
+            "gross.required" => "Please provide the gross amount of the transaction.",
+            "gross.numeric" => "The gross amount must be a valid number.",
 
-            "tds.required" => "TDS Amount is required (>= 0)",
-            "tds.numeric" => "TDS Amount should be Number",
+            "pt.required" => "Please provide the PT amount of the transaction.",
+            "pt.numeric" => "The PT amount must be a valid number.",
 
-            "gst.required" => "GST Amount is required",
-            "gst.numeric" => "GST Amount should be Number",
+            "tds.required" => "Please provide the TDS amount of the transaction.",
+            "tds.numeric" => "The TDS amount must be a valid number.",
 
-            "gis.required" => "GIS Amount is required",
-            "gis.numeric" => "GIS Amount should be Number",
+            "gst.required" => "Please provide the GST amount of the transaction.",
+            "gst.numeric" => "The GST amount must be a valid number.",
 
-            "thn.required" => "Telangana Haritha Nidhi Amount is required",
-            "thn.numeric" => "Telangana Haritha Nidhi Amount should be Number",
+            "gis.required" => "Please provide the GIS amount of the transaction.",
+            "gis.numeric" => "The GIS amount must be a valid number.",
 
-            "net.required" => "Net Amount is required",
-            "net.numeric" => "Net Amount should be Number",
+            "thn.required" => "Please provide the Telangana Haritha Nidhi amount of the transaction.",
+            "thn.numeric" => "The Telangana Haritha Nidhi amount must be a valid number.",
 
-            // "bill_agencies.required" => "Bill Agencies is Required",
-            // "bill_agencies.array" => "Agency missing details",
+            "net.required" => "Please provide the net amount of the transaction.",
+            "net.numeric" => "The net amount must be a valid number."
 
-            // "scrutiny_answers.required" => "Scrutiny Answers is Required",
-            // "scrutiny_answers.array" => "Scrutiny Answer missing details",
         ];
     }
 

@@ -28,20 +28,21 @@ class UpdateAgencyRequest extends FormRequest
         return [
             "agency_name" => ["min:3", "max:50"],
             "ifsc_code" => ["size:11", "exists:ifsc_codes,ifsc_code"],
-            "gst_no" => ["unique:agencies,gst_no"]
+            "gst_no" => ["unique:agencies,gst_no", "size:15"]
         ];
     }
 
     public function messages()
     {
         return [
-            "agency_name.min" => "Agency Name should be at least 3 characters",
-            "agency_name.max" => "Agency Name should be at most 50 characters",
+            "agency_name.min" => "The Agency Name should be between 3 and 50 characters",
+            "agency_name.max" => "The Agency Name should be between 3 and 50 characters",
 
-            "ifsc_code.digits" => "IFSC Code is invalid",
-            "ifsc_code.exists" => "IFSC Code doesn't exists",
+            "ifsc_code.digits" => "The IFSC Code should be a valid 11-character alphanumeric code",
+            "ifsc_code.exists" => "The IFSC Code is invalid. Please check and try again",
 
-            "gst_no.unique" => "GST No Already Exists"
+            "gst_no.size" => "The provided GST Number is not valid. Please ensure it is exactly 15 characters long",
+            "gst_no.unique" => "The provided GST Number is already exists"
         ];
     }
 

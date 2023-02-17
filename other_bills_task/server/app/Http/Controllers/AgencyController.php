@@ -13,7 +13,7 @@ class AgencyController extends Controller
     public function createAgency(StoreAgencyRequest $request)
     {
         try {
-            Agency::create($request->all());
+            Agency::create($request->validated());
             return response()->json([
                 "status" => true,
                 "message" => "Successfully Created"

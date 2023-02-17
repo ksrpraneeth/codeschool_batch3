@@ -28,24 +28,28 @@ class StoreAgencyRequest extends FormRequest
         return [
             "agency_name" => ["required", "min:3", "max:50"],
             "account_number" => ["required", "min:5", "unique:agencies,account_number"],
-            "ifsc_code" => ["required", "size:11", "exists:ifsc_codes,ifsc_code"]
+            "ifsc_code" => ["required", "size:11", "exists:ifsc_codes,ifsc_code"],
+            "gst_no" => ["size:15", "unique:agencies,gst_no"]
         ];
     }
 
     public function messages()
     {
         return [
-            "agency_name.required" => "Agency Name is required",
-            "agency_name.min" => "Agency Name should be at least 3 characters",
-            "agency_name.max" => "Agency Name should be at most 50 characters",
+            "agency_name.required" => "Please provide an Agency Name",
+            "agency_name.min" => "The Agency Name should be between 3 and 50 characters",
+            "agency_name.max" => "The Agency Name should be between 3 and 50 characters",
 
-            "account_number.required" => "Account Number is required",
-            "account_number.min" => "Account Number should be at least 5 characters",
-            "account_number.unique" => "Account Number already exists",
+            "account_number.required" => "The Account Number is required",
+            "account_number.min" => "The Account Number should be at least 5 characters",
+            "account_number.unique" => "This Account Number is already exists. Please enter another",
 
-            "ifsc_code.required" => "IFSC Code is required",
-            "ifsc_code.digits" => "IFSC Code is invalid",
-            "ifsc_code.exists" => "IFSC Code doesn't exists"
+            "ifsc_code.required" => "Please enter the IFSC Code",
+            "ifsc_code.digits" => "The IFSC Code should be a valid 11-character alphanumeric code",
+            "ifsc_code.exists" => "The IFSC Code is invalid. Please check and try again",
+
+            "gst_no.size" => "The provided GST Number is not valid. Please ensure it is exactly 15 characters long",
+            "gst_no.unique" => "The provided GST Number is already exists"
         ];
     }
 
