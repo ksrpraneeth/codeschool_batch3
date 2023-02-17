@@ -61,14 +61,6 @@ app.controller(
 
         $scope.formTypeChanged = function () {
             $scope.agencyAcNo = "";
-            $scope.agencyFound = false;
-            $scope.grossAmount = 0;
-            $scope.ptAmount = 0;
-            $scope.tdsAmount = 0;
-            $scope.gstAmount = 0;
-            $scope.gisAmount = 0;
-            $scope.thnAmount = 0;
-            $scope.agencyNet = 0;
             $scope.agencyAcNoChanged();
             $scope.agencyList = [];
             $scope.headOfAccount = "";

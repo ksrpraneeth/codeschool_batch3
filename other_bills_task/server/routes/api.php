@@ -18,24 +18,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(["prefix" => "ifscCode"], function () {
-    Route::post("getByCode", [IfscCodeController::class, 'getByCode']);
+Route::group(["prefix" => "ifsc-code"], function () {
+    Route::post("get-by-code", [IfscCodeController::class, 'getByCode']);
 });
 
-Route::group(["prefix" => "agency"], function () {
-    Route::post("getByAccountNumber", [AgencyController::class, 'getAgencyByAcNo']);
-    Route::post("create", [AgencyController::class, 'createAgency']);
-    Route::post("update/{agency}", [AgencyController::class, 'updateAgency']);
+Route::group(["prefix" => "agencies"], function () {
+    Route::post("get-by-account-number", [AgencyController::class, 'getAgencyByAcNo']);
+    Route::post("", [AgencyController::class, 'createAgency']);
+    Route::put("{agency}", [AgencyController::class, 'updateAgency']);
 });
 
-Route::group(["prefix" => "formNumber"], function () {
-    Route::get("all", [FormNumberController::class, "getAll"]);
-    Route::get("{formNumber}/formTypes", [FormNumberController::class, "getFormTypes"]);
-    Route::get("/formType/{formType}/hoas", [FormNumberController::class, "getHeadOfAccounts"]);
-    Route::get("/formType/{formType}/scrutinyItems", [FormNumberController::class, "getScrutinyItems"]);
+Route::group(["prefix" => "form-numbers"], function () {
+    Route::get("", [FormNumberController::class, "getAll"]);
+    Route::get("{formNumber}/form-types", [FormNumberController::class, "getFormTypes"]);
+    Route::get("/form-types/{formType}/hoas", [FormNumberController::class, "getHeadOfAccounts"]);
+    Route::get("/form-types/{formType}/scrutiny-items", [FormNumberController::class, "getScrutinyItems"]);
 });
 
-Route::group(["prefix" => "transaction"], function () {
-    Route::post("/create", [TransactionController::class, "createTransaction"]);
-    Route::post("/view", [TransactionController::class, "getBill"]);
+Route::group(["prefix" => "transactions"], function () {
+    Route::post("", [TransactionController::class, "createTransaction"]);
+    Route::post("get-by-tbr-no", [TransactionController::class, "getBill"]);
 });

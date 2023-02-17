@@ -1,7 +1,7 @@
 app.service("AddAgencyService", function ($http) {
     this.getIfscCodeDetails = function (ifsc_code) {
         return $http({
-            url: SERVER + '/ifscCode/getByCode',
+            url: SERVER + '/ifsc-code/get-by-code',
             method: "POST",
             data: {
                 ifsc_code
@@ -10,7 +10,7 @@ app.service("AddAgencyService", function ($http) {
     };
     this.createAgency = function (agencyDetails) {
         return $http({
-            url: SERVER + '/agency/create',
+            url: SERVER + '/agencies',
             method: "POST",
             data: agencyDetails
         })
@@ -18,7 +18,7 @@ app.service("AddAgencyService", function ($http) {
 
     this.getAgencyByAccountNumber = function (account_number) {
         return $http({
-            url: SERVER + '/agency/getByAccountNumber',
+            url: SERVER + '/agencies/get-by-account-number',
             method: "POST",
             data: {
                 account_number
@@ -28,8 +28,8 @@ app.service("AddAgencyService", function ($http) {
 
     this.updateAgency = function (id, data) {
         return $http({
-            url: SERVER + '/agency/update/'+id,
-            method: "POST",
+            url: SERVER + '/agencies/'+id,
+            method: "PUT",
             data: data
         })
     };

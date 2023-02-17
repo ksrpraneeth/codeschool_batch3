@@ -3,9 +3,7 @@ app.filter("inWords", function () {
         if (number) {
             let b = number.toString().length;
             if (b <= 10) {
-                console.log("you can implement the code");
                 number = "000000000" + number;
-
                 let last3 = number.substr(-3, 3);
                 let thousand = number.substr(-5, 2);
                 let lakh = number.substr(-7, 2);

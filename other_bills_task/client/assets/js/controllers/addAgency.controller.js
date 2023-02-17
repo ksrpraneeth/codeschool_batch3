@@ -29,14 +29,29 @@ app.controller("AddAgencyController", function ($scope, AddAgencyService) {
         $scope.agencyFound = false;
         $scope.acNoSearch = "";
     };
-    // Add Agency Functions
     $scope.checkAccountNumber = function () {
+        if (!$scope.addAgency.account_number) {
+            return;
+        }
         AddAgencyService.getAgencyByAccountNumber(
             $scope.addAgency.account_number
         ).then(() => {
-            showError("Account Number Already Exists");
+            $scope.errors.account_number = [
+                "Account Number Exists",
+            ];
         });
     };
+    $scope.validateAccountNumbers = function () {
+        if (
+            $scope.addAgency.account_number !=
+            $scope.addAgency.confirm_account_number
+        ) {
+            $scope.errors.confirm_account_number = [
+                "Confirm Account Number and Account Number should be same",
+            ];
+        }
+    };
+    // Add Agency Functions
     $scope.addNewAgency = function () {
         $scope.errors = {};
         if (!$scope.addAgency.agency_name) {

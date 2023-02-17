@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $formNumber85 = FormNumber::firstOrCreate(["form_number" => '85']);
+        $formNumber83 = FormNumber::firstOrCreate(["form_number" => '83']);
         $formType = $formNumber85->formTypes()->firstOrCreate(["form_type" => "Water Bill"]);
 
         $hoa = HeadOfAccount::firstOrCreate([

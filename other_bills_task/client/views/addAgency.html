@@ -5,7 +5,9 @@
 
     <div class="form p-2 mt-2">
         <!-- Options -->
-        <div class="d-flex gap-3 p-2 col-12 col-md-10 col-lg-8 typesMenu rounded">
+        <div
+            class="d-flex gap-3 p-2 col-12 col-md-10 col-lg-8 typesMenu rounded"
+        >
             <div class="form-check">
                 <input
                     class="form-check-input"
@@ -62,6 +64,8 @@
                             class="form-control"
                             id="agencyName"
                             ng-model="addAgency.agency_name"
+                            ng-change="errors.agency_name=[]"
+                            ng-class="{'is-invalid': errors['agency_name'].length}"
                         />
                         <p
                             class="text-danger"
@@ -88,6 +92,8 @@
                             id="bankAcNo"
                             ng-model="addAgency.account_number"
                             ng-blur="checkAccountNumber()"
+                            ng-change="errors.account_number=[]"
+                            ng-class="{'is-invalid': errors['account_number'].length}"
                         />
                         <p
                             class="text-danger"
@@ -113,6 +119,9 @@
                             class="form-control"
                             id="confirmBankAcNo"
                             ng-model="addAgency.confirm_account_number"
+                            ng-blur="validateAccountNumbers()"
+                            ng-change="errors.confirm_account_number=[]"
+                            ng-class="{'is-invalid': errors['confirm_account_number'].length}"
                         />
                         <p
                             class="text-danger"
@@ -136,6 +145,8 @@
                             class="form-control"
                             id="gstNumber"
                             ng-model="addAgency.gst_no"
+                            ng-change="errors.gst_no=[]"
+                            ng-class="{'is-invalid': errors['gst_no'].length}"
                         />
                         <p
                             class="text-danger"
@@ -162,6 +173,8 @@
                                     class="form-control"
                                     id="ifscCode"
                                     ng-model="addAgency.ifsc_code"
+                                    ng-change="errors.ifsc_code=[]"
+                                    ng-class="{'is-invalid': errors['ifsc_code'].length}"
                                 />
                                 <button
                                     ng-click="getIfscCodeDetails(addAgency.ifsc_code)"
@@ -258,7 +271,11 @@
                         Bank Ac No:
                     </label>
                     <div>
-                        <input type="text" class="form-control" ng-model="acNoSearch" />
+                        <input
+                            type="text"
+                            class="form-control"
+                            ng-model="acNoSearch"
+                        />
                     </div>
                     <button
                         class="btn btn-dark searchBtn text-nowrap fw-semibold"
@@ -455,5 +472,4 @@
     </div>
 </div>
 
-<style>    
-</style>
+<style></style>

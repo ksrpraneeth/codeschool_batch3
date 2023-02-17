@@ -1,35 +1,35 @@
 app.service("BillEntryService", function ($http) {
     this.getFormNumbers = function () {
         return $http({
-            url: SERVER + "/formNumber/all",
+            url: SERVER + "/form-numbers",
             method: "GET",
         });
     };
 
     this.getFormTypes = function (id) {
         return $http({
-            url: SERVER + `/formNumber/${id}/formTypes`,
+            url: SERVER + `/form-numbers/${id}/form-types`,
             method: "GET",
         });
     };
 
     this.getHoasByFormType = function (id) {
         return $http({
-            url: SERVER + `/formNumber/formType/${id}/hoas`,
+            url: SERVER + `/form-numbers/form-types/${id}/hoas`,
             method: "GET",
         });
     };
 
     this.getScrutinyItemsByFormType = function (id) {
         return $http({
-            url: SERVER + `/formNumber/formType/${id}/scrutinyItems`,
+            url: SERVER + `/form-numbers/form-types/${id}/scrutiny-items`,
             method: "GET",
         });
     };
 
     this.createBill = function (data) {
         return $http({
-            url: SERVER + "/transaction/create",
+            url: SERVER + "/transactions",
             method: "POST",
             transformRequest: angular.identity,
             headers: { "Content-Type": undefined },
