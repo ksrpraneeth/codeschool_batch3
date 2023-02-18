@@ -26,7 +26,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         name: "viewBillRoute",
         url: "/viewBill",
         templateUrl: "./views/viewBill.html",
-        controller: "viewBillController",
+        controller: "ViewBillController",
     };
 
     $stateProvider.state(homeRoute);
