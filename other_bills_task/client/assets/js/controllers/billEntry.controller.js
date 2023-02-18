@@ -313,7 +313,7 @@ app.controller(
             BillEntryService.createBill(formData)
                 .then(
                     (response) => {
-                        $state.go("viewBillRoute", { 'tbrNo': response.data.data });
+                        $state.go("previewBillRoute", { 'tbrNo': response.data.data });
                     },
                     (reject) => {
                         $scope.errors = reject.data.data;

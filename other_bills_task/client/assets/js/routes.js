@@ -22,11 +22,18 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         templateUrl: "./views/previewBill.html",
         controller: "PreviewBillController",
     };
+    let viewBillRoute = {
+        name: "viewBillRoute",
+        url: "/viewBill",
+        templateUrl: "./views/viewBill.html",
+        controller: "viewBillController",
+    };
 
     $stateProvider.state(homeRoute);
     $stateProvider.state(addAgencyRoute);
     $stateProvider.state(billEntryRoute);
     $stateProvider.state(viewBillRoute);
+    $stateProvider.state(previewBillRoute);
 
     $urlRouterProvider.otherwise("/");
 });
