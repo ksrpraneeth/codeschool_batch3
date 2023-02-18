@@ -64,20 +64,21 @@
                                 >
                             </p>
                             <p class="m-0 fw-bold text-center text-uppercase">
-                                {{bill.purpose}}
+                                FOR THE MONTH & YEAR {{bill.created_at | date:
+                                'MM'}} & {{bill.created_at | date: 'yyyy'}}
                             </p>
 
                             <!-- Container -->
                             <div class="container mt-3">
                                 <div class="row">
                                     <!-- Dist and TBR No -->
-                                    <div class="col-6 d-flex flex-column gap-2">
+                                    <div
+                                        class="col-6 d-flex flex-column gap-3 justify-content-center"
+                                    >
                                         <!-- Dist -->
                                         <div class="row">
                                             <div class="col-6">
-                                                <p class="m-0 fw-semibold">
-                                                    Dist:
-                                                </p>
+                                                <p class="m-0 fw-bold">Dist:</p>
                                             </div>
                                             <div class="col-6">Hyderabad</div>
                                         </div>
@@ -85,7 +86,7 @@
                                         <!-- TBR No -->
                                         <div class="row">
                                             <div class="col-6">
-                                                <p class="m-0 fw-semibold">
+                                                <p class="m-0 fw-bold">
                                                     TBR No:
                                                 </p>
                                             </div>
@@ -106,9 +107,7 @@
                                         <!-- Date -->
                                         <div class="row">
                                             <div class="col-6">
-                                                <p class="m-0 fw-semibold">
-                                                    Date:
-                                                </p>
+                                                <p class="m-0 fw-bold">Date:</p>
                                             </div>
                                             <div class="col-6">
                                                 {{bill.created_at | date:
@@ -119,7 +118,7 @@
                                         <!-- Transaction ID -->
                                         <div class="row">
                                             <div class="col-6">
-                                                <p class="m-0 fw-semibold">
+                                                <p class="m-0 fw-bold">
                                                     Trans ID:
                                                 </p>
                                             </div>
@@ -244,6 +243,23 @@
                                 </div>
                             </div>
 
+                            <!-- MH Static Data -->
+                            <div class="row m-0 p-2">
+                                <div class="col-3">
+                                    <p class="fw-bold">NON-PLAN</p>
+                                </div>
+                                <div class="col-3">
+                                    <p class="fw-bold">VOTED</p>
+                                </div>
+                                <div class="col-6">
+                                    <p class="fw-bold m-0">
+                                        Non-contingency Fund MH/ Service Major
+                                        Head :
+                                    </p>
+                                    <p class="m-0">{{bill.hoa_details.mjh}}</p>
+                                </div>
+                            </div>
+
                             <!-- Total Amounts -->
                             <div
                                 class="d-flex p-2 mt-3 flex-wrap gap-4 align-items-center border-top border-bottom border-2 border-dark"
@@ -338,16 +354,30 @@
                                                 {{party.agency_bank_branch}}
                                             </td>
                                             <td>{{party.agency_ifsc_code}}</td>
-                                            <td>{{party.gross | indianRupees}}</td>
+                                            <td>
+                                                {{party.gross | indianRupees}}
+                                            </td>
                                             <td>{{party.pt | indianRupees}}</td>
-                                            <td>{{party.tds | indianRupees}}</td>
-                                            <td>{{party.gst | indianRupees}}</td>
-                                            <td>{{party.gis | indianRupees}}</td>
-                                            <td>{{party.thn | indianRupees}}</td>
-                                            <td>{{party.net | indianRupees}}</td>
+                                            <td>
+                                                {{party.tds | indianRupees}}
+                                            </td>
+                                            <td>
+                                                {{party.gst | indianRupees}}
+                                            </td>
+                                            <td>
+                                                {{party.gis | indianRupees}}
+                                            </td>
+                                            <td>
+                                                {{party.thn | indianRupees}}
+                                            </td>
+                                            <td>
+                                                {{party.net | indianRupees}}
+                                            </td>
                                         </tr>
-                                        <tr>
-                                            <td colspan="6" class="text-end">Total</td>
+                                        <tr class="fw-bold">
+                                            <td colspan="6" class="text-end">
+                                                Total
+                                            </td>
                                             <td>
                                                 {{bill.total_gross |
                                                 indianRupees}}
@@ -383,7 +413,7 @@
                             <!-- Other Details -->
                             <div class="mt-5">
                                 <p>Challan No(if any):</p>
-                                <p class="text-end">DDO's SIGNATURE</p>
+                                <p class="text-end">DDO's SIGNATURE *</p>
                                 <hr class="m-0 mt-5 mb-2" />
                                 <p class="fw-bolder text-center fs-6">
                                     (FOR US IN TREASURY / PAY & ACCOUNTS OFFICE
@@ -394,12 +424,12 @@
                                     __________________________________________________________________________
                                     by cash/cheque/Account credit)
                                 </p>
-                                <p class="text-end mt-5">
+                                <p class="text-end mt-5 pt-5">
                                     Treasury Office/PAY & ACCOUNTS<br />
                                     Officer
                                 </p>
                                 <p class="fw-semibold">Purpose</p>
-                                <p>For Month of January</p>
+                                <p>{{bill.purpose}}</p>
                                 <p class="fw-bold">
                                     (Rupees {{bill.total_net | inWords}})
                                 </p>
@@ -445,7 +475,7 @@
                                         <p>6,61,125.00</p>
                                     </div>
                                 </div>
-                                <p class="mt-5 text-end">DDO's SIGNATURE</p>
+                                <p class="mt-5 text-end">DDO's SIGNATURE *</p>
 
                                 <!-- Non-Drawal Certificate -->
                                 <div class="border border-2 p-2">
@@ -459,7 +489,9 @@
                                         recorded in the office copy and
                                         preserved in this office.
                                     </p>
-                                    <p class="mt-5 text-end">DDO's SIGNATURE</p>
+                                    <p class="mt-5 text-end">
+                                        DDO's SIGNATURE *
+                                    </p>
                                 </div>
 
                                 <div class="border border-2 mt-5 p-4">
@@ -492,13 +524,13 @@
                                         Paid By Cash/ Adjustment/ Cheque/ Draft.
                                     </p>
                                     <p class="mt-5 text-end">
-                                        DDO's SIGNATURE*
+                                        DDO's SIGNATURE *
                                     </p>
                                 </div>
 
                                 <!-- Signature Valid -->
                                 <div
-                                    class="col-6 border border-2 border-dark mt-5 position-relative"
+                                    class="col-4 border border-2 border-dark mt-5 position-relative"
                                 >
                                     <img
                                         src="./assets/images/tick.png"
@@ -510,16 +542,19 @@
                                         class="position-relative"
                                         style="z-index: 1"
                                     >
-                                        <p class="fw-bold mt-5 z10">
+                                        <p class="fw-bold mt-5">
                                             Signature Valid
                                         </p>
-                                        <p class="fw-bold z10">
+                                        <p class="fw-bold m-0">
                                             G. SATHYANARAYANA
                                         </p>
-                                        <p>(Asst Accounts Officer)</p>
-                                        <p>
+                                        <p class="m-0">
+                                            (Asst Accounts Officer)
+                                        </p>
+                                        <p class="m-0 mb-5">
                                             Dual Authenticated:
-                                            {{bill.created_at | date:'dd-MM-yyyy - hh:mm a'}}
+                                            {{bill.created_at | date:'dd-MM-yyyy
+                                            hh:mm a'}}
                                         </p>
                                     </div>
                                 </div>
@@ -532,9 +567,11 @@
     </div>
 </div>
 
-
 <style>
     @media print {
+        .body {
+            position: static !important;
+        }
         body * {
             visibility: hidden;
         }
@@ -551,13 +588,22 @@
             top: 0;
             margin: 0;
             padding: 0;
-            min-height: 550px;
+            width: 100%;
             visibility: visible;
-            overflow: visible !important; /* Remove scrollbar for printing. */
+           overflow: visible !important; /* Remove scrollbar for printing. */
+        }
+        .modal-header,.modal-header *{
+            visibility: hidden;
+            display: none;
         }
         .modal-dialog {
             visibility: visible !important;
             overflow: visible !important; /* Remove scrollbar for printing. */
+            margin: 0;
+            max-width: 100%;
+        }
+        .modal-body{
+            padding: 0;
         }
     }
 </style>

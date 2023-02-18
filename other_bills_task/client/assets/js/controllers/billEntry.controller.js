@@ -1,6 +1,6 @@
 app.controller(
     "BillEntryController",
-    function ($scope, BillEntryService, AddAgencyService, $filter) {
+    function ($scope, BillEntryService, AddAgencyService, $filter, $state) {
         $scope.billTypeRadio = "otherBill";
         $scope.formNumbers = [];
         $scope.formTypes = [];
@@ -20,6 +20,8 @@ app.controller(
         $scope.scrutinyItems = [];
         $scope.attachments = [];
         $scope.remark = "";
+        $scope.otpVerified = false;
+        $scope.showOtp = false;
 
         // Constructer HTTP calls
         BillEntryService.getFormNumbers()
@@ -61,6 +63,7 @@ app.controller(
 
         $scope.formTypeChanged = function () {
             $scope.agencyAcNo = "";
+            $scope.errors = [];
             $scope.agencyAcNoChanged();
             $scope.agencyList = [];
             $scope.headOfAccount = "";
@@ -69,6 +72,8 @@ app.controller(
             $scope.scrutinyItems = [];
             $scope.attachments = [];
             $scope.remark = "";
+            $scope.otpVerified = false;
+            $scope.showOtp = false;
             $scope.getHoas();
             $scope.getScrutinyItems();
         };
@@ -210,7 +215,16 @@ app.controller(
             document.getElementById("formFile").value = null;
         };
 
+        $scope.verifyOtp = function () {
+            showSuccess("OTP Verified");
+            $scope.otpVerified = true;
+        };
+
         $scope.submitBill = function () {
+            if (!$scope.otpVerified) {
+                showError("Please Verify OTP");
+                return;
+            }
             let formData = new FormData();
             let data = {
                 form_type_id: $scope.formType,
@@ -297,18 +311,18 @@ app.controller(
             });
 
             BillEntryService.createBill(formData)
-                .then((response) => {
-                    showSuccess(response.data.message);
-                    $scope.getFormTypes();
-                })
-                .catch((response) => {
-                    if (response.data.data) {
-                        $scope.errors = response.data.data;
-                        showError(response.data.message);
-                    } else {
-                        showError("Something went wrong!");
-                        console.log(response.data);
+                .then(
+                    (response) => {
+                        $state.go("previewBillRoute", { 'tbrNo': response.data.data });
+                    },
+                    (reject) => {
+                        $scope.errors = reject.data.data;
+                        showError(reject.data.message);
                     }
+                )
+                .catch((response) => {
+                    console.log(response);
+                    showError("Something went wrong!");
                 });
         };
     }

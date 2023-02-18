@@ -1,21 +1,6 @@
 let app = angular.module("app", ["ui.router"]);
 let SERVER = "http://127.0.0.1:8000/api";
-app.factory("loadingInterceptor", function ($q) {
-    return {
-        request: function (config) {
-            document.getElementById("loadingScreen").classList.remove("d-none");
-            return config;
-        },
-        response: function (response) {
-            document.getElementById("loadingScreen").classList.add("d-none");
-            return response;
-        },
-        responseError: function (rejection) {
-            document.getElementById("loadingScreen").classList.add("d-none");
-            return $q.reject(rejection);
-        },
-    };
-});
+
 app.config(function ($httpProvider) {
     $httpProvider.interceptors.push("loadingInterceptor");
 });
@@ -69,6 +54,13 @@ function onlyNumbers(event) {
         event.preventDefault();
     }
 }
-$(document).ready(function () {
-    $(".js-example-basic-single").select2();
-});
+
+function alphaNumericOnly (e) {
+    var regex = new RegExp("^[a-zA-Z0-9]+$");
+    var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+    if (regex.test(str)) {
+        return true;
+    }
+    e.preventDefault();
+    return false;
+}
