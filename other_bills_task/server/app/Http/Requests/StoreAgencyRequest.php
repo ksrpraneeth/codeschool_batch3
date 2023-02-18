@@ -27,7 +27,7 @@ class StoreAgencyRequest extends FormRequest
     {
         return [
             "agency_name" => ["required", "min:3", "max:50"],
-            "account_number" => ["required", "min:5", "unique:agencies,account_number"],
+            "account_number" => ["required", "min:5", "unique:agencies,account_number", "alpha_num:ascii"],
             "ifsc_code" => ["required", "size:11", "exists:ifsc_codes,ifsc_code"],
             "gst_no" => ["size:15", "unique:agencies,gst_no"]
         ];
@@ -43,6 +43,7 @@ class StoreAgencyRequest extends FormRequest
             "account_number.required" => "The Account Number is required",
             "account_number.min" => "The Account Number should be at least 5 characters",
             "account_number.unique" => "This Account Number is already exists. Please enter another",
+            "account_number.alpha_num" => "The account number must contain only letters and numbers.",
 
             "ifsc_code.required" => "Please enter the IFSC Code",
             "ifsc_code.digits" => "The IFSC Code should be a valid 11-character alphanumeric code",

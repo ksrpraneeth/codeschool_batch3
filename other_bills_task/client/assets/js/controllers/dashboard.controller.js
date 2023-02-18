@@ -15,10 +15,5 @@ app.controller("DashboardController", function ($scope) {
             state: "billEntryRoute",
             icon: "fas fa-receipt"
         },
-        {
-            name: "View Bill",
-            state: "viewBillRoute",
-            icon: "fas fa-eye"
-        },
     ];
 });

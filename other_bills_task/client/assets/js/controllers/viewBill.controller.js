@@ -1,23 +1,20 @@
-app.controller("ViewBillController", function ($scope, ViewBillService) {
-    $scope.transactionTbr = "20220000031912";
-    $scope.bill = {};
-    $scope.viewBill = function () {
-        if (!$scope.transactionTbr) {
-            showError("Transaction TBR Number is required");
-            return;
-        }
-        ViewBillService.getBill($scope.transactionTbr)
+app.controller(
+    "ViewBillController",
+    function ($scope, ViewBillService, $stateParams) {
+        $scope.billFound = false;
+        $scope.bill = {};
+        ViewBillService.getBill($stateParams.tbrNo)
             .then((response) => {
                 $scope.bill = response.data.data;
-                const viewBillModal = new bootstrap.Modal("#viewBillModal");
-                viewBillModal.show();
+                $scope.billFound = true;
             })
             .catch((response) => {
+                console.log(response);
                 if (response.data.message != undefined) {
                     showError(response.data.message);
                 } else {
                     showError("Something went wrong!");
                 }
             });
-    };
-});
+    }
+);

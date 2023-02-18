@@ -11,8 +11,9 @@
   font-size: 14px !important;
 }
 
-.border-bottom-dashed {
+.border-top-bottom-dashed {
   border-bottom: dashed 1px gray;
+  border-top: dashed 1px gray;
 }
 
 .btn-secondary {

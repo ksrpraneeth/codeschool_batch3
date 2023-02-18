@@ -94,6 +94,7 @@
                             ng-blur="checkAccountNumber()"
                             ng-change="errors.account_number=[]"
                             ng-class="{'is-invalid': errors['account_number'].length}"
+                            onkeypress="alphaNumericOnly(event)"
                         />
                         <p
                             class="text-danger"
@@ -122,6 +123,7 @@
                             ng-blur="validateAccountNumbers()"
                             ng-change="errors.confirm_account_number=[]"
                             ng-class="{'is-invalid': errors['confirm_account_number'].length}"
+                            onkeypress="alphaNumericOnly(event)"
                         />
                         <p
                             class="text-danger"
@@ -173,8 +175,9 @@
                                     class="form-control"
                                     id="ifscCode"
                                     ng-model="addAgency.ifsc_code"
-                                    ng-change="errors.ifsc_code=[]"
+                                    ng-change="ifscCodeChanged()"
                                     ng-class="{'is-invalid': errors['ifsc_code'].length}"
+                                    onkeypress="alphaNumericOnly(event)"
                                 />
                                 <button
                                     ng-click="getIfscCodeDetails(addAgency.ifsc_code)"
@@ -265,7 +268,7 @@
             <div class="border rounded-2 col-12 col-md-10 col-lg-8 p-3">
                 <!-- Search Bank Ac No -->
                 <div
-                    class="d-flex p-2 align-items-center gap-2 flex-wrap pb-5 border-bottom-dashed"
+                    class="d-flex p-2 align-items-center gap-2 flex-wrap pb-5"
                 >
                     <label for="editBankAcNo" class="fw-semibold">
                         Bank Ac No:
@@ -275,6 +278,7 @@
                             type="text"
                             class="form-control"
                             ng-model="acNoSearch"
+                            onkeypress="alphaNumericOnly(event)"
                         />
                     </div>
                     <button
@@ -285,7 +289,7 @@
                     </button>
                 </div>
 
-                <div class="pb-2 border-bottom-dashed" ng-if="agencyFound">
+                <div class="pb-2 border-top-bottom-dashed" ng-if="agencyFound">
                     <!-- Name -->
                     <div class="row p-2 align-items-center">
                         <div class="col-12 col-md-4">
@@ -387,6 +391,7 @@
                                     class="form-control"
                                     id="editIfscCode"
                                     ng-model="editAgency.newIfscCode"
+                                    onkeypress="alphaNumericOnly(event)"
                                 />
                                 <button
                                     class="btn btn-dark rounded-0 searchBtn ms-2"

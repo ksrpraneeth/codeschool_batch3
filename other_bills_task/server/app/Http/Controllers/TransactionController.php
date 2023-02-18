@@ -102,7 +102,7 @@ class TransactionController extends Controller
 
             DB::commit();
 
-            return response()->json(["status" => true, "message" => "Transaction Reference Number: " . $tbr_no]);
+            return response()->json(["status" => true, "data" => $tbr_no]);
         } catch (\Throwable $e) {
             DB::rollBack();
             return response()->json([

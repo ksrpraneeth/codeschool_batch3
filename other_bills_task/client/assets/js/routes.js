@@ -18,7 +18,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     };
     let viewBillRoute = {
         name: "viewBillRoute",
-        url: "/viewBill",
+        url: "/viewBill?tbrNo",
         templateUrl: "./views/viewBill.html",
         controller: "ViewBillController",
     };
