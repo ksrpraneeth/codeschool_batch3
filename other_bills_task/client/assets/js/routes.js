@@ -16,11 +16,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         templateUrl: "./views/billEntry.html",
         controller: "BillEntryController",
     };
-    let viewBillRoute = {
-        name: "viewBillRoute",
-        url: "/viewBill?tbrNo",
-        templateUrl: "./views/viewBill.html",
-        controller: "ViewBillController",
+    let previewBillRoute = {
+        name: "previewBillRoute",
+        url: "/previewBill?tbrNo",
+        templateUrl: "./views/previewBill.html",
+        controller: "PreviewBillController",
     };
 
     $stateProvider.state(homeRoute);

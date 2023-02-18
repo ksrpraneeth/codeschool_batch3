@@ -1,5 +1,5 @@
 app.controller(
-    "ViewBillController",
+    "PreviewBillController",
     function ($scope, ViewBillService, $stateParams) {
         $scope.billFound = false;
         $scope.bill = {};
