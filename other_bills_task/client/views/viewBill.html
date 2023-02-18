@@ -33,14 +33,6 @@
                         <h1 class="modal-title fs-5" id="viewBillModalLabel">
                             View Bill
                         </h1>
-
-                        <button
-                            type="button"
-                            onclick="window.print()"
-                            class="btn btn-secondary ms-2"
-                        >
-                            Print
-                        </button>
                         <button
                             type="button"
                             class="btn-close"
@@ -561,6 +553,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            onclick="window.print()"
+                            class="btn btn-secondary ms-2"
+                        >
+                            Print
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -590,9 +591,10 @@
             padding: 0;
             width: 100%;
             visibility: visible;
-           overflow: visible !important; /* Remove scrollbar for printing. */
+            overflow: visible !important; /* Remove scrollbar for printing. */
         }
-        .modal-header,.modal-header *{
+        .modal-header,
+        .modal-header *,.modal-footer,.modal-footer * {
             visibility: hidden;
             display: none;
         }
@@ -602,7 +604,7 @@
             margin: 0;
             max-width: 100%;
         }
-        .modal-body{
+        .modal-body {
             padding: 0;
         }
     }

@@ -1,5 +1,5 @@
 app.controller("ViewBillController", function ($scope, ViewBillService) {
-    $scope.transactionTbr = "20220000031912";
+    $scope.transactionTbr = "";
     $scope.bill = {};
     $scope.viewBill = function () {
         if (!$scope.transactionTbr) {
