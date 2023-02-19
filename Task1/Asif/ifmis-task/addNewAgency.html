@@ -1,0 +1,416 @@
+<div class="container-fluid g-0 px-3">
+
+    <!-- Heading -->
+    <div class="row p-3 rounded-top mt-3" style="background-color: #cee5ff;">
+        <h4 class="my-auto" style="color: #205baf;"><strong>ADD OTHER ESTABLISHMENT AGENCY</strong></h4>
+    </div>
+
+
+    <!-- Radio Buttons For Select Form Action -->
+    <div class="row my-3">
+        <div class="col-12 col-md-8 p-2 border rounded-1">
+            <div class="form-check form-check-inline m-1">
+                <input class="form-check-input cursor-pointer" type="radio" name="selectAgencyFormAction"
+                    id="addSingleAgency" ng-model="selectAgencyFormAction" value="add">
+                <label class="form-check-label cursor-pointer" for="addSingleAgency">Add Single Agency</label>
+            </div>
+            <div class="form-check form-check-inline m-1">
+                <input class="form-check-input cursor-pointer" type="radio" name="selectAgencyFormAction"
+                    id="editAgencyDetails" ng-model="selectAgencyFormAction" value="edit">
+                <label class="form-check-label cursor-pointer" for="editAgencyDetails">Edit Agency Details</label>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Add Single Agency Container -->
+    <div class="row" ng-show="selectAgencyFormAction == 'add'">
+
+        <!-- Alert -->
+        <div class="row mb-3 mx-auto p-0">
+            <div class="alert alert-warning my-auto" role="alert">
+                You can see agency status report for the agencies you have added in Reports => Agency Details Report
+            </div>
+        </div>
+
+        
+        <div class="row p-0">
+
+            <form name="addSingleAgencyForm" id="addSingleAgencyForm" ng-submit="addAgencyDetails()">
+
+                <div class="col-12 col-md-8 rounded-1 border px-3">
+                
+                    <h4 class="border border-top-0 border-start-0 border-end-0 py-3 mb-4"><strong>Bank Details</strong></h4>
+
+                    <!-- Agency Name -->
+                    <div class="row mb-3 align-items-center">
+                        <div class="col-12 col-md-4">
+                            <label for="agencyNameInput" class="col-form-label fw-bold">Agency Name<span class="required"></span>:</label>
+                        </div>
+                        <div class="col-12 col-md-5">
+                            <input type="text" id="agencyNameInput" class="form-control" ng-model="addSingleAgencyFormData.agency_name" name="agency_name" ng-pattern="/^[A-Z0-9 ]+$/i" ng-minlength="4" ng-maxlength="32" ng-required="true">
+                        </div>
+                        <div class="col-12 col-md-5 offset-md-4" ng-show="addSingleAgencyForm.agency_name.$invalid && addSingleAgencyForm.agency_name.$touched">
+                            <span class="errorMsgs" ng-show="addSingleAgencyForm.agency_name.$error.required">Agency name is required.</span>
+                            <span class="errorMsgs" ng-show="addSingleAgencyForm.agency_name.$error.pattern">Should not contain special characters.</span>
+                            <span class="errorMsgs" ng-show="addSingleAgencyForm.agency_name.$error.minlength">Should be minimum 4 characters.</span>
+                            <span class="errorMsgs" ng-show="addSingleAgencyForm.agency_name.$error.maxlength">Agency Name can't be more than 32 characters.</span>
+                        </div>
+                        <div class="col-12 col-md-5 offset-md-4">
+                            <span class="errorMsgs">{{ dbErrors.agency_name }}</span>
+                        </div>
+                    </div>
+
+                    <!-- Bank Account Number -->
+                    <div class="row mb-3 align-items-center">
+                        <div class="col-12 col-md-4">
+                            <label for="bankAccountNumberInput" class="col-form-label fw-bold">Bank Account
+                                Number<span class="required"></span>:</label>
+                        </div>
+                        <div class="col-12 col-md-5">
+                            <input type="password" id="bankAccountNumberInput" class="form-control" ng-model="addSingleAgencyFormData.bank_account_number" name="bank_account_number" ng-pattern="/^[0-9]+$/i" ng-minlength="8" ng-maxlength="22" ng-required="true" ng-blur="checkBankAccount()">
+                        </div>
+                        <div class="col-12 col-md-5 offset-md-4" ng-show="addSingleAgencyForm.bank_account_number.$invalid && addSingleAgencyForm.bank_account_number.$touched">
+                            <span class="errorMsgs" ng-show="addSingleAgencyForm.bank_account_number.$error.required">Bank account number is required.</span>
+                            <span class="errorMsgs" ng-show="addSingleAgencyForm.bank_account_number.$error.pattern">Should contain only numbers.</span>
+                            <span class="errorMsgs" ng-show="addSingleAgencyForm.bank_account_number.$error.minlength">Should be minimum 8 characters.</span>
+                            <span class="errorMsgs" ng-show="addSingleAgencyForm.bank_account_number.$error.maxlength">Account Number can't be more than 22 characters.</span>
+                        </div>
+                        <div class="col-12 col-md-5 offset-md-4">
+                            <span class="errorMsgs">{{ dbErrors.bank_account_number }}</span>
+                        </div>
+                    </div>
+
+                    <!-- Loading Screen -->
+                    <div ng-show="loading" class="loading-screen">
+                        <div class="loading-spinner"></div>
+                    </div>
+                      
+
+                    <!-- Confirm Bank Account Number -->
+                    <div class="row mb-3 align-items-center">
+                        <div class="col-12 col-md-4">
+                            <label for="bankAccountNumberConfirmationInput" class="col-form-label fw-bold">Confirm Bank
+                                Account Number<span class="required"></span>:</label>
+                        </div>
+                        <div class="col-12 col-md-5">
+                            <input type="text" id="bankAccountNumberConfirmationInput" class="form-control" ng-model="addSingleAgencyFormData.bank_account_number_confirmation"
+                                name="bank_account_number_confirmation" ng-required="true">
+                        </div>
+                        <div class="col-12 col-md-5 offset-md-4">
+                            <span class="errorMsgs" ng-show="addSingleAgencyForm.bank_account_number_confirmation.$touched && !accountNumberMatch()">Account Number doesn't not match.</span>
+                        </div>
+                    </div>
+
+                    <!-- GST Number -->
+                    <div class="row mb-3 align-items-center">
+                        <div class="col-12 col-md-4">
+                            <label for="gstNumberInput" class="col-form-label fw-bold">GST No:</label>
+                        </div>
+                        <div class="col-12 col-md-5">
+                            <input type="text" id="gstNumberInput" class="form-control" ng-model="addSingleAgencyFormData.gst_number" name="gst_number" ng-minlength="15" ng-maxlength="15" ng-pattern="/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/i">
+                        </div>
+                        <div class="col-12 col-md-5 offset-md-4" ng-show="addSingleAgencyForm.gst_number.$invalid && addSingleAgencyForm.gst_number.$touched">
+                            <span class="errorMsgs" ng-show="addSingleAgencyForm.gst_number.$error.pattern">Invalid GSTIN Number. </span>
+                            <span class="errorMsgs" ng-show="addSingleAgencyForm.gst_number.$error.minlength">Should be of 15 characters.</span>
+                            <span class="errorMsgs" ng-show="addSingleAgencyForm.gst_number.$error.maxlength">Should be of 15 characters.</span>
+                        </div>
+                        <div class="col-12 col-md-5 offset-md-4">
+                            <span class="errorMsgs">{{ dbErrors.gst_number }}</span>
+                        </div>
+                    </div>
+
+
+                    <!-- Agency Bank Details Box -->
+                    <div class="row border rounded-1 mx-auto my-4 px-2 py-4" style="background-color: #ecf5ff;">
+
+                        <!-- IFSC Code Search -->
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-12 col-md-4 my-1">
+                                <label for="ifscCodeInput" class="col-form-label fw-bold">Enter IFSC Code<span class="required"></span>:</label>
+                            </div>
+                            <div class="col-12 col-md-5 my-1 mx-0">
+                                <input type="text" id="ifscCodeInput" ng-model="addSingleAgencyFormData.ifsc_code" class="form-control" name="ifsc_code" ng-required="true" ng-minlength="11" ng-maxlength="11" ng-pattern="/^[A-Z]{4}0[A-Z0-9]{6}$/i">
+                            </div>
+                            <div class="col-1 m-1">
+                                <button type="button" class="btn btn-navy fw-bold fs-15px" ng-click="getBankDetails()">
+                                    SEARCH
+                                </button>
+                            </div>
+                            <div class="col-12 col-md-5 offset-md-4" ng-show="addSingleAgencyForm.ifsc_code.$invalid && addSingleAgencyForm.ifsc_code.$touched">
+                                <span class="errorMsgs" ng-show="addSingleAgencyForm.ifsc_code.$error.required">IFSC Code is required.</span>
+                                <span class="errorMsgs" ng-show="addSingleAgencyForm.ifsc_code.$error.pattern">Invalid IFSC Code. </span>
+                                <span class="errorMsgs" ng-show="addSingleAgencyForm.ifsc_code.$error.minlength">Should be of 11 characters.</span>
+                                <span class="errorMsgs" ng-show="addSingleAgencyForm.ifsc_code.$error.maxlength">Should be of 11 characters.</span>
+                            </div>
+                            <div class="col-12 col-md-5 offset-md-4">
+                                <span class="errorMsgs">{{ dbErrors.ifsc_code }}</span>
+                            </div>
+                        </div>
+
+                        <!-- Bank Name -->
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-12 col-md-4">
+                                <label for="bankName" class="col-form-label fw-bold">Bank Name:</label>
+                            </div>
+                            <div class="col-12 col-md-5">
+                                <p ng-show="!bankDetails">--</p>
+                                <p>{{ bankDetails.name }}</p>
+                            </div>
+                        </div>
+
+                        <!-- Bank State Name -->
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-12 col-md-4">
+                                <label for="bankStateName" class="col-form-label fw-bold">State:</label>
+                            </div>
+                            <div class="col-12 col-md-5">
+                                <p ng-show="!bankDetails">--</p>
+                                <p>{{ bankDetails.state }}</p>
+                            </div>
+                        </div>
+
+                        <!-- Bank Branch -->
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-12 col-md-4">
+                                <label for="bankBranch" class="col-form-label fw-bold">Branch:</label>
+                            </div>
+                            <div class="col-12 col-md-5">
+                                <p ng-show="!bankDetails">--</p>
+                                <p>{{ bankDetails.branch }}</p>
+                            </div>
+                        </div>
+
+                        <!-- IFSC Code -->
+                        <div class="row align-items-center">
+                            <div class="col-12 col-md-4">
+                                <label for="ifscCode" class="col-form-label fw-bold">IFSC Code:</label>
+                            </div>
+                            <div class="col-12 col-md-5">
+                                <p ng-show="!bankDetails">--</p>
+                                <p>{{ bankDetails.ifsc_code }}</p>
+                            </div>
+                        </div>
+
+                    <!-- End of Bank Agency Details Box -->
+                    </div>
+                </div>
+
+                <!-- Add Single Agency Form Submit Button -->
+                <div class="row mt-4 mb-5">
+                    <div class="col-md-2 offset-md-6 d-flex justify-content-end p-0">
+                        <button type="submit" class="btn btn-md btn-navy fw-bold fs-15px" ng-disabled="!bankDetails">ADD NEW AGENCY</button>
+                    </div>
+                </div>
+
+            </form>
+
+        <!-- End of Row Container -->
+        </div>
+
+    <!-- End of Add Single Agency Container -->
+    </div>
+
+
+
+    <!-- Edit Agency Details Form Container -->
+    <div class="row" ng-show="selectAgencyFormAction == 'edit'">
+
+        <div class="col-12 col-md-8 rounded-1 border px-4 py-3">
+            
+            <form name="getAgencyDetailsForm" id="getAgencyDetailsForm" ng-submit="getAgencyDetails()">
+
+                <!-- Search by Bank Account Number-->
+                <div class="row mb-2 align-items-center">
+                    <div class="col-12 col-md-3 my-1">
+                        <label for="searchAgencyAccountNoInput" class="col-form-label fw-bold">Bank Ac No.:</label>
+                    </div>
+                    <div class="col-12 col-md-4 my-1">
+                        <input type="text" id="searchAgencyAccountNoInput" class="form-control" ng-model="getAgencyDetailsFormData.bank_account_number" name="bank_account_number" placeholder="Enter Bank Ac No" ng-pattern="/^[0-9]+$/i" ng-minlength="8" ng-maxlength="22" ng-required="true" >
+                    </div>
+                    <div class="col-8 col-md-3 my-1">
+                        <button type="submit" class="btn btn-navy fw-bold fs-15px">
+                            SEARCH AGENCY
+                        </button>
+                    </div>
+                    <div class="col-12 col-md-4 offset-md-3" ng-show="getAgencyDetailsForm.bank_account_number.$invalid && getAgencyDetailsForm.bank_account_number.$touched">
+                        <span class="errorMsgs" ng-show="getAgencyDetailsForm.bank_account_number.$error.required">Required.</span>
+                        <span class="errorMsgs" ng-show="getAgencyDetailsForm.bank_account_number.$error.minlength">Should be minimum 8 characters.</span>
+                        <span class="errorMsgs" ng-show="getAgencyDetailsForm.bank_account_number.$error.maxlength">Account Number can't be more than 22 characters.</span>
+                        <span class="errorMsgs" ng-show="getAgencyDetailsForm.bank_account_number.$error.pattern">Should contain only numbers.</span>
+                    </div>
+                </div>
+            </form>
+
+
+            <div ng-show="agencyDetails">
+                
+                <!-- Div to show existing details -->
+                <div class="row by-dashed my-4 py-4 ">
+                    <div class="row mb-3 align-items-center">
+                        <div class="col-12 col-md-3">
+                            <label for="agencyName" class="col-form-label fw-bold">Name:</label>
+                        </div>
+                        <div class="col-12 col-md-5">
+                            <p ng-show="!agencyDetails">--</p>
+                            <p>{{ agencyDetails.agency_name }}</p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3 align-items-center">
+                        <div class="col-12 col-md-3">
+                            <label for="agencyBankAccountNumber" class="col-form-label fw-bold">Bank Ac No:</label>
+                        </div>
+                        <div class="col-12 col-md-5">
+                            <p ng-show="!agencyDetails">--</p>
+                            <p>{{ agencyDetails.bank_account_number }}</p>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center">
+                        <div class="col-12 col-md-3">
+                            <label for="agencyIfsc" class="col-form-label fw-bold">IFSC:</label>
+                        </div>
+                        <div class="col-12 col-md-5">
+                            <p ng-show="!agencyDetails">--</p>
+                            <p>{{ agencyDetails.ifsc_code }}</p>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center">
+                        <div class="col-12 col-md-3">
+                            <label for="agencyPan" class="col-form-label fw-bold">PAN:</label>
+                        </div>
+                        <div class="col-12 col-md-5">
+                            <p ng-show="!agencyDetails">--</p>
+                            <p>{{ agencyDetails.pan_number }}</p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Form to update details -->
+                <form name="updateAgencyDetailsForm" id="updateAgencyDetailsForm">
+                
+                    <!-- New Agency Name -->
+                    <div class="row mb-3 align-items-center">
+                        <div class="col-12 col-md-3">
+                            <label for="newAgencyNameInput" class="col-form-label fw-bold">New Agency Name:</label>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <input type="text" id="newAgencyNameInput" class="form-control" name="agency_name" ng-model="updateAgencyDetailsFormData.agency_name" ng-pattern="/^[A-Z0-9 ]+$/i" ng-minlength="4" ng-maxlength="32" ng-required="true"
+                            ng-value="agencyDetails.agency_name">
+                        </div>
+                        <div class="col-12 col-md-6 offset-md-3" ng-show="updateAgencyDetailsForm.agency_name.$invalid && updateAgencyDetailsForm.agency_name.$touched">
+                            <span class="errorMsgs" ng-show="updateAgencyDetailsForm.agency_name.$error.required">Agency name is required.</span>
+                            <span class="errorMsgs" ng-show="updateAgencyDetailsForm.agency_name.$error.pattern">Should not contain special characters.</span>
+                            <span class="errorMsgs" ng-show="updateAgencyDetailsForm.agency_name.$error.minlength">Should be minimum 4 characters.</span>
+                            <span class="errorMsgs" ng-show="updateAgencyDetailsForm.agency_name.$error.maxlength">Agency Name can't be more than 32 characters.</span>
+                        </div>
+                    </div>
+    
+    
+                    <!-- GSTIN -->
+                    <div class="row mb-3 align-items-center">
+                        <div class="col-12 col-md-3">
+                            <label for="newGstInput" class="col-form-label fw-bold">GSTIN:</label>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <input type="text" id="newGstInput" class="form-control" name="gst_number" ng-model="updateAgencyDetailsFormData.gst_number" ng-value="agencyDetails.gst_number" ng-minlength="15" ng-maxlength="15" ng-pattern="/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/i">
+                        </div>
+                        <div class="col-12 col-md-6 offset-md-3" ng-show="updateAgencyDetailsForm.gst_number.$invalid && updateAgencyDetailsForm.gst_number.$touched">
+                            <span class="errorMsgs" ng-show="updateAgencyDetailsForm.gst_number.$error.pattern">Invalid GSTIN Number. </span>
+                            <span class="errorMsgs" ng-show="updateAgencyDetailsForm.gst_number.$error.minlength">Should be of 15 characters.</span>
+                            <span class="errorMsgs" ng-show="updateAgencyDetailsForm.gst_number.$error.maxlength">Should be of 15 characters.</span>
+                        </div>
+                    </div>
+    
+                    <!-- New IFSC -->
+                    <div class="row mb-2 align-items-center">
+                        <div class="col-12 col-md-3 my-1">
+                            <label for="newIfscInput" class="col-form-label fw-bold">New IFSC:</label>
+                        </div>
+                        <div class="col-12 col-md-6 my-1">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="newIfscInput" name="ifsc_code" ng-model="updateAgencyDetailsFormData.ifsc_code" placeholder="Enter New IFSC" ng-required="true" ng-minlength="11" ng-maxlength="11" ng-pattern="/^[A-Z]{4}0[A-Z0-9]{6}$/i">
+                                <button class="btn btn-navy fs-15px fw-bold" ng-click="searchNewIfsc()">SEARCH</button>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 offset-md-3" ng-show="updateAgencyDetailsForm.ifsc_code.$invalid && updateAgencyDetailsForm.ifsc_code.$touched">
+                            <span class="errorMsgs" ng-show="updateAgencyDetailsForm.ifsc_code.$error.required">IFSC Code is required.</span>
+                            <span class="errorMsgs" ng-show="updateAgencyDetailsForm.ifsc_code.$error.pattern">Invalid IFSC Code. </span>
+                            <span class="errorMsgs" ng-show="updateAgencyDetailsForm.ifsc_code.$error.minlength">Should be of 11 characters.</span>
+                            <span class="errorMsgs" ng-show="updateAgencyDetailsForm.ifsc_code.$error.maxlength">Should be of 11 characters.</span>
+                        </div>                      
+                    </div>
+    
+    
+                    <!-- New IFSC Code Search Results -->
+                    <div class="row border rounded-1 mx-auto my-4 px-2 py-4" style="background-color: #ecf5ff;" ng-show="isIfscValid">
+    
+                        <!-- Bank Name -->
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-12 col-md-3">
+                                <label for="bankName" class="col-form-label fw-bold">Bank Name:</label>
+                            </div>
+                            <div class="col-12 col-md-5">
+                                <p ng-show="!bankDetails">--</p>
+                                <p>{{ bankDetails.name }}</p>
+                            </div>
+                        </div>
+    
+                        <!-- Bank State Name -->
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-12 col-md-3">
+                                <label for="bankStateName" class="col-form-label fw-bold">State:</label>
+                            </div>
+                            <div class="col-12 col-md-5">
+                                <p ng-show="!bankDetails">--</p>
+                                <p>{{ bankDetails.state }}</p>
+                            </div>
+                        </div>
+    
+                        <!-- Bank Branch -->
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-12 col-md-3">
+                                <label for="bankBranch" class="col-form-label fw-bold">Branch:</label>
+                            </div>
+                            <div class="col-12 col-md-5">
+                                <p ng-show="!bankDetails">--</p>
+                                <p>{{ bankDetails.branch }}</p>
+                            </div>
+                        </div>
+    
+                        <!-- IFSC Code -->
+                        <div class="row align-items-center">
+                            <div class="col-12 col-md-3">
+                                <label for="ifscCode" class="col-form-label fw-bold">IFSC Code:</label>
+                            </div>
+                            <div class="col-12 col-md-5">
+                                <p ng-show="!bankDetails">--</p>
+                                <p>{{ bankDetails.ifsc_code }}</p>
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div class="row my-4">
+                        <div class="col-8 col-md-4 offset-md-3">
+                            <button type="button" class="btn btn-green fw-bold fs-15px mx-auto" ng-click="updateAgencyDetails()" ng-disabled="!bankDetails">UPDATE AGENCY</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+           
+
+            
+
+
+        </div>
+    </div>
+
+
+    <!-- End of Container Fluid -->
+</div>

@@ -1,0 +1,52 @@
+/* Custom Utility Classes */
+.cursor-pointer:hover {
+    cursor: pointer;
+}
+
+.required::after{
+    content: '*';
+    color: red;
+    font-size: 15px;
+}
+
+.btn-navy {
+    background-color: #0f3550;
+    color: white;
+}
+
+.btn-navy:hover {
+    background-color: #0f3550;
+    color: white;
+    opacity: 0.9;
+}
+
+.btn-navy:disabled {
+    background-color: #0f3550;
+    color: white;
+    opacity: 0.7;
+}
+
+
+.btn-green {
+    background-color: #2a934c;
+    color: white;
+}
+
+.btn-green:hover {
+    background-color: #2a934c;
+    color: white;
+    opacity: 0.9;
+}
+
+.fs-10px {
+    font-size: 10px;
+}
+
+.fs-15px {
+    font-size: 15px;
+}
+
+.by-dashed {
+    border-top: 1px dashed #dee2e6;
+    border-bottom: 1px dashed #dee2e6;
+}
