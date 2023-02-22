@@ -128,9 +128,9 @@ class TransactionController extends Controller
             }
 
 
-            $bill = Transaction::where(["tbr_no" => $request->tbr_no])->with(["parties", "hoaDetails"])->with(["formTypeDetails" => function ($q) {
-                $q->with("formNumberDetails");
-            }])->first();
+                $bill = Transaction::where(["tbr_no" => $request->tbr_no])->with(["parties", "hoaDetails"])->with(["formTypeDetails" => function ($q) {
+                    $q->with("formNumberDetails");
+                }])->first();
             return response()->json([
                 "status" => true,
                 "message" => "Success",
