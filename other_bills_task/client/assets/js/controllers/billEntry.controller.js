@@ -135,8 +135,26 @@ app.controller(
                 showError("Please check the amount's");
                 return;
             }
+            const isAgencyPresent = $scope.agencyList.find(
+                (o) => o.agency_id === $scope.agencyDetails.id
+            );
+            if (isAgencyPresent) {
+                showError("Agency already exists!");
+                $scope.agencyAcNo = "";
+                $scope.agencyFound = false;
+                $scope.grossAmount = 0;
+                $scope.ptAmount = 0;
+                $scope.tdsAmount = 0;
+                $scope.gstAmount = 0;
+                $scope.gisAmount = 0;
+                $scope.thnAmount = 0;
+                $scope.agencyNet = 0;
+                $scope.agencyDetails = {};
+                return;
+            }
             $scope.agencyList.push({
                 agency_name: $scope.agencyDetails.agency_name,
+                agency_id: $scope.agencyDetails.id,
                 agency_bank_name:
                     $scope.agencyDetails.ifsc_code_details.bank_name,
                 agency_bank_branch:
@@ -313,7 +331,9 @@ app.controller(
             BillEntryService.createBill(formData)
                 .then(
                     (response) => {
-                        $state.go("previewBillRoute", { 'tbrNo': response.data.data });
+                        $state.go("previewBillRoute", {
+                            tbrNo: response.data.data,
+                        });
                     },
                     (reject) => {
                         $scope.errors = reject.data.data;
