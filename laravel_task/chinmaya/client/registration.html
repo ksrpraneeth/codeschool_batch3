@@ -1,0 +1,96 @@
+
+    <div class="container-fluid " style="height: 100%;" >
+
+        <div class="row mt-5">
+            <div class="col-lg-6 min-vh-100" >
+                <img src="image/draw2.webp" style="max-width: 100%;">
+            </div>
+            <div class="col-lg-6 py-5" style="border: 3px solid rgb(74, 13, 13); border-radius: 10px;">
+
+                <div class="row mt-5">
+                    <div class="col-md-2 headings offset-lg-1">
+                        <label for="email">
+                            Email
+                            <span class="text-danger">*</span>
+                        </label>
+                    </div>
+
+                    <div class="col-md-7">
+                        <input type="text" class="form-control" ng-model="email" placeholder="Enter email here">
+                    </div>
+                </div>
+
+                <div class="row mt-5">
+                    <div class="col-md-2 headings offset-lg-1">
+                        <label for="email">
+                            FIRST NAME
+                            <span class="text-danger">*</span>
+                        </label>
+                    </div>
+
+                    <div class="col-md-7">
+                        <input type="text" class="form-control" ng-model="firstname" placeholder="firrst name ">
+                    </div>
+                </div>
+
+                <div class="row mt-5">
+                    <div class="col-md-2 headings offset-lg-1">
+                        <label for="email">
+                            LAST NAME
+                            <span class="text-danger">*</span>
+                        </label>
+                    </div>
+
+                    <div class="col-md-7">
+                        <input type="text" class="form-control" ng-model="lastname" placeholder="last name">
+                    </div>
+                </div>
+
+                <div class="row mt-5">
+                    <div class="col-md-2 headings offset-lg-1">
+                        <label for="email">
+                            DOB
+                            <span class="text-danger">*</span>
+                        </label>
+                    </div>
+
+                    <div class="col-md-7">
+                        <input type="date" class="form-control" ng-model="dob" >
+                    </div>
+                </div>
+
+
+                <div class="row mt-5">
+                    <div class="col-md-2 headings offset-lg-1">
+                        <label for="password">
+                            Password
+                            <span class="text-danger">*</span>
+                        </label>
+                    </div>
+
+                    <div class="col-md-7">
+                        <input type="password" class="form-control" ng-model="password" placeholder="Enter password here">
+                    </div>
+                </div>
+                
+                <div class="row d-flex justify-content-center mt-5">
+
+                    <button type="button" class="btn btn-primary col-md-5 fw-bold" ng-click="register(email,password,firstname,lastname,dob)">REGISTER</button>
+                </div>
+
+
+              
+
+                <div class="row mt-2 d-flex justify-content-center">
+                    <p id="or" class="col-1 " style="font-size: 20px; font-weight: bold;">OR</p>
+                </div>
+
+                <div class="row mt-2 d-flex justify-content-center">
+                    <p id="or" class="col-5" >Alredy have an Account<span><a ui-sref="loginpage">SIGN IN</a></span></p>
+                </div>
+
+               
+
+            </div>
+        </div>
+    </div>

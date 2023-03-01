@@ -1,0 +1,28 @@
+<section ng-controller="bookingHistoryController" style="background-image: url(image/bookinghistorybg.jpg);" class="min-vh-100">
+<div class="container-fluid">
+    <div class="row px-3 py-3">
+        <div class="col-3 shadow-sm p-3 mb-5 bg-body-tertiary rounded" ng-repeat="data in booking_history">
+            <div class="card" >
+                <img class="card-img-top" src="image/groundcard.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">{{data.name|uppercase}}</h5>
+                  <p class="card-text">
+                    <div class="card_text mt-2">{{data.sport_name |uppercase}}</div>
+                    <div class="card_text mt-2" style="font-weight: 600;">{{data.booking_date}}</div>
+                    
+                    <div class="card_text mt-2">{{data.booking_slot.start_time}} - {{data.booking_slot.end_time}}</div>
+                    <div class="card_text mt-2">{{data.booking_slot.gameground.ground.address| uppercase}}</div>
+                    <div class="card_text mt-2">{{data.booking_slot.gameground.ground.landmark}}</div>
+                    <div class="card_text mt-2">{{data.booking_slot.gameground.ground.pincode}}</div>
+                    <div class="card_text mt-2">Contact: <span class="text-danger">{{data.booking_slot.gameground.ground.contactnumber}}</span></div>
+                    <div class="card_text">Price: <span class="text-danger">{{data.booking_slot.gameground.price}}</span></div>
+                   
+                    </p>
+                  
+                  <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
+</section>

@@ -1,0 +1,63 @@
+#homeHeader{
+    background-color:rgba(68,94,58,255);
+    border-bottom: 4px solid orange;
+   
+  
+}
+#appname{
+    font-size: 30px;
+    font-weight: 600;
+    text-shadow: 3px 2px 4px black;
+    color: aqua;
+}
+.menubutton a{
+    text-decoration: none;
+    color: white;
+    
+}
+.menubutton :hover{
+    border-bottom: 3px solid black;
+    transition: 0.3s;
+}
+
+.formheader{
+    font-size: 18px;
+    font-weight: 500;
+}
+.stadiusmbox{
+    background-color: whitesmoke;
+    opacity: 0.8;
+    font-weight: 600;
+    border: 2px solid orange;
+    border-radius: 10px;
+    
+}
+.stadiumName{
+    font-size: 22px;
+    font-weight: 500;
+}
+.stadiumImage{
+    border-radius: 10px;
+    max-width: 100%;
+}
+.cardimage{
+  
+    max-width: 100%;
+}
+.sportscard{
+    opacity: 0.9;
+   /* background-color: black; */
+}
+#menubar{
+    background-color:rgba(68,94,58,255);
+}
+.name{
+    border: 2px solid red;
+    box-shadow: 2px 2px 2px rgb(69, 69, 69);
+    border-radius: 10px;
+    background-color: aliceblue;
+}
+.card_text{
+    font-size: 18px;
+    font-weight: 500;
+}

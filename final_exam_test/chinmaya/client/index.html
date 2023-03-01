@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="image/tabicon.png" type="image/gif" sizes="16x16">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- angular cdn -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+    <!-- router cdn -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.30/angular-ui-router.min.js"
+        integrity="sha512-HdDqpFK+5KwK5gZTuViiNt6aw/dBc3d0pUArax73z0fYN8UXiSozGNTo3MFx4pwbBPldf5gaMUq/EqposBQyWQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <title>Supplementary Bills</title>
+</head>
+
+<body>
+    <section class="container-fluid m-2 min-vh-100" style="background-color: white;"
+        ng-controller="supplimentaryBillcontroller">
+        <div class="row m-1 py-1" id="addAgencyHeader">
+            <div class="col-12 py-1">
+                FORM 47-SUPPLIMENTARY BILLS
+            </div>
+        </div>
+
+        <div class="row ms-2 mt-3">
+            <div class="col-lg-7 col-md-8 radio-button-container py-2">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
+                    ui-sref="addagency">
+                <label class="form-check-label" for="flexRadioDefault1">
+                    FORM 47-SALARY BILLS
+                </label>
+                <input class="form-check-input ms-3" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+                    ui-sref="editagency">
+                <label class="form-check-label" for="flexRadioDefault2">
+                    OTHER BILS
+                </label>
+
+                <input class="form-check-input ms-3" type="radio" name="flexRadioDefault" id="flexRadioDefault3"
+                    ui-sref="editagency" checked>
+                <label class="form-check-label" for="flexRadioDefault3">
+                    FORM 47- SUPPLEMENTARY BILLS
+                </label>
+
+            </div>
+        </div>
+
+        <div class="row mt-3 ms-2" style="font-size: 18px;">
+            <div class="col-11 fw-bold">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                    class="bi bi-file-earmark" viewBox="0 0 16 16">
+                    <path
+                        d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z" />
+                </svg>
+                &nbsp;&nbsp;
+                FORM 47 SUPPLEMENTARY BILLS
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <hr>
+            </div>
+        </div>
+
+        <div class="row ms-2 mt-3 ">
+            <div class="col-6 border-top border-bottom border-dark py-2  border-opacity-25">
+                <div class="row">
+                    <div class="col-4 fw-bold print-bill-heading"><label for="billTypes">Select Bill Types<span
+                                class="text-danger">*</span></label></div>
+                    <div class="col-7">
+                        <select class="form-select" aria-label="Default select example" id="billTypes" ng-model="billtypeId">
+                            <option selected value="">Select An option Here</option>
+                            <option value="{{data.id}}" ng-repeat="data in billTypes">{{data.name}}</option>
+
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-4"></div>
+                    <div class="col-5 radio-button-container py-1 ms-2">
+                        <input class="form-check-input" type="checkbox" value="" id="covidpayment">
+                        <label class="form-check-label" for="covidpayment">
+                            Covid Defered payment
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row ms-2 mt-1 ">
+            <div class="col-6  border-bottom border-dark py-2  border-opacity-25">
+                <div class="row">
+                    <div class="col-4 fw-bold print-bill-heading"><label for="billTypes">Manual Bill Cut-off Date<span
+                                class="text-danger">*</span></label></div>
+                    <div class="col-7">
+                        01-11-2023
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row ms-2 mt-1 ">
+            <div class="col-6  border-bottom border-dark py-2  border-opacity-25">
+                <div class="row">
+                    <div class="col-4 fw-bold print-bill-heading"><label for="billTypes">Form No<span
+                                class="text-danger">*</span></label></div>
+                    <div class="col-7">
+                        47
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row ms-2 mt-1 ">
+            <div class="col-6  border-bottom border-dark py-2  border-opacity-25">
+                <div class="row">
+                    <div class="col-4 fw-bold print-bill-heading"><label for="billTypes">Form search Filter Type:<span
+                                class="text-danger">*</span></label></div>
+                    <div class="col-7">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault22" id="serchFiltertype1">
+                        <label class="form-check-label" for="serchFiltertype1">
+                            Bill Id
+                        </label>
+                        <input class="form-check-input ms-3" type="radio" name="flexRadioDefault22" id="serchFiltertype2"
+                            checked>
+                        <label class="form-check-label" for="serchFiltertype2">
+                            EMP CODE
+                        </label>
+
+                        <input class="form-check-input ms-3" type="radio" name="flexRadioDefault22" id="serchFiltertype3">
+                        <label class="form-check-label" for="serchFiltertype3">
+                            Bank Ac No.
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="row ms-2 mt-1 ">
+            <div class="col-6  border-bottom border-dark py-2  border-opacity-25">
+                <div class="row">
+                    <div class="col-4 fw-bold print-bill-heading"><label for="billTypes">Form No<span
+                                class="text-danger">*</span></label></div>
+                    <div class="col-7">
+                        47
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row ms-2 mt-1 ">
+            <div class="col-6  border-bottom border-dark py-2  border-opacity-25">
+                <div class="row">
+                    <div class="col-4 fw-bold print-bill-heading"><label for="billTypes">Enter Employee Code<span
+                                class="text-danger">*</span></label></div>
+                    <div class="col-7">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="employeeCode" placeholder="Enter Employee Code"
+                                ng-model="employeeId">
+                            <button class="btn text-light" type="button" id="button-addon2"
+                                style="background-color: rgba(15,53,80,255);"
+                                ng-click="searchEmployee(employeeId)">SEARCH
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- hiding sections -->
+        <div ng-show="employeeDetailsHideValue">
+            <div class="row ms-2 mt-1 ">
+                <div class="col-6  border-bottom border-dark py-2  border-opacity-25">
+                    <div class="row">
+                        <div class="col-4 fw-bold print-bill-heading"><label for="billTypes">Employee<span
+                                    class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-7">
+                            {{employeeName}}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row ms-2 mt-1 ">
+                <div class="col-6  border-bottom border-dark py-2  border-opacity-25">
+                    <div class="row">
+                        <div class="col-4 fw-bold print-bill-heading"><label for="employeeRemark ">Enter Employee
+                                Remark<span class="text-danger">*</span></label></div>
+                        <div class="col-7">
+                            <input type="email" class="form-control" id="employeeRemark" placeholder="Enter remark"
+                                value="">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="row ms-2 mt-1 ">
+                <div class="col-6  border-bottom border-dark py-2  border-opacity-25">
+                    <div class="row">
+                        <div class="col-4 fw-bold print-bill-heading"><label for="employeeRemark">Enter Employee
+                                Remark<span class="text-danger">*</span></label></div>
+                        <div class="col-3">
+                            <input type="date" class="form-control" id="employeeRemark" ng-model="startDate">
+
+                        </div>
+                        <div class="col-3">
+                            <input type="date" class="form-control" id="employeeRemark" ng-model="endDate">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row ms-2 mt-1 ">
+                <div class="col-6  border-bottom border-dark py-2  border-opacity-25">
+                    <div class="row">
+                        <div class="col-4 fw-bold print-bill-heading"><label for="employeeRemark">Add Types<span
+                                    class="text-danger">*</span></label></div>
+                        <div class="col-7">
+                            <input class="form-check-input" type="radio" value="" id="earningTypes1" name="type" checked
+                                ng-click="earningOption()">
+                            <label class="form-check-label" for="earningTypes1">
+                                Earnings
+                            </label>
+                            <input class="form-check-input ms-3 " type="radio" value="" id="earningTypes2" name="type"
+                                ng-click="deductionoption()">
+                            <label class="form-check-label" for="earningTypes2">
+                                Deductions
+                            </label>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row ms-2 mt-1 ">
+                <div class="col-6  border-bottom border-dark py-2  border-opacity-25">
+                    <div class="row">
+                        <div class="col-4 fw-bold print-bill-heading"><label for="employeeRemark">Select Type<span
+                                    class="text-danger">*</span></label></div>
+                        <div class="col-7">
+                            <select class="form-select" aria-label="Default select example" ng-model="amountType">
+                                <option selected value="">Select An Options Here</option>
+                                <option value="{{data.id}}" ng-repeat="data in AmountArray">{{data.name}}</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row ms-2 mt-1 ">
+                <div class="col-6  border-bottom border-dark py-2  border-opacity-25">
+                    <div class="row">
+                        <div class="col-4 fw-bold print-bill-heading"><label for="employeeRemark">Enter
+                                Descriptions<span class="text-danger">*</span></label></div>
+                        <div class="col-7">
+                            <textarea class="form-control" id="" rows="3"
+                                placeholder="Enter Descriptions here"></textarea>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row ms-2 mt-1 ">
+                <div class="col-6  border-bottom border-dark py-2  border-opacity-25 ">
+                    <div class="row">
+                        <div class="col-4 fw-bold print-bill-heading"><label for="employeeRemark">Enter Amount<span
+                                    class="text-danger">*</span></label></div>
+                        <div class="col-4">
+                            <input type="number" class="form-control" id="amount" placeholder="Enter Amount"
+                                ng-model="amount">
+
+
+                        </div>
+
+                        <div class="col-3">
+                            <button type="button" class="btn btn-success"
+                                ng-click="addAmount(startDate,endDate,amount,amountType)">Add</button>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- showing the tables for the amount -->
+            <div ng-show="tableShowvalue">
+                <div class="row mt-2 py-2" style="background-color: #f0f0f0;">
+                    <div class="col-3">Employee Name:{{employeeName}}</div>
+                    <div class="col-3">Employee Code:{{Employeecode}}</div>
+                    <div class="col-3">Current Department<span class="fw-bold print-bill-heading">Police</span></div>
+                    <div class="col-3">Current Designations<span class="fw-bold print-bill-heading">Police
+                            Constables/reserve</span></div>
+                </div>
+
+
+                <table class="table table-bordered">
+                    <thead style="background-color: #edf6ff; color: #205baf;">
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col" colspan="{{duePartition}}" class="text-center">Due Particulars</th>
+                            <th scope="col" colspan="{{drawnparticulars}}" class="text-center">Drawn particulars</th>
+                            <th scope="col" colspan="{{differnce}}" class="text-center">Difference</th>
+                            <th scope="col" colspan="3"></th>
+
+
+                        </tr>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Form</th>
+                            <th scope="col">To</th>
+                            <th scope="col">Desc</th>
+                            <th scope="col" colspan="{{earningitemSize}}">Earning in Rs.</th>
+                            <th scope="col" colspan="{{deductionItemSize}}">deduction in Rs.</th>
+                            <th scope="col" colspan="{{earningitemSize}}">Earning in Rs</th>
+                            <th scope="col" colspan="{{deductionItemSize}}">Deduction in Rs</th>
+                            <th scope="col" colspan="{{earningitemSize}}">Earning in Rs</th>
+                            <th scope="col" colspan="{{deductionItemSize}}">Deduction</th>
+                            <th scope="col">Total Gross</th>
+                            <th scope="col">Total Deduction</th>
+                            <th scope="col">Net</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            
+                            <th scope="col" ng-if="earningmenustatus[$index]!=0" ng-repeat="data in earnings">
+                                {{data.name}}</th>
+
+                            <th scope="col" ng-if="earningitemSize==0"></th>
+                            <th scope="col" ng-if="deductionmenustatus[$index]!=0" ng-repeat="data in deduction">
+                                {{data.name}}</th>
+
+                            <th scope="col" ng-if="deductionItemSize==0"></th>
+                            <th scope="col" ng-if="earningmenustatus[$index]!=0" ng-repeat="data in earnings">
+                                {{data.name}}</th>
+                            <th scope="col" ng-if="earningitemSize==0"></th>
+                            <th scope="col" ng-if="deductionmenustatus[$index]!=0" ng-repeat="data in deduction">
+                                {{data.name}}</th>
+                            <th scope="col" ng-if="deductionItemSize==0"></th>
+                            <th scope="col" ng-if="earningmenustatus[$index]!=0" ng-repeat="data in earnings">
+                                {{data.name}}</th>
+                            <th scope="col" ng-if="earningitemSize==0"></th>
+                            <th scope="col" ng-if="deductionmenustatus[$index]!=0" ng-repeat="data in deduction">
+                                {{data.name}}</th>
+                            <th scope="col" ng-if="deductionItemSize==0"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+
+                        </tr>
+
+                        <tr ng-repeat="data in frontendtable">
+                            <th scope="col"></th>
+                            <th scope="col">{{data.startdate}}</th>
+                            <th scope="col">{{data.enddate}}</th>
+                            <th scope="col"></th>
+
+                            <th scope="col" ng-repeat="data2 in data.earningArray" ng-if="earningmenustatus[$index]!=0">
+                                {{data2.amount}}</th>
+                            <th scope="col" ng-if="data.earningstatus"></th>
+                            <th scope="col" ng-repeat="data3 in data.dedctionArray" ng-if="deductionmenustatus[$index]!=0">
+                                {{data3.amount}}</th>
+                            <th scope="col" ng-if="data.deductionstatus"></th>
+
+                            <th scope="col" ng-repeat="data2 in data.earningArray" ng-if="earningmenustatus[$index]!=0">
+                                {{data2.amount}}</th>
+                            <th scope="col" ng-if="data.earningstatus"></th>
+                            <th scope="col" ng-repeat="data3 in data.dedctionArray" ng-if=" deductionmenustatus[$index]!=0">
+                                {{data3.amount}}</th>
+                            <th scope="col" ng-if="data.deductionstatus"></th>
+
+
+                            <th scope="col" ng-repeat="data2 in data.earningArray" ng-if=" earningmenustatus[$index]!=0">
+                                {{data2.amount}}</th>
+                            <th scope="col" ng-if="data.earningstatus"></th>
+                            <th scope="col" ng-repeat="data3 in data.dedctionArray" ng-if=" deductionmenustatus[$index]!=0">
+                                {{data3.amount}}</th>
+                            <th scope="col" ng-if="data.deductionstatus"></th>
+
+                            <th scope="col">{{data.Gross}}</th>
+                            <th scope="col">{{data.totaldeduction}}</th>
+                            <th scope="col"></th>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+
+                <div class="row">
+                    <div class="col-5">
+                        <table class="table table-bordered">
+                            <thead style="background-color: #edf6ff; color: #205baf;">
+                                <tr>
+                                    <th scope="col" colspan="2" class="text-center">Earning</th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="data in totalEarningArray" ng-if="data.amount!=0">
+                                    <td>{{data.name}}</td>
+                                    <td >
+                                        {{data.amount}}
+                                    </td>
+                                   
+                                </tr>
+                                <tr>
+                                    <th>Total Earning</th>
+                                    <th>{{totalGross}}</th>
+                                </tr>
+                                <tr>
+                                    <th>Total Net</th>
+                                    <th>{{totalGross-totaldeductionn}}</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-4">
+                        <table class="table table-bordered">
+                            <thead style="background-color: #edf6ff; color: #205baf;">
+                                <tr>
+                                    <th scope="col" colspan="2" class="text-center">Deduction</th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="data in totaldeductionArray" ng-if="data.amount!=0">
+                                    <td>{{data.name}}</td>
+                                    <td >
+                                        {{data.amount}}
+                                    </td>
+                                    
+                                </tr>
+                                <tr>
+                                    <th>Total Deduction</th>
+                                    <th>{{totaldeductionn}}</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row d-flex align-items-center justify-content-center mt-3">
+                    <button type="button" class="btn btn-primary col-2" ng-click="submitBillBackend(Employeecode,billtypeId)">SUBMIT BILL</button>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+    </section>
+</body>
+
+<script src="js/script.js"></script>
+
+</html>
