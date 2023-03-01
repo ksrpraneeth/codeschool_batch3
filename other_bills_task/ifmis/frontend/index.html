@@ -25,6 +25,8 @@
 ></script>
    <!--js-->
    <script src="./index.js"></script>
+   <!--alert box-->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>    <link rel="stylesheet" href="style.css">
 <body ng-app="app">
     <div class="main">
          <div class="body overflow-auto">
@@ -70,7 +72,7 @@
                     <a class="list-group-item px-2 py-2" href="">Add Agency in Bulk</a>
                     <a class="list-group-item px-2 py-2" ui-sref="addAgency">Add New Agency</a>
                     <a class="list-group-item px-2 py-2" ui-sref="billEntry">Bill Entry</a>
-                    <a class="list-group-item px-2 py-2"  href="">View Bill</a>
+                    <a class="list-group-item px-2 py-2" ui-sref="viewbill">View Bill</a>
                     <a class="list-group-item px-2 py-2"  href="">Covid Bills</a>
                     <a class="list-group-item px-2 py-2"  href="">Print Bill</a>
                     <a class="list-group-item px-2 py-2"  href="">Check Bill Status</a>
@@ -85,6 +87,10 @@
                     <a class="list-group-item px-2 py-2"  href="">E-Bill Particulars</a>
                     <a class="list-group-item px-2 py-2"  href="">Teacher Incentive Print Bill</a>
                 </ul>
+            </div>
+            <!--spinner-->
+            <div class="loader position-fixed text-dark top-0 start-0 d-flex align-items-center justify-content-center bg-white bg-opacity-25 vh-100 vw-100" ng-show="loading">
+                <p class="spinner-border text-primary"></p>
             </div>
                 <!--main content-->
                 <div class="col-10 ps-3 p-3 content" ui-view>

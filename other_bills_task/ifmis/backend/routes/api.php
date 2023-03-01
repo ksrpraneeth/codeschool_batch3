@@ -22,3 +22,8 @@ Route::post('/ifsccode', [IfscController::class, "ifsccode"]);
 Route::post('/agencydetails', [IfscController::class, "agencydetails"]);
 Route::post('/searchagency', [IfscController::class, "searchagency"]);
 Route::post('/updateagency/{agency}', [IfscController::class, "updateagency"]);
+Route::post('/getforms', [IfscController::class, "getforms"]);
+Route::post('/getformtype', [IfscController::class, "getformtype"]);
+Route::post('/gethoaformtype', [IfscController::class, "gethoaformtype"]);
+Route::post('/transactiondetails', [IfscController::class, "transactiondetails"]);
+Route::post('/billDetails', [IfscController::class, "billDetails"]);

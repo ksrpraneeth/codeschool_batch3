@@ -25,6 +25,7 @@ class AgencyRequest extends FormRequest
             'agency_name'=>'required|min:4',
             'account_number'=>'required|min:12|max:22|confirmed',
             'ifsc_code'=>'required'
+
         ];
     }
     public function messages()

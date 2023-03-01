@@ -44,6 +44,49 @@ p {
 border-bottom: 1px solid rgb(17, 17, 18);
 }
 
+@media print{
+  body{
+      position: static;
+  }
+  body *{
+      visibility: hidden;
+  }
+  #viewbill{
+      width:100% !important;
+      position: absolute;
+      left: 0;
+      top: 0;
+  }
+  #viewbill,
+  #viewbill *{
+      visibility: visible;
+  }
+  #printbtn *{
+      visibility: hidden;
+  }
+}
+
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    margin: 100px auto; /* center the spinner vertically and horizontally */
+    background-color: #333;
+    border-radius: 100%;
+    animation: spin 1s ease-in-out infinite;
+  }
+  
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+
+
 
 
 

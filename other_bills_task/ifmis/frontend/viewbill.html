@@ -1,0 +1,247 @@
+<div class="bg-white" ng-controller="viewBillController" id="viewbill">
+    <div class="border border-1">
+        <!--heading-->
+        <div class="text-center mt-3">
+            <h4 class="m-0">TSTC FORM-58</h4>
+            <h4 class="m-0">FULLY VOUCHED CONTINGENT BILL</h4>
+            <p class="m-0 fw-semibold">Bill for WATER CHARGES</p>
+            <p class="m-0 fw-semibold">FOR THE MONTH & YEAR 2023</p>
+        </div>
+        <!--div 1-->
+        <div class="row justify-content-between gap-3 mt-3">
+            <!--left side of div1-->
+            <div class="col-4 ms-4">
+                <div class="row justify-content-between">
+                    <p class="m-0 col-2 fw-bold">Dist:</p>
+                    <p class="m-0 col-5 fw-semibold">Hyderabad</p>
+                </div>
+                <div class="row justify-content-between mt-3">
+                    <p class="m-0 col-2 fw-bold">TBR No:</p>
+                    <p class="m-0 col-5 fw-semibold">{{billDetails[0].id}}</p>
+                </div>
+            </div>
+            <!--right side of div1-->
+            <div class="col-6 mx-5 border">
+                <p class="m-0 text-center fw-semibold">(For Treasury use only)</p>
+                <div class="row justify-content-between ps-4 pt-2">
+                    <p class="p-0 m-0 fw-bold">Date:23-02-2023</p>
+                </div>
+                <div class="row justify-content-between pt-2 ps-4">
+                    <p class="p-0 m-0 fw-bold">Trans ID:{{billDetails[0].id}}</p>
+                </div>
+            </div>
+        </div>
+        <!--div2-->
+        <div class="row mx-3 mt-2 pb-4 pt-2 border border-1">
+            <!--right side of div2-->
+            <div class="col-6">
+                <div class="d-flex justify-content-between p-1">
+                    <p class="p-0 m-0 col-4 fw-bold">Treasury/PAO CODE:</p>
+                    <p></p>
+                </div>
+                <div class="d-flex justify-content-between p-1">
+                    <p class="p-0 m-0 col-4 fw-bold">DDO CODE:</p>
+                    <p class="p-0 m-0 col-4 fw-semibold">2183989012021</p>
+                </div>
+                <div class="d-flex justify-content-between p-1">
+                    <p class="p-0 m-0 col-4 fw-bold">DDO DESIGNATION:</p>
+                    <p class="p-0 m-0 col-4 fw-semibold">Asst Accounts Officer</p>
+                </div>
+                <div class="d-flex justify-content-between p-1">
+                    <p class="p-0 m-0 col-4 fw-bold">DDO Office Name:</p>
+                    <p class="p-0 m-0 col-4 fw-semibold">Commissioner Of Police Hyderabad City</p>
+                </div>
+                <div class="d-flex justify-content-between p-1">
+                    <p class="p-0 m-0 col-4 fw-bold">BANK BRANCH CODE:</p>
+                    <p class="p-0 m-0 col-4 fw-semibold">5000000004571</p>
+                </div>
+                <div class="d-flex justify-content-between p-1">
+                    <p class="p-0 m-0 col-4 fw-bold">BANK BRANCH NAME:</p>
+                    <p class="p-0 m-0 col-4 fw-semibold">Treasury Branch Hyderabad(GUNFOUNDRY)</p>
+                </div>
+            </div>
+            <!--left side of div2-->
+            <div class="col-6 ps-3 ">
+                <div class="d-flex justify-content-between p-1">
+                    <p class="p-0 m-0 col-4 fw-bold">Major Head:</p>
+                    <p class="p-0 m-0 col-4 fw-semibold">{{billDetails[0].hoa[0].mjh_desc}}</p>
+                </div>
+                <div class="d-flex justify-content-between p-1">
+                    <p class="p-0 m-0 col-4 fw-bold">Sub Major Head:</p>
+                    <p class="p-0 m-0 col-4 fw-semibold">{{billDetails[0].hoa[0].smjh_desc}}</p>
+                </div>
+                <div class="d-flex justify-content-between p-1">
+                    <p class="p-0 m-0 col-4 fw-bold">Minor Head:</p>
+                    <p class="p-0 m-0 col-4 fw-semibold">{{billDetails[0].hoa[0].mih_desc}}</p>
+                </div>
+                <div class="d-flex justify-content-between p-1">
+                    <p class="p-0 m-0 col-4 fw-bold">Group Sub Head:</p>
+                    <p class="p-0 m-0 col-4 fw-semibold">{{billDetails[0].hoa[0].gsh_desc}}</p>
+                </div>
+                <div class="d-flex justify-content-between p-1">
+                    <p class="p-0 m-0 col-4 fw-bold">Sub Head:</p>
+                    <p class="p-0 m-0 col-4 fw-semibold">{{billDetails[0].hoa[0].sh_desc}}</p>
+                </div>
+                <div class="d-flex justify-content-between p-1">
+                    <p class="p-0 m-0 col-4 fw-bold">Detailed Head:</p>
+                    <p class="p-0 m-0 col-4 fw-semibold">{{billDetails[0].hoa[0].dh_desc}}</p>
+                </div>
+                <div class="d-flex justify-content-between p-1">
+                    <p class="p-0 m-0 col-4 fw-bold">Sub Detailed Head:</p>
+                    <p class="p-0 m-0 col-4 fw-semibold">{{billDetails[0].hoa[0].sdh_desc}}</p>
+                </div>
+            </div>
+        </div>
+        <!--div3-->
+        <div class="d-flex gap-3 mx-3 py-2">
+            <p class="p-0 m-0 col-3 fw-bold">NON-PLANK</p>
+            <p class="p-0 m-0 col-3 fw-bold">VOTED</p>
+            <p class="p-0 m-0 col-5 fw-bold">Non-Contigency Fund MH/Service Major Head:2055</p>
+        </div>
+        <div class="mx-3 py-2">
+            <hr>
+        </div>
+        <!--div4-->
+        <div class="d-flex mx-3 pt-2">
+            <p class="p-0 m-0 col-2 fw-bold">Gross:<span class="fw-normal">{{billDetails[0].gross}}</span></p>
+            <p class="p-0 m-0 col-2 fw-bold">Pt Dedn:<span class="fw-normal">{{billDetails[0].ptdedn}}</span></p>
+            <p class="p-0 m-0 col-2 fw-bold">TDS(IT):<span class="fw-normal">{{billDetails[0].tds}}</span></p>
+            <p class="p-0 m-0 col-2 fw-bold">GST:<span class="fw-normal">{{billDetails[0].gst}}</span></p>
+            <p class="p-0 m-0 col-2 fw-bold">GIS:<span class="fw-normal">{{billDetails[0].gis}}</span></p>
+        </div>
+        <!--div5--->
+        <div class="d-flex gap-5 mx-3 mt-2 pb-2">
+            <p class="p-0 m-0 col-3 fw-bold">Telangana Harithi Nidhi:<span class="fw-normal">10,000</span></p>
+            <p class="p-0 m-0 col-2 fw-bold">Net:<span class="fw-normal">{{billDetails[0].netamt}}</span></p>
+        </div>
+        <div class="mx-3 pb-2">
+            <hr>
+        </div>
+        <!--div6-->
+        <div class="mx-3 pb-2">
+            <p class="p-0 m-0 fw-bold">Passed for Rs.10000</p>
+        </div>
+        <!--div7 table-->
+        <div class="m-3">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Name/GST No.</th>
+                        <th>Bank Name</th>
+                        <th>Bank Branch</th>
+                        <th>IFSC CODE</th>
+                        <th>A/C No</th>
+                        <th>Gross<span>(in Rs.)</span></th>
+                        <th>PT Dedn<span>(in Rs.)</span></th>
+                        <th>TDS(IT)<span>(in Rs.)</span></th>
+                        <th>GST<span>(in Rs.)</span></th>
+                        <th>GIS<span>(in Rs.)</span></th>
+                        <th>Telangana Harithi Nidhi<span>(in Rs.)</span></th>
+                        <th>Net Amount<span>(in Rs.)</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="data in agencyBillDetails track by $index">
+                        <td>{{$index+1}}</td>
+                        <td>{{data.agency_name}}</td>
+                        <td>{{data.agency_bank_name}}</td>
+                        <td>{{data.agency_bank_branch}}</td>
+                        <td>{{data.ifsc_code}}</td>
+                        <td>{{data.agency_account_number}}</td>
+                        <td>{{data.gross}}</td>
+                        <td>{{data.ptdedn}}</td>
+                        <td>{{data.tds}}</td>
+                        <td>{{data.gst}}</td>
+                        <td>{{data.gis}}</td>
+                        <td>{{data.thn}}</td>
+                        <td>{{data.netamt}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr>
+            <!-- {{agencyBillDetails}} -->
+        </div>
+        <!--div 8 Cheque DDO-->
+        <div class="border p-1 mx-2">
+            <div class="d-flex justify-content-center mt-2 mx-3">
+                <p class="p-0 m-0 fw-bold">(FOR USE IN TREASURY/PAY AND ACCOUNTS OFFICE ONLY)</p>
+            </div>
+            <p class="p-0 m-0 py-2 mt-4 ms-3">Pay
+                Rs________________________________________________________________________(Rupees_____________________________)by
+                cash/cheque/Account credit</p>
+            <div class="d-flex mt-3">
+                <p class="m-0 p-0 col-7"></p>
+                <p class="p-0 m-0">Treasury Officer/PAY AND ACCOUNTS Officer</p>
+            </div>
+            <div class="ms-4">
+                <p class="p-0 fw-bold m-0">Purpose</p>
+                <p class="p-0 fw-normal m-0 mt-1">For the month of January</p>
+                <p class="p-0 fw-bold py-2 m-0 mt-1">Rupees</p>
+            </div>
+        </div>
+        <div class="mt-2 mx-3">
+            <h5>Designation of Sanction Authority:Commissioner Of Police Hyderabad City OFFICER,T.S HYD.</h5>
+            <p>Note:Original Sanction details should be enclosed</p>
+        </div>
+        <!--budget particulars-->
+        <div class="border mx-2">
+            <h5 class="fw-bold text-center mt-4">BUDGET PARTICULARS</h5>
+            <div class="d-flex mt-4 p-3">
+                <p class="p-0 m-0 col-7 fw-bold">Budget Provided:</p>
+                <p class="p-0 m-0 col-2">12,00,000.00</p>
+            </div>
+            <div class="d-flex p-3">
+                <p class="p-0 m-0 col-7 fw-bold">Quarter Budget Allowance:</p>
+                <p class="p-0 m-0 col-2">12,00,000.00</p>
+            </div>
+            <div class="d-flex p-3">
+                <p class="p-0 m-0 col-7 fw-bold">Expenditure Including this bill:</p>
+                <p class="p-0 m-0 col-2">12,00,000.00</p>
+            </div>
+            <div class="d-flex p-3">
+                <p class="p-0 m-0 col-7 fw-bold">In Transit:</p>
+                <p class="p-0 m-0 col-2">00</p>
+            </div>
+            <div class="d-flex p-3">
+                <p class="p-0 m-0 col-7 fw-bold">Balance:<span class="fw-normal">(Balance/Qtr Allowance)</span></p>
+                <p class="p-0 m-0 col-2">12,00,000.00</p>
+            </div>
+            <div class="d-flex justify-content-end mt-2 p-3">
+                DDO's signature*
+            </div>
+        </div>
+        <!--Non drawal certificate-->
+        <div class=" border mt-3 mx-2">
+            <h5 class="text-center fw-bold mt-2">Non-Drawal Certificate</h5>
+            <p class="p-1">Certified that no amount either in pertaining to the bill have been drawn an note to the
+                effect have been recorded in the office copy and preserved in this office</p>
+            <div class="d-flex justify-content-end mt-4 p-3">
+                DDO's signature*
+            </div>
+        </div>
+        <!--budget particulars-->
+        <div class="border p-2 mt-3 mx-2">
+            <h6 class="fw-bold mt-2">Budget Particulars</h6>
+            <p class="mt-2">1._________________Yearly Estimated Budget Rs______________</p>
+            <p class="mt-2">2._________________Amount including this bill Rs______________</p>
+            <p class="mt-2">3.Balance_________________Rs______________</p>
+            <p class="mt-4">Passed for<u>Rs.1,000.00</u> Rupees <u>ONE THOUSAND Only</u> Paid By
+                Cash/Adjustment/Cheque/Draft</p>
+            <div class="d-flex justify-content-end mt-5 p-3">
+                DDO's signature*
+            </div>
+        </div>
+        <!--Signature-->
+        <div class="col-4 border border-2 mt-3 mx-2">
+            <p class="p-0 m-0 fw-bold p-1">Signature Valid</p>
+            <p class="p-0 m-0 fw-bold p-1 mt-1">G.SATHYANARAYANA</p>
+            <p class="p-0 m-0  p-1">(Asst Accounts Officer)</p>
+            <p class="p-0 m-0 p-1">Dual Authentication:13-02-2023 11:18AM</p>
+        </div>
+        <div class="mt-2"></div>
+    </div>
+    <div class="d-flex justify-content-center mt-5" id="printbtn">
+        <a class="btn btn-success text-white" onclick="window.print()">Print</a>
+    </div>
+</div>

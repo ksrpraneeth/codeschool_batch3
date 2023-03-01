@@ -21,7 +21,7 @@ CREATE TABLE agency(
 
 //FORM NUMBER
 
-CREATE TABLE form_number(
+CREATE TABLE form(
     id SERIAL PRIMARY KEY,
     form_number int(50)
     );
@@ -64,9 +64,9 @@ CREATE TABLE form_hoa mapping(
     hoa_id int constraint fk_hoa REFERENCES hoa(id),
 );
 
-//BILLS
+//TRANSACTION
 
-CREATE TABLE bills(
+CREATE TABLE transaction(
     id SERIAL PRIMARY KEY,
     form_type int;
     hoa VARCHAR(20);
@@ -81,7 +81,7 @@ CREATE TABLE bills(
 
 //ONE BILL CAN HAVE MANY AGENCIES(Eg materials bill can have stationery,paper etc agencies)
 
-CREATE TABLE bill_agency(
+CREATE TABLE transaction_agency(
     id SERIAL PRIMARY KEY,
     bill_id int constraint fk_bills REFERENCES bills(id),
     hoa VARCHAR(20);
@@ -110,4 +110,13 @@ CREATE TABLE scrutiny(
    id SERIAL PRIMARY KEY,
        form_type_id int constraint fk_form_type REFERENCES form_type(id),
        scrutiny_desc VARCHAR(255);
+       );
+
+//SCRUITNY ITEM QUESTIONS AND ANSWER
+
+CREATE TABLE scrutiny_answers(
+   id SERIAL PRIMARY KEY,
+     bill_id int constraint fk_bill REFERENCES bill(id),
+       question VARCHAR(255);
+       answer VARCHAR(10);
        );
