@@ -1,0 +1,249 @@
+<section class="container-fluid min-vh-100"
+    style="background-color: white; border-radius: 5px; font-size: 15px; height: 100%;  "
+    ng-controller="billEntryController">
+    <div class="row m-1 p-2" style="background-color:#cee5ff;color:#205db0 ; border-radius: 1px;font-weight: bold;">
+        <div class="col-md-12">Form-47-Supplimentary Bills</div>
+    </div>
+
+    <div class="row py-1 m-1">
+        <div class="col-md-8 p-1" style="background-color: #f9f9f9; border-radius: 5px;">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="bill" id="inlineRadio1" value="option1">
+                <label class="form-check-label" for="inlineRadio1">FORM-47-Salary BIlls </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="bill" id="inlineRadio1" value="option1" checked>
+                <label class="form-check-label" for="inlineRadio1">Other Bills</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="bill" id="inlineRadio1" value="option1">
+                <label class="form-check-label" for="inlineRadio1">Form-47-Supplimentary Bills</label>
+            </div>
+        </div>
+    </div>
+    <div class="row p-1 m-1">
+        <div class="col-md-3 "><label for=""><b>Select Bill Type</b><span class="text-danger">*</span> :</label></div>
+        <div class="col-md-5"><select class="form-select" aria-label="Default select example" ng-model="form_type_id"
+                ng-change="formTypeChange(form_type_id)">
+                <option selected="selected" disabled value="">Select Bill Type</option>
+                <option>Increment Arrears</option>
+
+            </select></div>
+
+    </div>
+    <div class="row p-1 m-1">
+        <div class="col-md-3"><b>Manual Bill Cut-off date</b></div>
+        <div class="col-md-5">01-11-2018</div>
+    </div>
+    <div class="row p-1 m-1">
+        <div class="col-md-3"><b>FORM NO</b></div>
+        <div class="col-md-5">47</div>
+    </div>
+
+    <div class="row p-1 m-1">
+
+        <div class="col-md-3"><b>Emp Search Filter Type:</b></div>
+        <div class="col-md-5 px-2">
+            <div style="background-color: #f9f9f9; border-radius: 5px;" class="py-1 px-2">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="entryType" id="inlineRadio1" value="option1">
+                    <label class="form-check-label" for="inlineRadio1">Bill ID</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="entryType" id="inlineRadio1" value="option1"
+                        checked>
+                    <label class="form-check-label" for="inlineRadio1">EMPCODE</label>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row p-1 m-1">
+        <div class="col-md-3 "><label for="empcode"><b>Enter Employee Code:</b><span class="text-danger">*</span>
+            </label></div>
+        <div class="col-md-4"><input type="text" class="form-control" id="empcode" ng-model="empCode">
+            <div ng-bind="agencyAccountNumberError" class="text-danger"></div>
+        </div>
+        <div class="col-md-3"><button type="button" class="btn" style="background-color: #0f3550; color: white;"
+                ng-click="searchEmpCode(empCode);">Search</button>
+        </div>
+
+    </div>
+    <div ng-show="employeeDetailHide">
+        <div class="row p-1 m-1">
+            <div class="col-md-3"><b>Employee</b></div>
+            <div class="col-md-4">{{employeeDetails.emp_name}}</div>
+        </div>
+        <div class="row p-1 m-1" style="font-weight: bold;">
+            <div class="col-md-3">Select Dates</div>
+            <div class="col-md-3"><input type="date" id="date" name="start" ng-model="startdate"></div>
+            <div class="col-md-3"><input type="date" id="date" name="end" ng-model="enddate"></div>
+        </div>
+        <div class="row p-1 m-1">
+
+            <div class="col-md-3"><b>Add Type:</b></div>
+            <div class="col-md-5 px-2">
+                <div style="background-color: #f9f9f9; border-radius: 5px;" class="py-1 px-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="entryType" id="inlineRadio1"
+                            ng-click="earnings();" value="option1">
+                        <label class="form-check-label" for="inlineRadio1">Earning</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="entryType" id="inlineRadio1" value="option1"
+                            ng-click="deductions();">
+                        <label class="form-check-label" for="inlineRadio1">Deductions</label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row p-1 m-1">
+            <div class="col-md-3"><label for=""><b> Select Type</b><span class="text-danger">*</span> :</label></div>
+            <div class="col-md-5"><select class="form-select" aria-label="Default select example" ng-model="edType"
+                    ng-change="formTypeChange(form_type_id)">
+                    <option selected="selected" disabled value="">Select</option>
+                    <option ng-repeat="data in optionArr" value="{{data.name}}">{{data.name}}</option>
+
+                </select></div>
+
+        </div>
+        <div class="row p-1 m-1">
+            <div class="col-md-3">Enter Amount</div>
+            <div class="col-md-2"><input type="number" class="form-control" id="basic-input"
+                    placeholder="Enter value here" ng-model="amount">
+            </div>
+            <div class="col-md-2"><button type="button" class="btn btn-primary"
+                    ng-click="addAmount(amount,edType,startdate,enddate);">Add</button></div>
+        </div>
+        <div class="table-responsive">
+            <table class="table  table-bordered ">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th colspan="2" style="text-align: center;">Due Particular</th>
+                        <th colspan="2" style="text-align: center;">Drawn Particular</th>
+                        <th colspan="2" style="text-align: center;">Difference</th>
+                        <th colspan="3"></th>
+                    </tr>
+                    <tr>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Earning(in RS)</th>
+                        <th>Deduction(in RS)</th>
+                        <th colspan>Earning(in RS)</th>
+                        <th>Deduction(in RS)</th>
+                        <th>Earning(in RS)</th>
+                        <th>Deduction(in RS)</th>
+                        <th>Total Gross(in RS)</th>
+                        <th>Total Deduction(in RS)</th>
+                        <th>Total Net(in Rs)</td>
+
+                    </tr>
+
+                </thead>
+                <tbody>
+                    <tr ng-repeat="data in employeeBillList">
+                        <td></td>
+                        <td></td>
+                        <td>{{data.edType}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                    </tr>
+                    <tr ng-repeat="data in employeeBillList">
+                        <td>{{data.startdate | date:dd-mm-yy}}</td>
+                        <td>{{data.enddate | date:dd-mm-yy}}</td>
+                        <td>{{data.amount}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-2"></div>
+            <div class="col-md-2">Due Particular</div>
+            <div class="col-md-2">Drawn Particular</div>
+
+        </div>
+
+        <div class="row"></div>
+        <div class="row p-1 m-1">
+            <div class="col-md-5"><b>NET EARNINGS AND DEDUCTION</b></div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-5">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+
+                            <th scope="col">Earnings</th>
+                            <th scope="col">Net Amount(in rs.)</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Deductions</th>
+                            <th scope="col">Net Amount(in rs.)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center align-items-center">
+            <button type="button" class="btn btn-primary">ADD EMPLOYEE TO THE BILL</button>
+        </div>
+    </div>
+
+
+
+</section>
