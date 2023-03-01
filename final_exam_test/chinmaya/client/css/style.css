@@ -1,0 +1,20 @@
+body{
+    background-color: #e2e2e2;
+}
+#addAgencyHeader{
+    border-top-left-radius:10px ;
+    color: #205db0;
+    background-color: #cee5ff;
+    font-weight: 700;
+    font-size: 18px;
+    }
+
+    .radio-button-container{
+        background-color: #e4e4e4;
+        border-radius: 5px;
+        border: 1px solid #dfdfdf;
+    }
+
+    .print-bill-heading{
+font-size: 14px;
+    }
