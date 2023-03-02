@@ -1,0 +1,73 @@
+<div class="d-flex align-items-center justify-content-between header p-2">
+    <div class="left d-flex">
+        <div class="brand me-3">
+            <img
+                src="./assets/images/ifmis-logo.png"
+                alt=""
+                class="d-none d-md-block"
+            />
+            <img
+                src="./assets/images/govt_logo.png"
+                alt=""
+                class="d-block d-md-none"
+            />
+        </div>
+        <div class="buttonsGroup d-flex">
+            <div class="d-flex gap-2">
+                <button
+                    class="btn btn-secondary rounded-0"
+                    ng-click="sidebarToggle = !sidebarToggle"
+                >
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <button class="btn btn-secondary rounded-0">
+                    <i class="fa-solid fa-home"></i>
+                    <p class="d-none d-md-inline">Modules</p>
+                </button>
+                <button class="btn btn-secondary rounded-0 d-none d-md-block">
+                    <i class="fa-solid fa-user"></i>
+                    <p class="m-0 d-inline">Profile</p>
+                </button>
+                <button class="btn btn-secondary rounded-0 d-none d-md-block">
+                    <i class="fa-solid fa-sign-out"></i>
+                    <p class="m-0 d-inline">Logout</p>
+                </button>
+            </div>
+            <div class="lastLogin text-white fs-7 ms-3 d-none d-md-block">
+                <p class="m-0">Las Login:</p>
+                <p class="m-0">13-Feb-2023</p>
+                <p class="m-0">02:16 PM</p>
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        <div class="dropdown">
+            <button
+                class="btn btn-secondary dropdown-toggle d-flex align-items-center gap-2 rounded-0"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+            >
+                <i class="fas fa-user"></i>
+                <div class="fs-7 text-start d-none d-md-block">
+                    <p class="m-0">Welcome SAMPATH BANDLA</p>
+                    <p class="m-0">(L300070800)</p>
+                </div>
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="dropdown-item" href="#">
+                        <i class="fas fa-wrench"></i>
+                        <span>Profile Settings</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="#">
+                        <i class="fas fa-sign-out"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

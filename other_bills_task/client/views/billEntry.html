@@ -1,0 +1,57 @@
+<div class="bg-white">
+    <div class="title p-2 rounded-0 m-0">
+        <p class="m-0 fw-bold">OTHER BILLS</p>
+    </div>
+
+    <div class="p-2">
+        <!-- Bill Type Radio Buttons -->
+        <div
+            class="billTypes col-12 col-md-10 col-lg-8 typesMenu p-2 border rounded-2 mt-3 d-flex align-items-center gap-3 flex-wrap"
+        >
+            <!-- Salary Bill Radio -->
+            <div class="form-check nowrap">
+                <input
+                    class="form-check-input"
+                    type="radio"
+                    value="salaryBill"
+                    ng-model="billTypeRadio"
+                    id="salaryBillRadio"
+                />
+                <label class="form-check-label" for="salaryBillRadio">
+                    FORM 47 - Salary Bills
+                </label>
+            </div>
+
+            <!-- Other Bill Radio -->
+            <div class="form-check">
+                <input
+                    class="form-check-input"
+                    type="radio"
+                    id="otherBillRadio"
+                    value="otherBill"
+                    ng-model="billTypeRadio"
+                />
+                <label class="form-check-label" for="otherBillRadio">
+                    Other Bills
+                </label>
+            </div>
+
+            <!-- Supplementary Bill Radio -->
+            <div class="form-check">
+                <input
+                    class="form-check-input"
+                    type="radio"
+                    id="supplementaryBillRadio"
+                    value="supplementaryBill"
+                    ng-model="billTypeRadio"
+                />
+                <label class="form-check-label" for="supplementaryBillRadio">
+                    FORM 47 - Supplementary Bills
+                </label>
+            </div>
+        </div>
+
+        <other-bill-directive></other-bill-directive>
+    </div>
+</div>
+

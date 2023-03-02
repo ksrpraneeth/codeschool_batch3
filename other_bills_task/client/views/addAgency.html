@@ -1,0 +1,480 @@
+<div class="bg-white rounded-1">
+    <div class="title p-2 rounded-0 m-0">
+        <p class="m-0 fw-bold">ADD OTHER ESTABLISHMENT AGENCY</p>
+    </div>
+
+    <div class="form p-2 mt-2">
+        <!-- Options -->
+        <div
+            class="d-flex gap-3 p-2 col-12 col-md-10 col-lg-8 typesMenu rounded"
+        >
+            <div class="form-check">
+                <input
+                    class="form-check-input"
+                    type="radio"
+                    name="flexRadioDefault"
+                    id="flexRadioDefault2"
+                    value="AddAgency"
+                    ng-model="radioSelect"
+                    ng-click="clearData()"
+                />
+                <label class="form-check-label" for="flexRadioDefault2">
+                    Add Single Agency
+                </label>
+            </div>
+            <div class="form-check">
+                <input
+                    class="form-check-input"
+                    type="radio"
+                    name="flexRadioDefault"
+                    id="flexRadioDefault1"
+                    value="EditAgency"
+                    ng-model="radioSelect"
+                    ng-click="clearData()"
+                />
+                <label class="form-check-label" for="flexRadioDefault1">
+                    Edit Single Agency
+                </label>
+            </div>
+        </div>
+
+        <!-- Add Agency -->
+        <div id="addAgency" ng-if="radioSelect=='AddAgency'" class="mt-3">
+            <div class="warning p-2">
+                You can see agency status report for the agencies you have added
+                in Reports => Agencies Details report
+            </div>
+
+            <div class="border rounded-2 col-12 col-md-10 col-lg-8 p-3 mt-3">
+                <p class="m-0 fw-semibold">Bank Details</p>
+                <hr class="my-1" />
+
+                <!-- Agency Name -->
+                <div class="row mt-3 align-items-center">
+                    <div class="col-12 col-md-4">
+                        <label for="agencyName" class="fw-semibold">
+                            Agency Name
+                            <span class="text-danger">*</span>
+                            :
+                        </label>
+                    </div>
+                    <div class="col-12 col-md-8">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="agencyName"
+                            ng-model="addAgency.agency_name"
+                            ng-change="errors.agency_name=[]"
+                            ng-class="{'is-invalid': errors['agency_name'].length}"
+                        />
+                        <p
+                            class="text-danger"
+                            ng-repeat="error in errors.agency_name"
+                        >
+                            {{error}}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Bank Account Number -->
+                <div class="row mt-3 align-items-center">
+                    <div class="col-12 col-md-4">
+                        <label for="bankAcNo" class="fw-semibold">
+                            Bank Account Number
+                            <span class="text-danger">*</span>
+                            :
+                        </label>
+                    </div>
+                    <div class="col-12 col-md-8">
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="bankAcNo"
+                            ng-model="addAgency.account_number"
+                            ng-blur="checkAccountNumber()"
+                            ng-change="errors.account_number=[]"
+                            ng-class="{'is-invalid': errors['account_number'].length}"
+                            onkeypress="alphaNumericOnly(event)"
+                        />
+                        <p
+                            class="text-danger"
+                            ng-repeat="error in errors.account_number"
+                        >
+                            {{error}}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Confirm Bank Account Number -->
+                <div class="row mt-3 align-items-center">
+                    <div class="col-12 col-md-4">
+                        <label for="confirmBankAcNo" class="fw-semibold">
+                            Confirm Bank Account Number
+                            <span class="text-danger">*</span>
+                            :
+                        </label>
+                    </div>
+                    <div class="col-12 col-md-8">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="confirmBankAcNo"
+                            ng-model="addAgency.confirm_account_number"
+                            ng-blur="validateAccountNumbers()"
+                            ng-change="errors.confirm_account_number=[]"
+                            ng-class="{'is-invalid': errors['confirm_account_number'].length}"
+                            onkeypress="alphaNumericOnly(event)"
+                        />
+                        <p
+                            class="text-danger"
+                            ng-repeat="error in errors.confirm_account_number"
+                        >
+                            {{error}}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- GST No -->
+                <div class="row mt-3 align-items-center">
+                    <div class="col-12 col-md-4">
+                        <label for="gstNumber" class="fw-semibold">
+                            GST No:
+                        </label>
+                    </div>
+                    <div class="col-12 col-md-8">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="gstNumber"
+                            ng-model="addAgency.gst_no"
+                            ng-change="errors.gst_no=[]"
+                            ng-class="{'is-invalid': errors['gst_no'].length}"
+                        />
+                        <p
+                            class="text-danger"
+                            ng-repeat="error in errors.gst_no"
+                        >
+                            {{error}}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-primary bg-opacity-10 p-3 mt-3">
+                    <!-- IFSC Code -->
+                    <div class="row p-2 align-items-center">
+                        <div class="col-12 col-md-4">
+                            <label for="ifscCode" class="fw-semibold">
+                                Enter IFSC Code:
+                                <span class="text-danger">*</span>
+                            </label>
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <div class="d-flex align-items-center">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="ifscCode"
+                                    ng-model="addAgency.ifsc_code"
+                                    ng-change="ifscCodeChanged()"
+                                    ng-class="{'is-invalid': errors['ifsc_code'].length}"
+                                    onkeypress="alphaNumericOnly(event)"
+                                />
+                                <button
+                                    ng-click="getIfscCodeDetails(addAgency.ifsc_code)"
+                                    class="btn btn-dark searchBtn ms-2"
+                                >
+                                    Search
+                                </button>
+                            </div>
+                            <p
+                                class="text-danger"
+                                ng-repeat="error in errors.ifsc_code"
+                            >
+                                {{error}}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Bank Name -->
+                    <div class="row p-2 align-items-center">
+                        <div class="col-12 col-md-4">
+                            <span class="fw-semibold"> Bank Name </span>
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <p class="m-0" ng-if="ifscCodeDetails.bank_name">
+                                {{ifscCodeDetails.bank_name}}
+                            </p>
+                            <p class="m-0" ng-if="!ifscCodeDetails.bank_name">
+                                -
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Bank State -->
+                    <div class="row p-2 align-items-center">
+                        <div class="col-12 col-md-4">
+                            <span class="fw-semibold"> State </span>
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <p class="m-0" ng-if="ifscCodeDetails.state">
+                                {{ifscCodeDetails.state}}
+                            </p>
+                            <p class="m-0" ng-if="!ifscCodeDetails.state">-</p>
+                        </div>
+                    </div>
+
+                    <!-- Bank Branch -->
+                    <div class="row p-2 align-items-center">
+                        <div class="col-12 col-md-4">
+                            <span class="fw-semibold"> Branch </span>
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <p class="m-0" ng-if="ifscCodeDetails.branch">
+                                {{ifscCodeDetails.branch}}
+                            </p>
+                            <p class="m-0" ng-if="!ifscCodeDetails.branch">-</p>
+                        </div>
+                    </div>
+
+                    <!-- Bank IFSC Code -->
+                    <div class="row p-2 align-items-center">
+                        <div class="col-12 col-md-4">
+                            <span class="fw-semibold"> IFSC Code </span>
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <p class="m-0" ng-if="ifscCodeDetails.ifsc_code">
+                                {{ifscCodeDetails.ifsc_code}}
+                            </p>
+                            <p class="m-0" ng-if="!ifscCodeDetails.ifsc_code">
+                                -
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Add New Agency -->
+            <div class="d-flex align-items-center justify-content-center">
+                <button
+                    class="btn btn-dark searchBtn fw-semibold mt-3"
+                    ng-click="addNewAgency()"
+                >
+                    ADD NEW AGENCY
+                </button>
+            </div>
+        </div>
+
+        <!-- Edit Agency -->
+        <div ng-show="radioSelect=='EditAgency'" class="mt-3 p-2">
+            <div class="border rounded-2 col-12 col-md-10 col-lg-8 p-3">
+                <!-- Search Bank Ac No -->
+                <div
+                    class="d-flex p-2 align-items-center gap-2 flex-wrap pb-5"
+                >
+                    <label for="editBankAcNo" class="fw-semibold">
+                        Bank Ac No:
+                    </label>
+                    <div>
+                        <input
+                            type="text"
+                            class="form-control"
+                            ng-model="acNoSearch"
+                            onkeypress="alphaNumericOnly(event)"
+                        />
+                    </div>
+                    <button
+                        class="btn btn-dark searchBtn text-nowrap fw-semibold"
+                        ng-click="getAgency()"
+                    >
+                        SEARCH AGENCY
+                    </button>
+                </div>
+
+                <div class="pb-2 border-top-bottom-dashed" ng-if="agencyFound">
+                    <!-- Name -->
+                    <div class="row p-2 align-items-center">
+                        <div class="col-12 col-md-4">
+                            <span class="fw-semibold"> Name </span>
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <p class="m-0">{{editAgency.agency_name}}</p>
+                        </div>
+                    </div>
+
+                    <!-- Bank Ac No -->
+                    <div class="row p-2 align-items-center">
+                        <div class="col-12 col-md-4">
+                            <span class="fw-semibold"> Bank Ac No. </span>
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <p class="m-0">{{editAgency.account_number}}</p>
+                        </div>
+                    </div>
+
+                    <!-- IFSC -->
+                    <div class="row p-2 align-items-center">
+                        <div class="col-12 col-md-4">
+                            <span class="fw-semibold"> IFSC: </span>
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <p class="m-0">{{editAgency.ifsc_code}}</p>
+                        </div>
+                    </div>
+
+                    <!-- PAN -->
+                    <div class="row p-2 align-items-center">
+                        <div class="col-12 col-md-4">
+                            <span class="fw-semibold"> GST IN: </span>
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <p class="m-0">{{editAgency.gst_no}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="" ng-if="agencyFound">
+                    <!-- Agency Name -->
+                    <div class="row mt-3 align-items-center">
+                        <div class="col-12 col-md-4">
+                            <label for="editAgencyName" class="fw-semibold">
+                                New Agency Name :
+                            </label>
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <input
+                                type="text"
+                                class="form-control"
+                                ng-model="editAgency.newAgencyName"
+                            />
+                            <p
+                                class="text-danger"
+                                ng-repeat="error in errors.agency_name"
+                            >
+                                {{error}}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- GSTIN -->
+                    <div class="row mt-3 align-items-center">
+                        <div class="col-12 col-md-4">
+                            <label for="editGst" class="fw-semibold">
+                                GSTIN :
+                            </label>
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="editGst"
+                                ng-model="editAgency.newGstNo"
+                            />
+                            <p
+                                class="text-danger"
+                                ng-repeat="error in errors.gst"
+                            >
+                                {{error}}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- IFSC Code -->
+                    <div class="row mt-3 align-items-center">
+                        <div class="col-12 col-md-4">
+                            <label for="editIfscCode" class="fw-semibold">
+                                New IFSC:
+                            </label>
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <div class="d-flex align-items-center">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="editIfscCode"
+                                    ng-model="editAgency.newIfscCode"
+                                    onkeypress="alphaNumericOnly(event)"
+                                />
+                                <button
+                                    class="btn btn-dark rounded-0 searchBtn ms-2"
+                                    ng-click="getIfscCodeDetails(editAgency.newIfscCode)"
+                                >
+                                    Search
+                                </button>
+                            </div>
+                            <p
+                                class="text-danger"
+                                ng-repeat="error in errors.ifsc_code"
+                            >
+                                {{error}}
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        class="border p-3 mt-3"
+                        ng-if="ifscCodeDetails.ifsc_code"
+                    >
+                        <!-- Bank Name -->
+                        <div class="row p-2 align-items-center">
+                            <div class="col-12 col-md-4">
+                                <span class="fw-semibold"> Bank Name </span>
+                            </div>
+                            <div class="col-12 col-md-8">
+                                <p
+                                    class="m-0"
+                                    ng-if="ifscCodeDetails.bank_name"
+                                >
+                                    {{ifscCodeDetails.bank_name}}
+                                </p>
+                                <p
+                                    class="m-0"
+                                    ng-if="!ifscCodeDetails.bank_name"
+                                >
+                                    -
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Bank State -->
+                        <div class="row p-2 align-items-center">
+                            <div class="col-12 col-md-4">
+                                <span class="fw-semibold"> State </span>
+                            </div>
+                            <div class="col-12 col-md-8">
+                                <p class="m-0" ng-if="ifscCodeDetails.state">
+                                    {{ifscCodeDetails.state}}
+                                </p>
+                                <p class="m-0" ng-if="!ifscCodeDetails.state">
+                                    -
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Bank Branch -->
+                        <div class="row p-2 align-items-center">
+                            <div class="col-12 col-md-4">
+                                <span class="fw-semibold"> Branch </span>
+                            </div>
+                            <div class="col-12 col-md-8">
+                                <p class="m-0" ng-if="ifscCodeDetails.branch">
+                                    {{ifscCodeDetails.branch}}
+                                </p>
+                                <p class="m-0" ng-if="!ifscCodeDetails.branch">
+                                    -
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3">
+                        <button
+                            class="btn btn-success fw-semibold"
+                            ng-click="updateAgency()"
+                        >
+                            UPDATE AGENCY
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style></style>

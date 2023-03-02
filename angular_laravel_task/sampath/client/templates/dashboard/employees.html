@@ -1,0 +1,8 @@
+<div ng-controller="TabController">
+    <ul class="nav nav-tabs">
+        <li class="nav-item" ng-repeat="tab in tabs">
+            <a class="nav-link" ui-sref-active="active" ui-sref="{{tab.state}}">{{tab.title}}</a>
+        </li>
+    </ul>
+    <ui-view></ui-view>
+</div>

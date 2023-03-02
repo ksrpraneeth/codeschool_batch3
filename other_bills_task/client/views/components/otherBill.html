@@ -1,0 +1,758 @@
+<!-- Other Bill Div -->
+<div class="otherBillDiv" ng-show="billTypeRadio=='otherBill'">
+    <div class="col-12 col-md-10 col-lg-8">
+        <!-- Form No -->
+        <div class="row m-0 py-2 mt-2">
+            <div class="col-12 col-md-6 col-lg-5">
+                <label for="formNumber" class="fw-semibold"
+                    >Select Form No:</label
+                >
+            </div>
+            <div class="col-12 col-md-6 col-lg-7 p-0">
+                <select
+                    id="formNumber"
+                    class="form-select js-example-basic-single"
+                    ng-change="getFormTypes()"
+                    ng-model="formNumber"
+                >
+                    <option value="" hidden>Select Form Number</option>
+                    <option
+                        value="{{number.id}}"
+                        ng-repeat="number in formNumbers | filter: formNumberFilter"
+                    >
+                        {{number.form_number}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Form Type -->
+        <div class="row m-0 py-2 mt-2" ng-show="formTypes.length > 0">
+            <div class="col-12 col-md-6 col-lg-5">
+                <label for="formType" class="fw-semibold"
+                    >Select Form Type:</label
+                >
+            </div>
+            <div class="col-12 col-md-6 col-lg-7 p-0">
+                <select
+                    id="formType"
+                    class="form-select"
+                    ng-model="formType"
+                    ng-change="formTypeChanged()"
+                >
+                    <option value="" hidden>Select Form Type</option>
+                    <option
+                        value="{{number.id}}"
+                        ng-repeat="number in formTypes"
+                    >
+                        {{number.form_type}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Static Data Starts Here -->
+        <div class="row m-0 py-2 mt-2" ng-show="formType">
+            <div class="col-12 col-md-6 col-lg-5"></div>
+            <div
+                class="col-12 col-md-6 col-lg-7 p-0 d-flex align-items-center typesMenu p-2 rounded gap-2"
+            >
+                <div class="form-check">
+                    <input
+                        class="form-check-input"
+                        type="radio"
+                        name="adjustment"
+                        id="nonAdjustment"
+                        checked
+                    />
+                    <label class="form-check-label" for="nonAdjustment">
+                        Non-adjustment
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input
+                        class="form-check-input"
+                        type="radio"
+                        name="adjustment"
+                        id="adjustment"
+                    />
+                    <label class="form-check-label" for="adjustment">
+                        Adjustment
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row m-0 py-2 mt-2" ng-show="formType">
+            <div class="col-12 col-md-6 col-lg-5 fw-semibold">Search By:</div>
+            <div
+                class="col-12 col-md-6 col-lg-7 p-0 d-flex align-items-center typesMenu p-2 rounded gap-2"
+            >
+                <div class="form-check">
+                    <input
+                        class="form-check-input"
+                        type="radio"
+                        name="searchBy"
+                        id="searchByAcNo"
+                        checked
+                    />
+                    <label class="form-check-label" for="searchByAcNo">
+                        Account Number
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row m-0 py-2 mt-2" ng-show="formType">
+            <div class="col-12 col-md-6 col-lg-5 fw-semibold">
+                Select Entry Type:
+            </div>
+            <div
+                class="col-12 col-md-6 col-lg-7 p-0 d-flex align-items-center typesMenu p-2 rounded gap-2"
+            >
+                <div class="form-check">
+                    <input
+                        class="form-check-input"
+                        type="radio"
+                        name="entryType"
+                        id="singleEntry"
+                        checked
+                    />
+                    <label class="form-check-label" for="singleEntry">
+                        Single
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input
+                        class="form-check-input"
+                        type="radio"
+                        name="entryType"
+                        id="bulkEntry"
+                    />
+                    <label class="form-check-label" for="bulkEntry">
+                        Bulk
+                    </label>
+                </div>
+            </div>
+        </div>
+        <!-- Static Data Ends Here -->
+
+        <!-- Agency Ac No -->
+        <div class="row m-0 py-2 mt-2" ng-show="formType">
+            <div class="col-12 col-md-6 col-lg-5">
+                <label for="formNumber" class="fw-semibold"
+                    >Enter Agency/Party A/c No:</label
+                >
+            </div>
+            <div class="col-12 col-md-6 col-lg-7 p-0">
+                <div class="d-flex align-items-center gap-2">
+                    <input
+                        type="text"
+                        ng-model="agencyAcNo"
+                        class="form-control"
+                        onkeypress="alphaNumericOnly(event)"
+                    />
+                    <button
+                        class="btn btn-dark searchBtn"
+                        ng-click="searchAgency()"
+                    >
+                        Search
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Account Details -->
+        <div
+            class="bg-lightBlue border rounded-2 mt-3 p-2"
+            ng-show="agencyFound"
+        >
+            <!-- Name -->
+            <div class="row p-2 align-items-center">
+                <div class="col-12 col-md-6 col-lg-5">
+                    <span class="fw-bold"> Name </span>
+                </div>
+                <div class="col-12 col-md-6 col-lg-7">
+                    <p class="m-0">{{agencyDetails.agency_name}}</p>
+                </div>
+            </div>
+
+            <!-- Bank Ac No -->
+            <div class="row p-2 align-items-center">
+                <div class="col-12 col-md-6 col-lg-5">
+                    <span class="fw-bold"> Account No. </span>
+                </div>
+                <div class="col-12 col-md-6 col-lg-7">
+                    <p class="m-0">{{agencyDetails.account_number}}</p>
+                </div>
+            </div>
+
+            <!-- Bank Name -->
+            <div class="row p-2 align-items-center">
+                <div class="col-12 col-md-6 col-lg-5">
+                    <span class="fw-bold"> BankName: </span>
+                </div>
+                <div class="col-12 col-md-6 col-lg-7">
+                    <p class="m-0">
+                        {{agencyDetails.ifsc_code_details.bank_name}}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Branch -->
+            <div class="row p-2 align-items-center">
+                <div class="col-12 col-md-6 col-lg-5">
+                    <span class="fw-bold"> Branch: </span>
+                </div>
+                <div class="col-12 col-md-6 col-lg-7">
+                    <p class="m-0">
+                        {{agencyDetails.ifsc_code_details.branch}}
+                    </p>
+                </div>
+            </div>
+
+            <!-- IFSC Code -->
+            <div class="row p-2 align-items-center">
+                <div class="col-12 col-md-6 col-lg-5">
+                    <span class="fw-bold"> IFSC Code: </span>
+                </div>
+                <div class="col-12 col-md-6 col-lg-7">
+                    <p class="m-0">{{agencyDetails.ifsc_code}}</p>
+                </div>
+            </div>
+
+            <!-- Gross Amount -->
+            <div class="row m-0 py-2 pe-2 mt-2" ng-show="formType">
+                <div class="col-12 col-md-6 col-lg-5">
+                    <label for="grossAmount" class="fw-bold">
+                        Gross
+                        <span class="text-danger">*</span>
+                    </label>
+                </div>
+                <div class="col-12 col-md-6 col-lg-7 p-0">
+                    <input
+                        type="text"
+                        ng-model="grossAmount"
+                        class="form-control"
+                        id="grossAmount"
+                        onkeypress="onlyNumbers(event)"
+                        ng-change="updateAgencyNet()"
+                    />
+                    <p
+                        class="m-0 text-danger"
+                        ng-repeat="error in errors.gross"
+                    >
+                        {{error}}
+                    </p>
+                </div>
+            </div>
+
+            <!-- PT Dedn Amount -->
+            <div class="row m-0 py-2 pe-2 mt-2" ng-show="formType">
+                <div class="col-12 col-md-6 col-lg-5">
+                    <label for="ptAmount" class="fw-bold">
+                        PT Dedn
+                        <span class="text-danger">*</span>
+                    </label>
+                    <small class="d-block fs-7">
+                        (Any Amount added in PT Dedn will be credited to DDO's
+                        account)
+                    </small>
+                </div>
+                <div class="col-12 col-md-6 col-lg-7 p-0">
+                    <input
+                        type="text"
+                        ng-model="ptAmount"
+                        class="form-control"
+                        id="ptAmount"
+                        onkeypress="onlyNumbers(event)"
+                        ng-change="updateAgencyNet()"
+                    />
+                    <p
+                        class="m-0 text-danger"
+                        ng-repeat="error in errors.ptAmount"
+                    >
+                        {{error}}
+                    </p>
+                </div>
+            </div>
+
+            <!-- TDS Amount -->
+            <div class="row m-0 py-2 pe-2 mt-2" ng-show="formType">
+                <div class="col-12 col-md-6 col-lg-5">
+                    <label for="tdsAmount" class="fw-bold">
+                        TDS(IT)
+                        <span class="text-danger">*</span>
+                    </label>
+                    <small class="d-block fs-7">
+                        (Any Amount added in TDS(IT) will be credited to DDO's
+                        account)
+                    </small>
+                </div>
+                <div class="col-12 col-md-6 col-lg-7 p-0">
+                    <input
+                        type="text"
+                        ng-model="tdsAmount"
+                        class="form-control"
+                        id="tdsAmount"
+                        onkeypress="onlyNumbers(event)"
+                        ng-change="updateAgencyNet()"
+                    />
+                    <p
+                        class="m-0 text-danger"
+                        ng-repeat="error in errors.tdsAmount"
+                    >
+                        {{error}}
+                    </p>
+                </div>
+            </div>
+
+            <!-- GST Amount -->
+            <div class="row m-0 py-2 pe-2 mt-2" ng-show="formType">
+                <div class="col-12 col-md-6 col-lg-5">
+                    <label for="gstAmount" class="fw-bold">
+                        GST
+                        <span class="text-danger">*</span>
+                    </label>
+                    <small class="d-block fs-7">
+                        (Any Amount added in GST will be credited to DDO's
+                        account)
+                    </small>
+                </div>
+                <div class="col-12 col-md-6 col-lg-7 p-0">
+                    <input
+                        type="text"
+                        ng-model="gstAmount"
+                        class="form-control"
+                        id="gstAmount"
+                        onkeypress="onlyNumbers(event)"
+                        ng-change="updateAgencyNet()"
+                    />
+                    <p
+                        class="m-0 text-danger"
+                        ng-repeat="error in errors.gstAmount"
+                    >
+                        {{error}}
+                    </p>
+                </div>
+            </div>
+
+            <!-- GIS Amount -->
+            <div class="row m-0 py-2 pe-2 mt-2" ng-show="formType">
+                <div class="col-12 col-md-6 col-lg-5">
+                    <label for="gisAmount" class="fw-bold">
+                        GIS
+                        <span class="text-danger">*</span>
+                    </label>
+                </div>
+                <div class="col-12 col-md-6 col-lg-7 p-0">
+                    <input
+                        type="text"
+                        ng-model="gisAmount"
+                        class="form-control"
+                        id="gisAmount"
+                        onkeypress="onlyNumbers(event)"
+                        ng-change="updateAgencyNet()"
+                    />
+                    <p
+                        class="m-0 text-danger"
+                        ng-repeat="error in errors.gisAmount"
+                    >
+                        {{error}}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Telangana Haritha Nidhi -->
+            <div class="row m-0 py-2 pe-2 mt-2" ng-show="formType">
+                <div class="col-12 col-md-6 col-lg-5">
+                    <label for="thnAmount" class="fw-bold">
+                        Telangana Haritha Nidhi
+                        <span class="text-danger">*</span>
+                    </label>
+                    <small class="d-block fs-7">
+                        (Any Amount added in Telangana Haritha Nidhi will be
+                        credited to Telangana Haritha Nidhi Account)
+                    </small>
+                </div>
+                <div class="col-12 col-md-6 col-lg-7 p-0">
+                    <input
+                        type="text"
+                        ng-model="thnAmount"
+                        class="form-control"
+                        id="thnAmount"
+                        onkeypress="onlyNumbers(event)"
+                        ng-change="updateAgencyNet()"
+                    />
+                    <p
+                        class="m-0 text-danger"
+                        ng-repeat="error in errors.thnAmount"
+                    >
+                        {{error}}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Agency Net Amount -->
+            <div class="row p-2 align-items-center">
+                <div class="col-12 col-md-6 col-lg-5">
+                    <span class="fw-bold"> Agency Net Amount: </span>
+                </div>
+                <div class="col-12 col-md-6 col-lg-7">
+                    <p class="m-0">{{agencyNet}}</p>
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="d-flex align-items-center justify-content-center">
+                <button class="btn searchBtn btn-dark" ng-click="addAgency()">
+                    ADD
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="" ng-show="agencyList.length > 0">
+        <!-- Agency List Table -->
+        <div class="my-3">
+            <div class="d-flex justify-content-between mb-2 align-items-center">
+                <h6 class="m-0 fw-bolder">AGENCY/EMPLOYEE LIST</h6>
+                <button class="btn btn-success">
+                    <i class="fas fa-print"></i>
+                    <span>OFFICE COPY</span>
+                </button>
+            </div>
+            <hr class="m-0 mb-2" />
+            <div class="overflow-auto">
+                <table class="table table-bordered overflow-auto">
+                    <thead>
+                        <tr class="table-primary title smallText">
+                            <th>S.No</th>
+                            <th>Name/ GST.No</th>
+                            <th>Bank Name</th>
+                            <th>Bank Branch</th>
+                            <th>IFSC Code</th>
+                            <th>A/c No.</th>
+                            <th>Gross(in Rs.)</th>
+                            <th>PT Dedn(in Rs.)</th>
+                            <th>TDS(IT)(in Rs.)</th>
+                            <th>GST(in Rs.)</th>
+                            <th>GIS(in Rs.)</th>
+                            <th>Telangana Haritha Nidhi(in Rs.)</th>
+                            <th>Net Amount(in Rs.)</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="agency in agencyList" class="smallText">
+                            <td>{{$index+1}}</td>
+                            <td>{{agency.agency_name}}</td>
+                            <td>{{agency.agency_bank_name}}</td>
+                            <td>{{agency.agency_bank_branch}}</td>
+                            <td>{{agency.agency_ifsc_code}}</td>
+                            <td>{{agency.agency_account_number}}</td>
+                            <td>{{agency.gross | indianRupees}}</td>
+                            <td>{{agency.pt | indianRupees}}</td>
+                            <td>{{agency.tds | indianRupees}}</td>
+                            <td>{{agency.gst | indianRupees}}</td>
+                            <td>{{agency.gis | indianRupees}}</td>
+                            <td>{{agency.thn | indianRupees}}</td>
+                            <td>{{agency.net | indianRupees}}</td>
+                            <td>
+                                <button
+                                    class="btn btn-sm btn-danger d-flex flex-nowrap align-items-center gap-2"
+                                    ng-click="agencyList.splice($index, 1)"
+                                >
+                                    <i class="fas fa-x"></i>
+                                    <span>Remove</span>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="fw-bold smallText">
+                            <td colspan="6" class="text-end">Total</td>
+                            <td>
+                                {{agencyList | sumOfAmount : 'gross' |
+                                indianRupees}}
+                            </td>
+                            <td>
+                                {{agencyList | sumOfAmount : 'pt' |
+                                indianRupees}}
+                            </td>
+                            <td>
+                                {{agencyList | sumOfAmount : 'tds' |
+                                indianRupees}}
+                            </td>
+                            <td>
+                                {{agencyList | sumOfAmount : 'gst' |
+                                indianRupees}}
+                            </td>
+                            <td>
+                                {{agencyList | sumOfAmount : 'gis' |
+                                indianRupees}}
+                            </td>
+                            <td>
+                                {{agencyList | sumOfAmount : 'thn' |
+                                indianRupees}}
+                            </td>
+                            <td>
+                                {{agencyList | sumOfAmount : 'net' |
+                                indianRupees}}
+                            </td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Warning -->
+        <div class="warning p-2">
+            If you don't find HOA for the bill please select
+            <strong>Other</strong> option
+        </div>
+
+        <!-- HOA and Reference Number -->
+        <div class="col-12 col-md-10 col-lg-8 mt-4">
+            <!-- Hoa -->
+            <div class="row m-0 align-items-center">
+                <div class="col-12 col-md-6 col-lg-5">
+                    <label for="headOfAccount" class="fw-bolder">
+                        Select Head of Account:
+                        <span class="text-danger">*</span>
+                    </label>
+                </div>
+                <div class="col-12 col-md-6 col-lg-7">
+                    <select
+                        ng-model="headOfAccount"
+                        id="headOfAccount"
+                        class="form-select"
+                    >
+                        <option value="">Select an Option</option>
+                        <option value="{{hoa.hoa}}" ng-repeat="hoa in hoas">
+                            {{hoa.hoa}}
+                        </option>
+                    </select>
+                    <p class="text-danger m-0" ng-repeat="error in errors.hoa">
+                        {{error}}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Reference Number -->
+            <div class="row m-0 align-items-center mt-3">
+                <div class="col-12 col-md-6 col-lg-5">
+                    <label for="referenceNumber" class="fw-bolder">
+                        Agency Reference Number
+                        <span class="text-danger">*</span>
+                    </label>
+                </div>
+                <div class="col-12 col-md-6 col-lg-7">
+                    <input
+                        type="text"
+                        class="form-control"
+                        ng-model="referenceNumber"
+                        id="referenceNumber"
+                    />
+                    <small class="fs-7"
+                        >* Enter phoneno of telephone bill, Water can number of
+                        water bill. etc..</small
+                    >
+                    <p
+                        class="text-danger m-0"
+                        ng-repeat="error in errors.reference_number"
+                    >
+                        {{error}}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Purpose -->
+            <div class="row m-0 align-items-center mt-3">
+                <div class="col-12 col-md-6 col-lg-5">
+                    <label for="purpose" class="fw-bolder">
+                        Purpose
+                        <span class="text-danger">*</span>
+                    </label>
+                </div>
+                <div class="col-12 col-md-6 col-lg-7">
+                    <input
+                        type="text"
+                        class="form-control"
+                        ng-model="purpose"
+                        id="purpose"
+                    />
+                    <p
+                        class="text-danger m-0"
+                        ng-repeat="error in errors.purpose"
+                    >
+                        {{error}}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scrutiny Items -->
+        <div class="my-3">
+            <h6 class="m-0 fw-bolder">SCRUTINY ITEMS</h6>
+            <hr class="m-0 my-2" />
+            <div class="overflow-auto mt-4">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="table-primary title smallText">
+                            <th>S.No</th>
+                            <th>Description</th>
+                            <th>Yes</th>
+                            <th>No</th>
+                            <th>N/A</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in scrutinyItems" class="smallText">
+                            <td>{{$index+1}}</td>
+                            <td>{{item.desc}}</td>
+                            <td>
+                                <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="{{'scrutinyItem'+$index}}"
+                                    ng-model="item.answer"
+                                    value="yes"
+                                />
+                            </td>
+                            <td>
+                                <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="{{'scrutinyItem'+$index}}"
+                                    ng-model="item.answer"
+                                    value="no"
+                                />
+                            </td>
+                            <td>
+                                <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="{{'scrutinyItem'+$index}}"
+                                    ng-model="item.answer"
+                                    value="na"
+                                />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Attachments -->
+        <div class="my-3">
+            <h6 class="m-0 fw-bolder">ATTACHMENTS</h6>
+            <hr class="m-0 my-2" />
+            <div class="overflow-auto mt-4">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="table-primary title smallText">
+                            <th>S.No</th>
+                            <th>Description</th>
+                            <th>Upload</th>
+                            <th>Upload Files</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="smallText">
+                            <td>1</td>
+                            <td>Other</td>
+                            <td>
+                                <input
+                                    class="form-control"
+                                    type="file"
+                                    id="formFile"
+                                />
+                                <div class="form-floating mt-3">
+                                    <textarea
+                                        class="form-control"
+                                        placeholder="Enter remarks here"
+                                        id="floatingTextarea2"
+                                        style="height: 100px"
+                                        ng-model="remark"
+                                    ></textarea>
+                                    <label for="floatingTextarea2"
+                                        >Remarks</label
+                                    >
+                                </div>
+                                <button
+                                    class="btn btn-success mt-3"
+                                    ng-click="addFile()"
+                                >
+                                    Add
+                                </button>
+                            </td>
+                            <td>
+                                <ul class="list-group">
+                                    <li
+                                        class="list-item d-flex align-items-center justify-content-between"
+                                        ng-repeat="attachment in attachments"
+                                    >
+                                        <div class="left">
+                                            <p class="m-0">
+                                                <i class="fas fa-file"></i>
+                                                {{attachment.name}}
+                                            </p>
+                                            <p class="m-0 text-warning">
+                                                {{attachment.remark}}
+                                            </p>
+                                        </div>
+                                        <div class="right">
+                                            <button
+                                                class="btn"
+                                                ng-click="attachments.splice($index, 1)"
+                                            >
+                                                <i class="fas fa-x"></i>
+                                            </button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- OTP Generate -->
+        <div class="" ng-hide="otpVerified">
+            <div class="d-flex gap-3">
+                <div class="">
+                    <select name="" class="form-select shadow-none rounded-0" id="">
+                        <option value="">Select Phone Number</option>
+                    </select>
+                </div>
+                <button class="btn btn-success btn-sm" ng-click="showOtp=true">
+                    GENERATE OTP
+                </button>
+            </div>
+            <div class="d-flex gap-3">
+                <div class="">
+                    <input
+                        type="text"
+                        ng-show="showOtp"
+                        value="12345"
+                        placeholder="OTP..."
+                        class="form-control mt-3"
+                    />
+                </div>
+                <button ng-show="showOtp" class="btn btn-success btn-sm mt-2" ng-click="verifyOtp()">
+                    Verify
+                </button>
+            </div>
+        </div>
+        <div class="text-success" ng-show="otpVerified">
+            Otp Verified
+        </div>
+
+        <hr />
+        <div class="d-flex align-items-center justify-content-center">
+            <button class="btn btn-dark searchBtn" ng-click="submitBill()">
+                SUBMIT BILL
+            </button>
+        </div>
+    </div>
+</div>

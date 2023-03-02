@@ -1,0 +1,74 @@
+<div
+    class="d-flex flex-column align-items-center mt-5"
+    ng-controller="LoginController"
+>
+    <h3 class="m-0 d-flex align-items-center">
+        <span class="bg-primary text-white px-1 rounded">IFMIS</span>
+    </h3>
+    <p class="fs-5 mt-2 m-0">Welcome to IFMIS</p>
+    <small class="text-secondary">
+        “The heaviest penalty for declining to rule is to be ruled by someone
+        inferior to yourself.” ― Plato, The Republic
+    </small>
+    <form ng-submit="login()" class="col-12 col-md-5 col-lg-3 mt-5">
+        <div class="form-floating mb-3">
+            <input
+                type="email"
+                class="form-control"
+                id="floatingInput"
+                placeholder="name@example.com"
+                ng-model="email"
+                ng-change="clearErrors('email')"
+                ng-class="{ 'is-invalid': formErrors.email }"
+            />
+            <label for="floatingInput">Email address</label>
+            <div
+                class="invalid-feedback"
+                ng-if="formErrors.email"
+                ng-repeat="error in formErrors.email"
+            >
+                {{ error }}
+            </div>
+        </div>
+        <div class="form-floating">
+            <input
+                type="password"
+                class="form-control"
+                id="floatingPassword"
+                placeholder="Password"
+                ng-model="password"
+                ng-change="clearErrors('password')"
+                ng-class="{ 'is-invalid': formErrors.password }"
+            />
+            <label for="floatingPassword">Password</label>
+            <div
+                class="invalid-feedback"
+                ng-if="formErrors.password"
+                ng-repeat="error in formErrors.password"
+            >
+                {{ error }}
+            </div>
+        </div>
+        <div class="d-flex justify-content-between mt-2">
+            <div class="form-group form-check">
+                <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="rememberMe"
+                    ng-model="rememberMe"
+                />
+                <label class="form-check-label" for="rememberMe"
+                    >Remember me</label
+                >
+            </div>
+            <a href="#" class="text-secondary">Forgot password?</a>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block mt-2">
+            Login
+        </button>
+        <div class="alert alert-danger mt-2" role="alert" ng-if="errorMessage">
+            {{ errorMessage }}
+        </div>
+    </form>
+    <p class="mt-4">Not registered yet? <a href="#">Sign up</a></p>
+</div>

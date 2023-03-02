@@ -1,0 +1,93 @@
+<div class="container vh-100" ng-controller="RegisterController">
+    <div class="d-flex justify-content-center align-items-center h-100">
+        <div class="">
+            <div class="d-flex justify-content-center">
+                <div class="">
+                    <img
+                        src="./../assets/images/logo.png"
+                        height="50px"
+                        alt=""
+                    />
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                <form ng-submit="register($event)" action="#" method="POST">
+                    <div class="input-group">
+                        <span class="input-group-text" id="usernameLabel">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                        <input
+                            type="email"
+                            class="form-control"
+                            placeholder="Email"
+                            aria-label="Email"
+                            aria-labelledby="usernameLabel"
+                            ng-model="email"
+                        />
+                    </div>
+                    <p
+                        class="m-0 text-danger"
+                        ng-repeat="error in errors.email"
+                    >
+                        {{error}}
+                    </p>
+                    <div class="input-group mt-3">
+                        <span class="input-group-text" id="passwordLabel">
+                            <i class="fas fa-key"></i>
+                        </span>
+                        <input
+                            type="password"
+                            class="form-control"
+                            placeholder="Password"
+                            aria-label="Password"
+                            aria-labelledby="passwordLabel"
+                            ng-model="password"
+                        />
+                    </div>
+                    <p
+                        class="m-0 text-danger"
+                        ng-repeat="error in errors.password"
+                    >
+                        {{error}}
+                    </p>
+                    <div class="input-group mt-3">
+                        <span class="input-group-text" id="userNameLabel">
+                            <i class="fas fa-user"></i>
+                        </span>
+                        <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Name"
+                            aria-label="Name"
+                            aria-labelledby="userNameLabel"
+                            ng-model="name"
+                        />
+                    </div>
+                    <p
+                        class="m-0 text-danger"
+                        ng-repeat="error in errors.name"
+                    >
+                        {{error}}
+                    </p>
+                    <div
+                        class="d-flex justify-content-center mt-3 login_container"
+                    >
+                        <button
+                            type="submit"
+                            name="button"
+                            class="btn w-100 btn-danger login_btn"
+                        >
+                            Register
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="mt-4">
+                <div class="d-flex justify-content-center links">
+                    Have an account?
+                    <a href="#" class="ml-2" ui-sref="login">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
