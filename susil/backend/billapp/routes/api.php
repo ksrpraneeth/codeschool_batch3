@@ -22,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/employeeDetails',[BillEntryController::class,'employeeDetails']);
 Route::post('/earningType',[BillEntryController::class,'earningType']);
 Route::post('/deductionType',[BillEntryController::class,'deductionType']);
+Route::post('/addEmployeeToBill',[BillEntryController::class,'addEmployeeToBill']);

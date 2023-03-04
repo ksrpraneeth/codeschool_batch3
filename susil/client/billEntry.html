@@ -100,10 +100,10 @@
         </div>
         <div class="row p-1 m-1">
             <div class="col-md-3"><label for=""><b> Select Type</b><span class="text-danger">*</span> :</label></div>
-            <div class="col-md-5"><select class="form-select" aria-label="Default select example" ng-model="edType"
+            <div class="col-md-5"><select class="form-select" aria-label="Default select example" ng-model="edType_id"
                     ng-change="formTypeChange(form_type_id)">
                     <option selected="selected" disabled value="">Select</option>
-                    <option ng-repeat="data in optionArr" value="{{data.name}}">{{data.name}}</option>
+                    <option ng-repeat="data in optionArr" value="{{data.id}}">{{data.name}}</option>
 
                 </select></div>
 
@@ -114,7 +114,7 @@
                     placeholder="Enter value here" ng-model="amount">
             </div>
             <div class="col-md-2"><button type="button" class="btn btn-primary"
-                    ng-click="addAmount(amount,edType,startdate,enddate);">Add</button></div>
+                    ng-click="addAmount(amount,edType_id,startdate,enddate);">Add</button></div>
         </div>
         <div class="table-responsive">
             <table class="table  table-bordered ">
@@ -158,10 +158,10 @@
                         <td></td>
 
                     </tr>
-                    <tr ng-repeat="data in employeeBillList">
-                        <td>{{data.startdate | date:dd-mm-yy}}</td>
-                        <td>{{data.enddate | date:dd-mm-yy}}</td>
-                        <td>{{data.amount}}</td>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -203,18 +203,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
+                        <tr ng-repeat="data in employeeBillList.earning">
+                            <td scope="row">{{data.amountId}}</td>
+                            <td>{{data.amount}}</td>
 
                         </tr>
                         <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
+                            <th scope="row">Total earning</th>
+                            <td>{{totalGross}}</td>
 
                         </tr>
                         <tr>
-                            <th scope="row">3</th>
+                            <th scope="row">Total Net</th>
                             <td>Larry</td>
                         </tr>
                     </tbody>
@@ -225,7 +225,7 @@
                     <thead>
                         <tr>
                             <th scope="col">Deductions</th>
-                            <th scope="col">Net Amount(in rs.)</th>
+                            <th scope="col"> Amount(in rs.)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -240,7 +240,7 @@
             </div>
         </div>
         <div class="d-flex justify-content-center align-items-center">
-            <button type="button" class="btn btn-primary">ADD EMPLOYEE TO THE BILL</button>
+            <button type="button" class="btn btn-primary" ng-click="addEmployeeToBill(amount,edType_id,startdate,enddate)">ADD EMPLOYEE TO THE BILL</button>
         </div>
     </div>
 
