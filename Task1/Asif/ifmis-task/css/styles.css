@@ -1,0 +1,64 @@
+body {
+    background-color: #e2e2e2;
+}
+
+
+
+
+/* Stylings For Header Navbar */
+header nav {
+    background-image: url('../assets/images/header-bg.jpg');
+    border-bottom: solid #f0b2b9 5px;
+}
+
+header .nav-item {
+    background-color: #4d6273;
+    font-size: 15px;
+    border-radius: 2px;
+}
+
+header .nav-item:hover {
+    transform: scale(1.03);
+}
+
+#userDetailsDropdown .dropdown-item:hover {
+    background-color: #4d6273;
+}
+
+
+
+
+/* For Sidebar Stylings */
+#sideNav {
+    background-color: #1a364d;
+}
+
+.side-nav-item {
+    list-style-type: none;
+    border-bottom: solid #4d6273 1px;
+}
+
+.side-nav-item:hover {
+    border-left: solid #f2c2c7 5px;
+    cursor: pointer;
+    background-color: #2b4259;
+}
+
+.side-nav-item a{
+    text-decoration: none;
+    color: white;
+}
+
+.errorMsgs {
+    color: red;
+    font-size: 12px;
+}
+
+
+
+
+
+/* Agency Name, GST No., IFSC Capitalization in add single agency form*/
+#agencyNameInput, #newAgencyNameInput, #gstNumberInput, #newGstInput, #ifscCodeInput, #newIfscInput {
+    text-transform: uppercase;
+}

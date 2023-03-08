@@ -1,0 +1,66 @@
+<section class="container min-vh-100">
+    <div id="registrationContainer" class="row rounded-2 h-100 mx-3 my-5 p-3">
+        <div class="col-12 col-md-6">
+            <h2 class="mb-3">Register</h2>
+            <form ng-submit="register()" name="registrationForm">
+                <div class="mb-2">
+                    <label for="userFullName" class="form-label">FullName</label>
+                    <input type="text" class="form-control" id="userFullName" name="fullname" ng-model="registrationFormData.fullname" placeholder="e.g: Ganesh Gaitonde" ng-required="true" ng-pattern="/^[A-Z ]+$/i" ng-minlength="3" ng-maxlength="32">
+                    <div ng-show="registrationForm.fullname.$invalid && registrationForm.fullname.$touched">
+                        <span class="errorMsgs" ng-show="registrationForm.fullname.$error.required">FullName is required.</span>
+                        <span class="errorMsgs" ng-show="registrationForm.fullname.$error.pattern">Should contain only alphabets.</span>
+                        <span class="errorMsgs" ng-show="registrationForm.fullname.$error.minlength">Should be minimum 3 characters.</span>
+                        <span class="errorMsgs" ng-show="registrationForm.fullname.$error.maxlength">Fullname can't be more than 32 characters.</span>
+                    </div>
+                    <span class="errorMsgs">{{ dbErrors.fullname }}</span>
+                </div>
+                <div class="mb-2">
+                    <label for="userPhoneNumber" class="form-label">Phone Number</label>
+                    <div class="input-group mb-2">
+                        <span class="input-group-text">+91</span>
+                        <input type="number" class="form-control" name="phone" ng-model="registrationFormData.phone" placeholder="e.g: 9876543210" id="userPhoneNumber" ng-required="true" ng-pattern="/^\d{10}$/" ng-minlength="10" ng-maxlength="10">
+                    </div>
+                    <div ng-show="registrationForm.phone.$invalid && registrationForm.phone.$touched">
+                        <span class="errorMsgs" ng-show="registrationForm.phone.$error.required">Phone is required.</span>
+                        <span class="errorMsgs" ng-show="registrationForm.phone.$error.pattern">Should contain only 10 digits number</span>
+                    </div>
+                    <span class="errorMsgs">{{ dbErrors.phone }}</span>
+                </div>
+                <div class="mb-2">
+                    <label for="userEmail" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="userEmail" name="email" ng-model="registrationFormData.email" placeholder="e.g: gaitonde@netflix.com" ng-required="true">
+                    <div ng-show="registrationForm.email.$invalid && registrationForm.email.$touched">
+                        <span class="errorMsgs" ng-show="registrationForm.email.$error.required">Email is required.</span>
+                    </div>
+                    <span class="errorMsgs">{{ dbErrors.email }}</span>
+                </div>
+                <div class="mb-2">
+                    <label for="userPassword" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="userPassword" name="password" ng-model="registrationFormData.password" placeholder="Should be atleast 6 characters" ng-required="true" ng-minlength="6">
+                    <div ng-show="registrationForm.password.$invalid && registrationForm.password.$touched">
+                        <span class="errorMsgs" ng-show="registrationForm.password.$error.required">Password is required.</span>
+                        <span class="errorMsgs" ng-show="registrationForm.password.$error.minlength">Password must be at least 6 characters.</span>
+                    </div>
+                    <span class="errorMsgs">{{ dbErrors.password }}</span>
+                </div>
+                <div class="mb-2">
+                    <label for="confirmUserPassword" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirmUserPassword" name="password_confirmation" ng-model="registrationFormData.password_confirmation" placeholder="Re-Enter your password" ng-required="true" >
+                    <span class="errorMsgs" ng-show="registrationForm.password_confirmation.$touched && !passwordMatch()">Passwords do not match.</span>
+                    <span class="errorMsgs">{{ dbErrors.password_confirmation }}</span>
+                </div>
+                <p>Already have an account? <a ui-sref="login">Login</a></p>
+                <button type="submit" class="btn btn-primary mb-3">Register</button>
+            </form>
+            <!-- <div ng-show="dbErrors" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>{{ dbErrors.message }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div> -->
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="d-flex align-items-center h-100">
+                <img src="assets/images/players-illustration.jpg" alt="Football Players Illustration" class="mx-auto" style="width: 100%;">
+            </div>
+        </div>
+    </div>
+</section>

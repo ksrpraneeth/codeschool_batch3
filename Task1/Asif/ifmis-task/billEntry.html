@@ -1,0 +1,461 @@
+<div class="container-fluid g-0 px-3">
+
+    <!-- Heading -->
+    <div class="row p-3 rounded-top mt-3" style="background-color: #cee5ff;">
+        <h4 class="my-auto" style="color: #205baf;"><strong>OTHER BILLS</strong></h4>
+    </div>
+
+
+    <!-- Radio Buttons For Select Form Action -->
+    <div class="row my-3">
+        <div class="col-12 col-md-8 p-2 border rounded-1">
+            <div class="form-check form-check-inline m-1">
+                <input class="form-check-input cursor-pointer" type="radio" name="selectBillEntryForm" id="salaryBills" ng-model="selectBillEntryForm" value="salaryBills">
+                <label class="form-check-label cursor-pointer" for="salaryBills">Form 47 - Salary Bills</label>
+            </div>
+            <div class="form-check form-check-inline m-1">
+                <input class="form-check-input cursor-pointer" type="radio" name="selectBillEntryForm" id="otherBills" ng-model="selectBillEntryForm" value="otherBills">
+                <label class="form-check-label cursor-pointer" for="otherBills">Other Bills</label>
+            </div>
+            <div class="form-check form-check-inline m-1">
+                <input class="form-check-input cursor-pointer" type="radio" name="selectBillEntryForm" id="supplementaryBills" ng-model="selectBillEntryForm" value="supplementaryBills">
+                <label class="form-check-label cursor-pointer" for="supplementaryBills">Form 47 - Supplementary Bills</label>
+            </div>
+        </div>
+    </div>
+
+
+    
+    <!-- Bill Entry Form Container For Other Bills -->
+    <div class="row my-3" ng-show="selectBillEntryForm == 'otherBills'">
+
+        <div class="col-12 col-md-8 rounded-1 border px-3">
+
+            <div class="row my-3">
+                
+                <form action="#" name="billEntryForm">
+
+                    <!-- Form Number Select -->
+                    <div class="row mb-3 align-items-center">
+                        <div class="col-12 col-md-4">
+                            <label for="formNumber" class="col-form-label fw-bold">Select Form No:</label>
+                        </div>
+                        <div class="col-12 col-md-8 p-0">
+                            <select name="form_number" id="formNumber" class="form-select">
+                                <option value="" hidden disabled>Select</option>
+                                <option ng-repeat="item in formNumbers" value="{{ item.id }}">{{ item.form_number }}</option>
+                            </select>
+                        </div>
+                    </div>
+    
+                    <!-- Form Type Select -->
+                    <div class="row mb-3 align-items-center">
+                        <div class="col-12 col-md-4">
+                            <label for="formType" class="col-form-label fw-bold required">Select Form Type:</label>
+                        </div>
+                        <div class="col-12 col-md-8 p-0">
+                            <select name="form_type" id="formType" class="form-select">
+                                <option value="" hidden disabled>Select</option>
+                                <option ng-repeat="item in formTypes" value="{{ item.id }}">{{ item.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+    
+    
+                    <!-- Adjustment Type Radio -->
+                    <div class="row mb-3">
+                        <div class="col-12 offset-md-4 col-md-8 p-1 border rounded-1">
+                            <div class="form-check form-check-inline m-1">
+                                <input class="form-check-input cursor-pointer" type="radio" name="adjustmentTypeRadio" id="nonAdjustment" checked>
+                                <label class="form-check-label cursor-pointer" for="nonAdjustment">Non-Adjustment</label>
+                            </div>
+                            <div class="form-check form-check-inline m-1">
+                                <input class="form-check-input cursor-pointer" type="radio" name="adjustmentTypeRadio" id="adjustment">
+                                <label class="form-check-label cursor-pointer" for="adjustment">Adjustment</label>
+                            </div>
+                        </div>
+                    </div>
+    
+    
+                    <!-- Search By Radio -->
+                    <div class="row mb-3">
+                        <div class="col-12 col-md-4">
+                            <label for="searchByRadio" class="col-form-label fw-bold">Search By:</label>
+                        </div>
+                        <div class="col-12 col-md-8 p-1 border rounded-1">
+                            <div class="form-check form-check-inline m-1">
+                                <input class="form-check-input cursor-pointer" type="radio" name="searchByRadio" id="searchByAccountNumber" checked>
+                                <label class="form-check-label cursor-pointer" for="searchByAccountNumber">Account Number</label>
+                            </div>
+                        </div>
+                    </div>
+    
+    
+    
+                    <!-- Entry Type Radio -->
+                    <div class="row mb-3">
+                        <div class="col-12 col-md-4">
+                            <label for="entryTypeRadio" class="col-form-label fw-bold">Select Entry Type:</label>
+                        </div>
+                        <div class="col-12 col-md-8 p-1 border rounded-1">
+                            <div class="form-check form-check-inline m-1">
+                                <input class="form-check-input cursor-pointer" type="radio" name="entryTypeRadio" id="singleEntryType" checked>
+                                <label class="form-check-label cursor-pointer" for="singleEntryType">Single</label>
+                            </div>
+                            <div class="form-check form-check-inline m-1">
+                                <input class="form-check-input cursor-pointer" type="radio" name="entryTypeRadio" id="bulkEntryType">
+                                <label class="form-check-label cursor-pointer" for="bulkEntryType">Bulk</label>
+                            </div>
+                        </div>
+                    </div>
+    
+    
+                    <!-- Agency/Party Ac No. Input & Search -->
+                    <div class="row mb-3 align-items-center">
+                        <div class="col-12 col-md-4 my-1">
+                            <label for="agencyAccountNumber" class="col-form-label fw-bold required">Enter Agency/Party A/c No:</label>
+                        </div>
+                        <div class="col-12 col-md-6 p-0 my-1">
+                            <input type="number" id="agencyAccountNumber" class="form-control" name="agencyAccountNumber">
+                        </div>
+                        <div class="col-auto col-md-2 p-0 ps-3 my-1">
+                            <button class="btn btn-navy text-light w-100">
+                                Search
+                            </button>
+                        </div>
+                    </div>
+    
+                </form>
+            </div>
+            
+        </div>
+
+        
+
+
+        <!-- Show Agency Details -->
+        <div class="col-12 col-md-8 rounded-1 border p-3" style="background-color: #ecf5ff;">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-4">
+                    <label for="name" class="col-form-label fw-bold">Name</label>
+                </div>
+                <div class="col-12 col-md-5">
+                    --
+                </div>
+            </div>
+
+            <div class="row align-items-center">
+                <div class="col-12 col-md-4">
+                    <label for="name" class="col-form-label fw-bold">Account No</label>
+                </div>
+                <div class="col-12 col-md-5">
+                    --
+                </div>
+            </div>
+
+            <div class="row align-items-center">
+                <div class="col-12 col-md-4">
+                    <label for="name" class="col-form-label fw-bold">Bank Name</label>
+                </div>
+                <div class="col-12 col-md-5">
+                    --
+                </div>
+            </div>
+
+            <div class="row align-items-center">
+                <div class="col-12 col-md-4">
+                    <label for="name" class="col-form-label fw-bold">Branch</label>
+                </div>
+                <div class="col-12 col-md-5">
+                    --
+                </div>
+            </div>
+
+            <div class="row align-items-center">
+                <div class="col-12 col-md-4">
+                    <label for="name" class="col-form-label fw-bold">IFSC Code</label>
+                </div>
+                <div class="col-12 col-md-5">
+                    --
+                </div>
+            </div>
+
+
+            <!-- Gross -->
+            <div class="row my-3 align-items-center">
+                <div class="col-12 col-md-4">
+                    <label for="gross" class="col-form-label fw-bold required">Gross</label>
+                </div>
+                <div class="col-12 col-md-8 ps-2">
+                    <input type="number" id="gross" class="form-control" name="gross">
+                </div>
+            </div>
+
+            <!-- PT -->
+            <div class="row mb-1 align-items-center">
+                <div class="col-12 col-md-4">
+                    <label for="pt" class="col-form-label fw-bold required m-0 p-0">PT Dedn</label>
+                    <p class="fs-10px">(Any amount added in PT Dedn will be credited to DDO's account)</p>
+                </div>
+                <div class="col-12 col-md-8 ps-2">
+                    <input type="number" id="pt" class="form-control" name="pt">
+                </div>
+            </div>
+
+            <!-- TDS -->
+            <div class="row mb-1 align-items-center">
+                <div class="col-12 col-md-4">
+                    <label for="tds" class="col-form-label fw-bold required m-0 p-0">TDS(IT)</label>
+                    <p class="fs-10px">(Any amount added in TDS(IT) will be credited to DDO's account)</p>
+                </div>
+                <div class="col-12 col-md-8 ps-2">
+                    <input type="number" id="tds" class="form-control" name="tds">
+                </div>
+            </div>
+
+            <!-- GST -->
+            <div class="row mb-1 align-items-center">
+                <div class="col-12 col-md-4">
+                    <label for="gst" class="col-form-label fw-bold required m-0 p-0">GST</label>
+                    <p class="fs-10px">(Any amount added in GST will be credited to DDO's account)</p>
+                </div>
+                <div class="col-12 col-md-8 ps-2">
+                    <input type="number" id="gst" class="form-control" name="gst">
+                </div>
+            </div>
+
+            <!-- GIS -->
+            <div class="row my-3 align-items-center">
+                <div class="col-12 col-md-4">
+                    <label for="gis" class="col-form-label fw-bold required">GIS</label>
+                </div>
+                <div class="col-12 col-md-8 ps-2">
+                    <input type="number" id="gis" class="form-control" name="gis">
+                </div>
+            </div>
+
+
+            <!-- Telangana Haritha Nidhi -->
+            <div class="row mb-1 align-items-center">
+                <div class="col-12 col-md-4">
+                    <label for="tsHarithaNidhi" class="col-form-label fw-bold required m-0 p-0">Telangana Haritha Nidhi</label>
+                    <p class="fs-10px">(Any amount added in Telangana Haritha Nidhi will be credited to Telangana Haritha Nidhi Account)</p>
+                </div>
+                <div class="col-12 col-md-8 ps-2">
+                    <input type="number" id="tsHarithaNidhi" class="form-control" name="tsHarithaNidhi">
+                </div>
+            </div>
+
+            <!-- Net -->
+            <div class="row mb-3 align-items-center">
+                <div class="col-12 col-md-4">
+                    <label for="name" class="col-form-label fw-bold">Agency Net Amount</label>
+                </div>
+                <div class="col-12 col-md-5">
+                    --
+                </div>
+            </div>
+
+
+             <!-- Add Button -->
+            <div class="row m-1 border border-bottom-0 border-start-0 border-end-0">
+                <div class="col-2 mx-auto mt-4 mb-2">
+                    <a href="" class="btn btn-navy text-light px-4">
+                        ADD
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+
+            <div class="row border border-start-0 border-end-0 border-top-0 py-2 mx-auto d-flex align-items-center">
+                <div class="col-md-3">
+                    <p class="my-auto"><strong>AGENCY/EMPLOYEE LIST</strong></p>
+                </div>
+                <div class="col-md-2 ms-auto">
+                    <a href="" class="btn btn-green my-auto text-light">
+                        <i class="fa-solid fa-print"></i>
+                        OFFICE COPY
+                    </a>
+                </div>
+            </div>
+
+            <div class="table-responsive mt-3">
+                <table class="table table-bordered">
+                  <thead style="background-color: #edf6ff; color: #205baf;">
+                    <tr>
+                        <th>S.No</th>
+                        <th>Name/GST No.</th>
+                        <th>Bank Name</th>
+                        <th>Bank Branch</th>
+                        <th>IFSC Code</th>
+                        <th>A/c No</th>
+                        <th>Gross(in Rs.)</th>
+                        <th>PT Dedn(in Rs.)</th>
+                        <th>TDS(IT)(in Rs.)</th>
+                        <th>GST(in Rs.)</th>
+                        <th>GIS(in Rs.)</th>
+                        <th>Telangana Haritha Nidhi(in Rs.)</th>
+                        <th>Net Amount(in Rs.)</th>
+                        <th>Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="text-end">
+                        <th colspan="6">Total</th>
+                        <th>0.00</th>
+                        <th>0.00</th>
+                        <th>0.00</th>
+                        <th>0.00</th>
+                        <th>0.00</th>
+                        <th>0.00</th>
+                        <th>0.00</th>
+                        <th></th>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+              
+
+            <!-- Alert -->
+            <div class="row my-4 mx-auto">
+                <div class="alert alert-warning my-auto" role="alert">
+                    If you dont find HOA for the bill please select <strong>Other</strong> option
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-9">
+                    <!-- Form Number Select -->
+                    <div class="row mb-3 align-items-center">
+                        <div class="col-12 col-md-4">
+                            <label for="formNumber" class="col-form-label fw-bold">Select Head of Account:</label>
+                        </div>
+                        <div class="col-12 col-md-8 p-0">
+                            <select name="form_number" id="formNumber" class="form-select">
+                                <option value="" hidden disabled>Select</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-3 align-items-center">
+                        <div class="col-12 col-md-4">
+                            <label for="formNumber" class="col-form-label fw-bold">Agency Reference Number:</label>
+                        </div>
+                        <div class="col-12 col-md-8 p-0">
+                            <input type="number" id="tsHarithaNidhi" class="form-control" name="tsHarithaNidhi">
+                        </div>
+                        <p class="col-12 col-md-8 offset-md-4 fs-10px">
+                            * Enter phoneno of telephone bill, Water can number of water bill ..etc
+                        </p>
+                    </div>
+
+                    <div class="row mb-3 align-items-center">
+                        <div class="col-12 col-md-4">
+                            <label for="formNumber" class="col-form-label fw-bold">Enter Service Major Head:</label>
+                        </div>
+                        <div class="col-12 col-md-8 p-0">
+                            <input type="number" id="tsHarithaNidhi" class="form-control" name="tsHarithaNidhi">
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-3 align-items-center form-floating">
+                        <div class="col-12 col-md-4">
+                            <label for="floatingTextarea" class="col-form-label fw-bold">Enter Service Major Head:</label>
+                        </div>
+                        <div class="col-12 col-md-8 p-0">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Scrutiny Items -->
+            <div class="row border border-start-0 border-end-0 border-top-0 py-2 ms-1 px-0 d-flex align-items-center">
+                <div class="col-md-3 p-0">
+                    <p class="my-auto"><strong>SCRUTINY ITEMS</strong></p>
+                </div>
+            </div>
+
+
+            <div class="table-responsive mt-3">
+                <table class="table table-bordered">
+                  <thead style="background-color: #edf6ff; color: #205baf;">
+                    <tr>
+                        <th>S.No</th>
+                        <th>Description</th>
+                        <th>Yes</th>
+                        <th>No</th>
+                        <th>N/A</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="item in scrutinyItems">
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ item.description }}</td>
+                        <td>{{ <input type="radio" name="option" id="yesOption" value="YES" checked> }}</td>
+                        <td>{{ <input type="radio" name="option" id="noOption" value="NO" checked> }}</td>
+                        <td>{{ <input type="radio" name="option" id="naOption" value="NA" checked> }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+
+
+            <!-- Attachments -->
+            <div class="row border border-start-0 border-end-0 border-top-0 py-2 ms-1 px-0 d-flex align-items-center">
+                <div class="col-md-3 p-0">
+                    <p class="my-auto"><strong>ATTACHMENTS</strong></p>
+                </div>
+            </div>
+            <div class="table-responsive mt-3">
+                <table class="table table-bordered">
+                  <thead style="background-color: #edf6ff; color: #205baf;">
+                    <tr>
+                        <th>S.No</th>
+                        <th>Description</th>
+                        <th>Upload</th>
+                        <th>Uploaded Files</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Others</td>
+                        <td>
+                            <input type="file" name="" id="">
+                            <textarea class="form-control my-1" placeholder="Enter remarks here..." id="floatingTextarea"></textarea>
+                            <a href="" class="btn btn-green text-light my-1">ADD</a>
+                        </td>
+                        <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+
+            <div class="row">
+                <div class="input-group mb-3 col-5">
+                    <select name="" id="" class="form-select">
+                        <option value="">Select Phone Number</option>
+                    </select>
+                    <span class="input-group-text btn-green text-light" id="basic-addon2">GENERATE OTP</span>
+                </div>                  
+            </div>
+
+            <div class="row">
+                <div class="input-group mb-3 col-2 ">
+                    <a href="" class="btn btn-navy mx-auto text-light">SUBMIT</a>
+                </div>                  
+            </div>
+
+
+        </div>
+    
+    <!-- End of Container -->
+    </div>
+</div>

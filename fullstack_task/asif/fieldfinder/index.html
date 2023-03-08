@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="assets/images/brand-logo.png" type="image/x-icon">
+    <title>FieldFinder - Find the best field in town</title>
+    <base href="/fieldfinder/" >
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Angular JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <!-- JS Files -->
+    <script src="js/routes.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/script.js"></script>
+    <!-- UI Router -->
+    <script src="//cdn.rawgit.com/angular-ui/ui-router/0.2.18/release/angular-ui-router.js"></script>
+    <!-- Swal -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body ng-app="myApp" >
+    <!-- Navbar -->
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary bg-primary-subtle">
+            <div class="container-fluid">
+                <a class="navbar-brand" ui-sref="home"><img src="assets/images/brand-logo.png" alt="Brand Logo" class="me-2">FieldFinder</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" ui-sref="home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" ui-sref="venues">Venues</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" ui-sref="about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" ui-sref="contact">Contact</a>
+                        </li>
+                    </ul>
+                    <div class="ms-auto" ng-show="!isUserLoggedIn">
+                        <a ui-sref="register" class="btn btn-primary btn-sm me-1">Register</a>
+                        <a ui-sref="login" class="btn btn-secondary btn-primary btn-sm">Login</a>
+                    </div>
+                    <div class="ms-auto" ng-show="isUserLoggedIn">
+                        <span class="dropdown me-1">
+                            <button class="btn btn-sm btn-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              Profile
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-lg-end">
+                              <li><a class="dropdown-item" href="#">Details</a></li>
+                              <li><a class="dropdown-item" href="#">Orders</a></li>
+                              <li><a class="dropdown-item" href="#"></a></li>
+                            </ul>
+                        </span>
+                        <a ui-sref="logout" class="btn btn-warning btn-primary btn-sm">Logout</a>
+                    </div>
+                </div>
+                
+            </div>
+        </nav>
+    </header>
+
+    <main class="container-fluid min-vh-100" ui-view></main>
+    
+    <footer>
+        <div class="row-fluid bg-primary-subtle d-flex align-items-center justify-content-around" style="min-height: 3rem;">
+            <div class="col-auto">
+                <span>&copy;2023 FieldFinder</span>
+            </div>
+            <div class="col-auto">
+                <span>Follow us on: </span>
+                <a class="me-1" href="https://www.instagram.com/fieldfinder/"><i class="fa-brands fa-instagram"></i></a>
+                <a class="me-1" href="https://www.facebook.com/fieldfinder/"><i class="fa-brands fa-facebook"></i></a>
+                <a class="me-1" href="https://www.twitter.com/fieldfinder/"><i class="fa-brands fa-twitter"></i></a>
+                <a class="me-1" href="https://www.youtube.com/fieldfinder/"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+    <!-- Font Awesome Icons Kit -->
+    <script src="https://kit.fontawesome.com/e4637f793f.js" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,337 @@
+
+<div class="table-responsive-xl" id="employees-salaries-container">
+  <p class="h3 text-center">Employees Salaries Data</p>
+
+  <!-- filters -->
+  <div class="row mb-3">
+    <div class="col-12 col-xl-3 my-1">
+      <label for="salaryMonthFilter" class="form-label m-0">Salary Month</label>
+      <select class="form-select form-select-sm" id="salaryMonthFilter" ng-model="selectedSalaryMonth" ng-change="getDateOfPayment()">
+        <option value="">All</option>
+        <option ng-repeat="item in salaryMonthFilterArr" value="{{ item.for_month }}">{{ item.salary_month | capitalize }}</option>
+      </select>
+    </div>
+    <div class="col-12 col-xl-3 my-1">
+      <label for="dateOfPaymentFilter" class="form-label m-0">Date of Payment</label>
+      <select class="form-select form-select-sm" id="dateOfPaymentFilter" ng-model="selectedDateOfPayment">
+        <option value="">All</option>
+        <option ng-repeat="item in dateOfPaymentFilterArr" value="{{ item.paid_on }}">{{ item.date_of_payment }}</option>
+      </select>
+    </div>
+    <div class="col-12 col-xl-3 my-1">
+      <label for="employeeNameFilter" class="form-label m-0">Employee Name</label>
+      <select class="form-select form-select-sm" id="employeeNameFilter" ng-model="selectedEmployeeName">
+        <option value="">All</option>
+        <option ng-repeat="item in employeesList" value="{{ item.id }}">{{ item.name }}</option>
+      </select>
+    </div>
+    <div class="col-12 col-xl-1 w-auto my-1 text-center">
+      <button class="btn btn-info btn-sm mt-4" ng-click="filterSalaries();">Search</button>
+    </div>
+    <div class="col-12 col-xl-1 w-auto my-1 text-center">
+      <button class="btn btn-secondary btn-sm mt-4" ng-click="clearFilters()">Clear</button>
+    </div>
+    <div class="col-12 col-xl-1 w-auto my-1 ms-auto text-center">
+      <button class="btn btn-primary btn-sm mt-4" data-bs-toggle="modal" data-bs-target="#addNewSalaryModal">Add New Salary</button>
+    </div>
+    <!-- end of filters -->
+  </div>
+
+  <!-- Employees Salaries Table  -->
+  <div class="row">
+    <table class="table table-sm table-striped table-bordered" id="employeesSalariesTable">
+      <thead>
+        <tr>
+          <th scope="col">S.No</th>
+          <th scope="col">Employee Name</th>
+          <th scope="col">Salary Month</th>
+          <th scope="col">Salary Year</th>
+          <th scope="col">Date of Payment</th>
+          <th scope="col">Gross Salary</th>
+          <th scope="col">Deductions</th>
+          <th scope="col">Net Salary</th>
+          <th scope="col">Date Created</th>
+          <th scope="col">Salary Breakup</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="salaryVal in employeesSalariesData">
+          <td>{{ $index + 1 }}</td>
+          <td>{{ salaryVal.employee_name }}</td>
+          <td>{{ salaryVal.salary_month | capitalize }}</td>
+          <td>{{ salaryVal.salary_year }}</td>
+          <td>{{ salaryVal.paid_on }}</td>
+          <td>{{ salaryVal.gross_salary }}</td>
+          <td>{{ salaryVal.deductions }}</td>
+          <td>{{ salaryVal.net_salary }}</td>
+          <td>{{ salaryVal.created_at }}</td>
+          <td>
+            <a class="btn btn-primary btn-sm m-1" data-bs-toggle="modal" data-bs-target="#viewSalaryBreakupModal" ng-click="viewSalaryBreakup(salaryVal)">View</a>
+            <a class="btn btn-danger btn-sm m-1" ng-click="deleteSalary(salaryVal.id)">Delete Salary</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  <!-- Employees Salaries Table -->
+  </div>
+  <div class="row"><p class="text-center">{{ employeesSalariesError }}</p></div>
+  <!-- end of table container -->
+</div>
+
+
+<!-- Modal for add new salary -->
+<div class="modal fade" id="addNewSalaryModal" tabindex="-1" aria-labelledby="addNewSalaryModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="addNewSalaryModalLabel">Add New Salary Details</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="employeeDetails"></div>
+        <form action="#" class="container-fluid" id="newSalaryForm">
+          
+          <!-- for employee name -->
+          <div class="row mb-4">
+            <div class="col-12">
+              <div class="form-outline">
+                <label class="form-label" for="employeeNameSelect">Employee</label>
+                <select class="form-select" id="employeeNameSelect" ng-change="getEmployeeData(employee.id)">
+                  <option value="" hidden selected>Select</option>
+                  <option ng-repeat="employee in employeesList" value="{{ employee.id }}">{{ employee.name }}</option>
+                </select>
+                <p class="errorMsgs" id="employeeNameSelectError"></p>
+              </div>
+            </div>
+          </div>
+        
+
+          <!-- for employee Details -->
+          <div id="employeeDetailsForNewSalary" class="row mb-3">
+            <div class="row mb-1 mx-auto">
+              <p class="col-6"><strong>Date of Birth:</strong>{{ employeeData.date_of_birth }}</p>
+              <p class="col-6"><strong>Date of Joining:</strong>{{ employeeData.date_of_joining }}</p>
+            </div>
+            <div class="row mb-1 mx-auto">
+              <p class="col-6"><strong>Working Status:</strong>{{ employeeData.working_status }}</p>
+              <p class="col-6"><strong>Designation:</strong>{{ employeeData.designation }}</p>
+            </div>
+            <div class="row mb-1 mx-auto">
+              <p class="col-6"><strong>Gender:</strong>{{ employeeData.gender }}</p>
+              <p class="col-6"><strong>Location:</strong>{{ employeeData.location }}</p>
+            </div>
+            <div class="row mb-1 mx-auto">
+              <p class="col-6"><strong>Phone:</strong>{{ employeeData.phone }}</p>
+              <p class="col-6"><strong>Gross Salary:</strong>{{ employeeData.gross_salary }}</p>
+            </div>
+          </div>
+
+
+          <!-- for salary payment dates -->
+          <div class="row mb-3">
+            <div class="col-4">
+              <div class="form-outline">
+                <label class="form-label" for="salary-month">Salary Month</label>
+                <select class="form-select" id="salary-month">
+                  <option value="0">January</option>
+                  <option value="1">February</option>
+                  <option value="2">March</option>
+                  <option value="3">April</option>
+                  <option value="4">May</option>
+                  <option value="5">June</option>
+                  <option value="6">July</option>
+                  <option value="7">August</option>
+                  <option value="8">September</option>
+                  <option value="9">October</option>
+                  <option value="10">November</option>
+                  <option value="11">December</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-4">
+              <div class="form-outline">
+                <label class="form-label" for="salary-year">Salary Year</label>
+                <select class="form-select" id="salary-year">
+                  <option value="<?php if(date('m') == '01') { echo date('Y') - 1; } else { echo date('Y'); }?>"><?php if(date('m') == '01') { echo date('Y') - 1; } else { echo date('Y'); }?></option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-4">
+              <div class="form-outline">
+                <label class="form-label" for="date-of-payment">Date of Payment</label>
+                <input class="form-control" id="date-of-payment" type="text" value="<?php echo date('d/m/Y') ?>" readonly>
+              </div>
+            </div>
+
+          </div>
+
+
+
+          <!-- for salary amount details -->
+          <div class="row mb-3">
+            <div class="col-4">
+              <div class="form-outline">
+                <label class="form-label" for="gross-salary">Gross Salary</label>
+                <input class="form-control" id="gross-salary" type="text" value="">
+              </div>
+            </div>
+
+            <div class="col-4">
+              <div class="form-outline">
+                <label class="form-label" for="deductions">Deductions</label>
+                <input class="form-control" id="deductions" type="text" value="0" readonly>
+              </div>
+            </div>
+
+            <div class="col-4">
+              <div class="form-outline">
+              <label class="form-label" for="net-salary">Net Salary</label>
+                <input class="form-control" id="net-salary" type="text" value="0" readonly>
+              </div>
+            </div>
+
+          </div>
+
+
+          <!-- for salary components -->
+          <div class="row mb-3">
+            <div class="col-6">
+              <div class="form-outline">
+                <label class="form-label" for="basic-pay">Basic Pay</label>
+                <input type="text" id="basic-pay" class="form-control salary-component" onchange="updateSalaryAmount()"/>
+              </div>
+            </div>
+
+            <div class="col-6">
+            <div class="form-outline">
+                <label class="form-label" for="da">DA</label>
+                <input type="text" id="da" class="form-control salary-component" onchange="updateSalaryAmount()"/>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row mb-3">
+            <div class="col-6">
+              <div class="form-outline">
+                <label class="form-label" for="hra">HRA</label>
+                <input type="text" id="hra" class="form-control salary-component" onchange="updateSalaryAmount()"/>
+              </div>
+            </div>
+
+            <div class="col-6">
+            <div class="form-outline">
+                <label class="form-label" for="ca">CA</label>
+                <input type="text" id="ca" class="form-control salary-component" onchange="updateSalaryAmount()"/>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row mb-3">
+            <div class="col-6">
+              <div class="form-outline">
+                <label class="form-label" for="medical-allowance">Medical Allowance</label>
+                <input type="text" id="medical-allowance" class="form-control salary-component" onchange="updateSalaryAmount()"/>
+              </div>
+            </div>
+
+            <div class="col-6">
+            <div class="form-outline">
+                <label class="form-label" for="bonus">Bonus</label>
+                <input type="text" id="bonus" class="form-control salary-component" onchange="updateSalaryAmount()"/>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-6">
+              <div class="form-outline">
+                <label class="form-label" for="tds">TDS</label>
+                <input type="text" id="tds" class="form-control salary-component" onchange="updateSalaryAmount()"/>
+              </div>
+            </div>
+
+            <div class="col-6">
+            <div class="form-outline">
+                <label class="form-label" for="pf">PF</label>
+                <input type="text" id="pf" class="form-control salary-component" onchange="updateSalaryAmount()"/>
+              </div>
+            </div>
+          </div>
+
+        </form>
+        <div id="viewSalaryError"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="addNewSalary()">Submit Salary</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for view salary breakup -->
+<div class="modal fade" id="viewSalaryBreakupModal" tabindex="-1" aria-labelledby="viewSalaryBreakupModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="viewSalaryBreakupModalLabel">Employee Salary Details</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body table-responsive-md">
+        <div id="employeeDetails">
+          <div class="row">
+            <p class="col-sm-6"><strong>Name:</strong>{{ employeeData.name }}</p>
+            <p class="col-sm-6"><strong>Date of Joining:</strong>{{ employeeData.date_of_joining }}</p>
+          </div>
+          <div class="row">
+            <p class="col-sm-6"><strong>Working Status:</strong>{{ employeeData.working_status }}</p>
+            <p class="col-sm-6"><strong>Designation:</strong>{{ employeeData.designation }}</p>
+          </div>
+
+          <!-- employee salary details -->
+          <div class="row">
+            <p class="col-sm-6"><strong>Salary Month:</strong>{{ employeeSalaryData.salary_month }}</p>
+            <p class="col-sm-6"><strong>Salary Year:</strong>{{ employeeSalaryData.salary_year }}</p>
+          </div>
+          <div class="row">
+            <p class="col-sm-6"><strong>Date of Payment:</strong>{{ employeeSalaryData.paid_on }}</p>
+          </div>
+        </div>
+        <table class="table table-sm table-striped table-bordered" id="viewSalaryBreakupModalTable">
+          <thead>
+            <tr>
+              <th scope="col">S.No</th>
+              <th scope="col">Description</th>
+              <th scope="col">Type</th>
+              <th scope="col">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="data in employeeSalaryBreakupData">
+              <td>{{ $index + 1 }}</td>
+              <td>{{ data.description }}</td>
+              <td>{{ data.type }}</td>
+              <td>{{ data.amount }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row">
+          <p class="col-sm-4"><strong>Gross Salary:</strong> Rs. {{ employeeSalaryData.gross_salary }}</p>
+          <p class="col-sm-4"><strong>Deductions:</strong> Rs. {{ employeeSalaryData.deductions }}</p>
+          <p class="col-sm-4"><strong>Net Salary:</strong> Rs. {{ employeeSalaryData.net_salary }}</p></p>
+        </div>
+        <div id="viewSalaryBreakupError">
+          <p class="text-center">{{ viewSalaryBreakupError }}</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
+    <title>Organization Database</title>
+    <base href="/codeschool_batch3/angular_week1/asif/single-page-app/">
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- CSS File -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+    <!-- UI Router -->
+    <script src="//cdn.rawgit.com/angular-ui/ui-router/0.2.18/release/angular-ui-router.js"></script>
+    <!-- JS File -->
+    <script src="js/routes.js" defer></script>
+    <script src="js/controllers.js" defer></script>
+    <!-- Swal -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        if(!localStorage.getItem('user_data')){
+            window.location.replace("login.html");
+        }
+        
+        function logout() {
+            localStorage.removeItem("user_data");
+            window.location.replace("login.html ");
+        }
+    </script>
+</head>
+<body ng-app="myApp">
+<header class="container-fluid g-0">
+    <nav class="navbar navbar-expand navbar-dark bg-dark px-2 row-fluid" id="header">
+        <div id="side-nav-button" class="col-1 w-auto mx-3 my-auto p-2 text-light rounded-1" ng-click="toggleSidebar = !toggleSidebar">
+            <i class="fa fa-solid fa-bars"></i>
+        </div>
+
+        <ul class="navbar-nav col-auto ms-auto">
+
+            <li class="nav-item navbar-collapse mx-2 my-auto header-li rounded-1 col-2 w-auto">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown" id="user-dropdown">
+                        <a class="nav-link text-light dropdown-toggle" role="button" data-bs-toggle="dropdown" href="#"><i class="fa-solid fa-user"></i><span class="d-none d-sm-none d-md-inline ms-2" id="username">Welcome</span></a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start bg-light">
+                            <li><a href="#" class="dropdown-item text-dark"><i class="text-danger fa-solid fa-user me-2"></i>Profile</a></li>
+                            <li><a href="#" class="dropdown-item text-dark"><i class="text-danger fa-solid fa-key me-2"></i>Change Password</a></li>
+                            <li onclick="logout()"><a href="#" class="dropdown-item text-dark"><i class="text-danger fa-solid fa-right-from-bracket me-2"></i>Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item mx-2 my-auto col-1 w-auto header-li rounded-1" onclick="logout()">
+                <a class="nav-link text-light" href="#"><i class="fa-solid fa-right-from-bracket"></i><span id="logout" class="d-none d-sm-none d-md-inline ms-2">Logout</span></a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<main class="container-fluid">
+
+    <div class="row">
+        <div id="sidebar" class="pt-3" ng-class="{'col-2': toggleSidebar, 'd-none': !toggleSidebar}" >
+            <ul class="sidebar-nav-list">
+                <li class="sb-nav-list-item"><a ui-sref=".home">Home</a></li>
+                <li class="sb-nav-list-item"><a ui-sref="employeesData">Employee Details</a></li>
+                <li class="sb-nav-list-item"><a ui-sref="employeesSalaries">Salary Details</a></li>
+            </ul>
+        </div>
+
+        <div id="main-content" class="p-3 m-auto" ng-class="{'col-10': toggleSidebar, 'col-12': !toggleSidebar}" ui-view></div>
+    </div>
+
+</main>
+
+<!-- Bootstrap JS CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+
+<!-- Font Awesome Icons Kit -->
+<script src="https://kit.fontawesome.com/e4637f793f.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

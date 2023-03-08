@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteBase /ifmis-task/
+RewriteRule ^index\.html$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /ifmis-task/index.html [L]

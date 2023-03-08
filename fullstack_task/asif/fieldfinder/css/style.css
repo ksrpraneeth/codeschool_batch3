@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+#introSectionHomePage {
+    background: url('../assets/images/field-pic.jpg') no-repeat;
+    background-size: cover;
+}
+
+input[type='number'] {
+    -moz-appearance: textfield;
+    -webkit-appearance: textfield;
+    appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
+#registrationContainer, #loginContainer {
+    background-color: #f7f0de; 
+}
+
+.errorMsgs {
+    color: red;
+    font-size: 0.8em;
+    margin: 0.5em;
+}
+
+.cursor-pointer:hover {
+    cursor: pointer;
+}
+
+.scale:hover {
+    transform: scale(1.02, 1.02);
+}
+
+#aboutSection {
+    background: url('../assets/images/basketball-background.avif') no-repeat;
+    background-size: cover;
+}
