@@ -1,0 +1,251 @@
+<!--Heading-->
+<div class="content">
+    <div class="bg-white col-12" ng-controller="EmployeeController">
+        <div class="heading bg-primary bg-opacity-25">
+       <p class="fw-bold text-primary p-2">FORM 47-SUPPLEMENTARY BILLS</p>
+    </div>
+    <!--inline buttons-->
+    <div class="heading border rounded bg-opacity-25 mt-2 p-2 col-8">
+        <div class="form-check form-check-inline fw-bold">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1">
+            <label class="form-check-label" for="inlineRadio1">FORM 47-Salary Bills</label>
+          </div>
+          <div class="form-check form-check-inline fw-bold">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2">
+            <label class="form-check-label" for="inlineRadio2">Other Bills</label>
+          </div>
+          <div class="form-check form-check-inline fw-bold">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="" checked>
+            <label class="form-check-label" for="inlineRadio2">Form 47-Supplementary Bills</label>
+          </div>
+    </div>
+<!--heading-->
+<div class="fw-bold mt-3">
+    FORM-47 SUPPLEMENTARY BILLS
+    <hr>
+</div>
+<!--select bill type-->
+<div class="row">
+    <div class="col-2">
+        <p class="fw-bold ms-2 mt-2">Select Bill Type:</p>
+    </div>
+    <div class="col-4 mt-2">
+    <select class="form-select" aria-label="Default select example">
+        <option selected>Increment arrears</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+</div>
+<div class="mt-2"><hr></div>
+    </div>
+    <!--enter employee code-->
+<div class="row">
+    <div class="col-2">
+        <p class="fw-bold">Enter Employee Code:</p>
+    </div>
+    <div class="col-3 mt-2">
+        <input type="text" class="form-control" ng-model="emp_code">
+</div>
+<div class="col-2 mt-2">
+    <button type="button" class="btn btn-dark ms-2" ng-click="SearchBtn()">Search</button>
+</div>
+<div class="text-danger">{{InvalidEmp}}</div>
+<div class="mt-2"><hr></div>
+    </div>
+    <!--employee name-->
+    <div ng-show="EmpDetailsDisplay">
+<div class="row">
+    <div class="col-2">
+        <p class="fw-bold p-2 mt-2">Employee Name:</p>
+    </div>
+    <div class="col-4">
+        <p class="fw-bold p-2 mt-2">{{SearchEmpDetails.name}}</p>
+    </div>
+<div class="mt-1"><hr></div>
+    </div>
+        <!--select date-->
+<div class="row">
+    <div class="col-2">
+        <p class="fw-bold p-2 mt-2">Select dates:</p>
+    </div>
+    <div class="col-2">
+        <p class="fw-bold p-2"><input type="date"  class="form-control" ng-model="fromDate">
+            </p>
+    </div>
+    <div class="col-2">
+        <p class="fw-bold p-2"><input type="date"  class="form-control" ng-model="toDate">
+            </p>
+    </div>
+<div class="mt-1"><hr></div>
+        <!--add type-->
+        <div class="row">
+            <div class="col-2">
+                <p class="fw-bold p-2">Add Type:</p>
+            </div>
+            <div class="col-2 p-2">
+                <input class="form-check-input" type="radio" name="earnings" id="earnings" ng-model="selectedValue" value="Earning" ng-change="getOptions()">
+                <label class="form-check-label fw-bold" for="inlineRadio2">Earnings</label>
+            </div>
+            <div class="col-2 p-2">
+                <input class="form-check-input" type="radio" name="earnings" id="deductions" ng-model="selectedValue" value="Deduction" ng-change="getOptions()">
+                <label class="form-check-label fw-bold" for="inlineRadio2">Deductions</label>
+            </div>
+        <div class="mt-1"><hr></div>
+    </div>
+      <!--select type-->
+      <div class="row">
+        <div class="col-2">
+            <p class="fw-bold p-2">Select Type:</p>
+        </div>
+        <div class="col-4 mt-2">
+            <select class="form-select" aria-label="Default select example" ng-model="type">
+                <option value="" disabled>Select</option>
+                    <option ng-repeat="detail in salaryDetails track by $index" ng-show="selectedValue=='{{detail.type}}'" value={{$index}}>{{detail.name}}</option>
+              </select>
+        </div>
+    <div class="mt-1"><hr></div>
+</div>
+  <!--enter amount-->
+  <div class="row">
+    <div class="col-2">
+        <p class="fw-bold p-2">Enter Amount:</p>
+    </div>
+    <div class="col-2 ">
+        <input type="number" class="form-control" ng-model="amount">
+    </div>
+    <div class="col-2">
+        <button type="button" class="btn btn-success ms-2" ng-click="addBtn()">ADD</button>
+    </div>
+<div class="mt-1"><hr></div>
+</div>
+<!--table-->
+<div ng-show="displayTable">
+    <table class="table table-bordered">
+        <thead class="">
+            <tr class="text-primary bg-primary bg-opacity-25">
+                <th></th>
+                <th></th>
+                <th></th>
+                <th colspan="{{(earningArray.size || 1 )+(dednsArray.size || 1)}}">Due Particulars</th>
+                <th colspan="{{(earningArray.size || 1)+(dednsArray.size || 1)}}">Drawn Particulars</th>
+                <th colspan="{{(earningArray.size || 1)+(dednsArray.size || 1)}}">Differences</th>
+                <th colspan="3"></th>
+            </tr>
+            <tr class="text-primary fw-bold bg-primary bg-opacity-25">
+                <th></th>
+                <th>From</th>
+                <th>To</th>
+                <th colspan="{{earningArray.size}}">Earnings(in Rs.)</th>
+                <th colspan="{{dednsArray.size}}">Deductions(in Rs.)</th>
+                <th colspan="{{earningArray.size}}">Earnings(in Rs.)</th>
+                <th colspan="{{dednsArray.size}}">Deductions(in Rs.)</th>
+                <th colspan="{{earningArray.size}}">Earnings(in Rs.)</th>
+                <th colspan="{{dednsArray.size}}">Deductions(in Rs.)</th>
+                <th>Total Gross(in Rs.)</th>
+                <th>Total Deductions(in Rs.)</th>
+                <th>Net(in Rs.)</th>
+            </tr>
+            <tr class="fw-bold">
+                <th></th>
+                <th></th>
+                <th></th>
+                <th ng-repeat="data in convertSet(earningArray) track by $index">{{salaryDetails[data].name}}</th>
+                <th ng-show="earningArray.size==0"></th>
+                <th ng-repeat="data in convertSet(dednsArray) track by $index">{{salaryDetails[data].name}}</th>
+                <th ng-show="dednsArray.size==0"></th>
+                <th ng-repeat="data in convertSet(earningArray) track by $index">{{salaryDetails[data].name}}</th>
+                <th ng-show="earningArray.size==0"></th>
+                <th ng-repeat="data in convertSet(dednsArray) track by $index">{{salaryDetails[data].name}}</th>
+                <th ng-show="dednsArray.size==0"></th>
+                <th ng-repeat="data in convertSet(earningArray) track by $index">{{salaryDetails[data].name}}</th>
+                <th ng-show="earningArray.size==0"></th>
+                <th ng-repeat="data in convertSet(dednsArray) track by $index">{{salaryDetails[data].name}}</th>
+                <th ng-show="dednsArray.size==0"></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="data in EmpArray track by $index">
+                <td></td>
+                <td>{{data.fromDate|date:'dd/MM/yyyy'}}</td>
+                <td>{{data.toDate|date:'dd/MM/yyyy'}}</td>
+                <td ng-repeat="earning in  convertSet(earningArray) track by $index">{{data.earnings | idToAmount: salaryDetails[earning].id}}</td>
+                <td ng-show="earningArray.size==0"></td>
+                <td ng-repeat="dedn in  convertSet(dednsArray) track by $index">{{data.dedns | idToAmount: salaryDetails[dedn].id}}</td>
+                <td ng-show="dednsArray.size==0"></td>
+                <td ng-repeat="earning in  convertSet(earningArray) track by $index">{{data.earnings | idToAmount: salaryDetails[earning].id}}</td>
+                <td ng-show="earningArray.size==0"></td>
+                <td ng-repeat="dedn in  convertSet(dednsArray) track by $index">{{data.dedns | idToAmount: salaryDetails[dedn].id}}</td>
+                <td ng-show="dednsArray.size==0"></td>
+                <td ng-repeat="earning in  convertSet(earningArray) track by $index">{{data.earnings | idToAmount: salaryDetails[earning].id}}</td>
+                <td ng-show="earningArray.size==0"></td>
+                <td ng-repeat="dedn in  convertSet(dednsArray) track by $index">{{data.dedns | idToAmount: salaryDetails[dedn].id}}</td>
+                <td ng-show="dednsArray.size==0"></td>
+                <td>{{data.earnings |sumColumn: 'amount'}}</td>
+                <td>{{data.dedns |sumColumn: 'amount'}}</td>
+                <td>{{(data.earnings | sumColumn: 'amount')-(data.dedns | sumColumn: 'amount')}}</td>
+            </tr>  
+        </tbody>
+    </table>
+
+<!--Net earnings-->
+    <div class="mt-2 fw-bold">
+    NET EARNINGS & DEDUCTIONS 
+    <hr>
+    </div>
+    <div class="row">
+        <div class="col-6">
+    <table class="table table-bordered">
+        <thead class="bg-primary bg-opacity-25 text-primary fw-bold">
+            <tr>
+            <th>Earnings</th>
+            <th>Net Amount(in Rs.)</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="data in convertSet(earningArray) track by $index">
+            <td>{{salaryDetails[data].name}}</td>
+            <td>{{salaryDetails[data].id | sumOfEarningType: EmpArray}}</td>
+        </tr>
+        <tr>
+            <td class="fw-bold">Total Earnings</td>
+            <td>{{totalEarnings}}</td>
+        </tr>
+        <tr>
+            <td class="fw-bold">Total Net</td>
+            <td>{{totalEarnings-totalDeductions}}</td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+    <div class="col-6">
+        <table class="table table-bordered">
+            <thead class="bg-primary bg-opacity-25 text-primary fw-bold">
+                <tr>
+                <th>Deductions</th>
+                <th>Amount(in Rs.)</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="data in convertSet(dednsArray) track by $index">
+                <td>{{salaryDetails[data].name}}</td>
+                <td>{{salaryDetails[data].id | sumOfDednType: EmpArray}}</td>
+                </tr>
+                <tr>
+                    <td class="fw-bold">Total deductions</td> 
+                    <td>{{totalDeductions}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+    <div class="justify-content-center d-flex">
+        <button type="button" class="btn btn-dark ms-2" ng-click="submitBtn()">ADD EMPLOYEE TO BILL</button>
+    </div>
+</div>
+    </div>
+</div>
+
