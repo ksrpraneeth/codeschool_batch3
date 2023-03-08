@@ -85,12 +85,12 @@
             <div class="col-md-5 px-2">
                 <div style="background-color: #f9f9f9; border-radius: 5px;" class="py-1 px-2">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="entryType" id="inlineRadio1"
-                            ng-click="earnings();" value="option1">
+                        <input class="form-check-input" type="radio" name="e" id="inlineRadio1" ng-click="earnings();"
+                            value="option1">
                         <label class="form-check-label" for="inlineRadio1">Earning</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="entryType" id="inlineRadio1" value="option1"
+                        <input class="form-check-input" type="radio" name="e" id="inlineRadio1" value="option1"
                             ng-click="deductions();">
                         <label class="form-check-label" for="inlineRadio1">Deductions</label>
                     </div>
@@ -116,78 +116,99 @@
             <div class="col-md-2"><button type="button" class="btn btn-primary"
                     ng-click="addAmount(amount,edType_id,startdate,enddate);">Add</button></div>
         </div>
-        <div class="table-responsive">
-            <table class="table  table-bordered ">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th colspan="2" style="text-align: center;">Due Particular</th>
-                        <th colspan="2" style="text-align: center;">Drawn Particular</th>
-                        <th colspan="2" style="text-align: center;">Difference</th>
-                        <th colspan="3"></th>
-                    </tr>
-                    <tr>
-                        <th>From</th>
-                        <th>To</th>
-                        <th>Earning(in RS)</th>
-                        <th>Deduction(in RS)</th>
-                        <th colspan>Earning(in RS)</th>
-                        <th>Deduction(in RS)</th>
-                        <th>Earning(in RS)</th>
-                        <th>Deduction(in RS)</th>
-                        <th>Total Gross(in RS)</th>
-                        <th>Total Deduction(in RS)</th>
-                        <th>Total Net(in Rs)</td>
+    </div>
+    <div class="table-responsive" ng-show="tableHide">
+        <table class="table  table-bordered ">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th colspan="{{dueParticulars}}" style="text-align: center;">Due Particular</th>
+                    <th colspan="{{drawnParticulars}}" style="text-align: center;">Drawn Particular</th>
+                    <th colspan="{{differnce}}" style="text-align: center;">Difference</th>
+                    <th colspan="3"></th>
+                </tr>
+                <tr>
+                    <th>From</th>
+                    <th>To</th>
+                    <th colspan="{{earningitemCount}}">Earning(in RS)</th>
+                    <th colspan="{{deductionitemCount}}">Deduction(in RS)</th>
+                    <th colspan="{{earningitemCount}}">Earning(in RS)</th>
+                    <th colspan="{{deductionitemCount}}">Deduction(in RS)</th>
+                    <th colspan="{{earningitemCount}}">Earning(in RS)</th>
+                    <th colspan="{{deductionitemCount}}">Deduction(in RS)</th>
+                    <th>Total Gross(in RS)</th>
+                    <th>Total Deduction(in RS)</th>
+                    <th>Total Net(in Rs)</td>
 
-                    </tr>
+                </tr>
 
-                </thead>
-                <tbody>
-                    <tr ng-repeat="data in employeeBillList">
-                        <td></td>
-                        <td></td>
-                        <td>{{data.edType}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td ng-if="earningmenustatus[$index]!=0" ng-repeat="data in earningStatic">{{data.name}}</td>
+                    <td ng-if="earningitemCount==0"></td>
+                    <td ng-if="deductionmenustatus[$index]!=0" ng-repeat="data in deductionStatic">{{data.name}}</td>
+                    <td ng-if="deductionitemCount==0"></td>
+                    <td ng-if="earningmenustatus[$index]!=0" ng-repeat="data in earningStatic">{{data.name}}</td>
+                    <td ng-if="earningitemCount==0"></td>
+                    <td ng-if="deductionmenustatus[$index]!=0" ng-repeat="data in deductionStatic">{{data.name}}</td>
+                    <td ng-if="deductionitemCount==0"></td>
+                    <td ng-if="earningmenustatus[$index]!=0" ng-repeat="data in earningStatic">{{data.name}}</td>
+                    <td ng-if="earningitemCount==0"></td>
+                    <td ng-if="deductionmenustatus[$index]!=0" ng-repeat="data in deductionStatic">{{data.name}}</td>
+                    <td ng-if="deductionitemCount==0"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
 
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                </tr>
+                <tr ng-repeat="data in showfrontendtable">
 
-                    </tr>
-                </tbody>
-            </table>
+                    <td scope="col">{{data.startdate}}</td>
+                    <td scope="col">{{data.enddate}}</td>
 
 
-        </div>
+                    <td scope="col" ng-repeat="data2 in data.earningItemArray" ng-if="earningmenustatus[$index]!=0">
+                        {{data2.amount}}</td>
+                    <td scope="col" ng-if="earning()"></td>
+                    <td scope="col" ng-repeat="data3 in data.deductionItemArray" ng-if="deductionmenustatus[$index]!=0">
+                        {{data3.amount}}</td>
+                    <td scope="col" ng-if="deduction()"></td>
 
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-2"></div>
-            <div class="col-md-2">Due Particular</div>
-            <div class="col-md-2">Drawn Particular</div>
+                    <td scope="col" ng-repeat="data2 in data.earningItemArray" ng-if="earningmenustatus[$index]!=0">
+                        0</td>
+                    <td scope="col" ng-if="earning()"></td>
+                    <td scope="col" ng-repeat="data3 in data.deductionItemArray" ng-if=" deductionmenustatus[$index]!=0">
+                        0</td>
+                    <td scope="col" ng-if="deduction()"></td>
 
-        </div>
 
-        <div class="row"></div>
-        <div class="row p-1 m-1">
+                    <td scope="col" ng-repeat="data2 in data.earningItemArray" ng-if=" earningmenustatus[$index]!=0">
+                        {{data2.amount}}</td>
+                    <td scope="col" ng-if="earning()"></td>
+                    <td scope="col" ng-repeat="data3 in data.deductionItemArray" ng-if=" deductionmenustatus[$index]!=0">
+                        {{data3.amount}}</td>
+                    <td scope="col" ng-if="deduction()"></td>
+
+                    <td scope="col">{{data.Gross}}</td>
+                    <td scope="col">{{data.totaldeduction}}</td>
+                    <td scope="col">{{data.Gross-data.totaldeduction}}</td>
+
+                </tr>
+
+            </tbody>
+        </table>
+
+
+
+
+
+
+
+        <!-- <div class="row p-1 m-1">
             <div class="col-md-5"><b>NET EARNINGS AND DEDUCTION</b></div>
         </div>
         <hr>
@@ -238,9 +259,67 @@
                     </tbody>
                 </table>
             </div>
+        </div> -->
+
+
+        <div class="row">
+            <div class="col-5">
+                <table class="table table-bordered">
+                    <thead style="background-color: #edf6ff; color: #205baf;">
+                        <tr>
+                            <th scope="col" colspan="" class="text-center">Earning</th>
+                            <th scope="col" colspan="" class="text-center">Net Amount(in Rs.)</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="data in totalEarningFrontend" ng-if="data.amount!=0">
+                            <td>{{data.name}}</td>
+                            <td>
+                                {{data.amount}}
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th>Total Earning</th>
+                            <th>{{totalGross}}</th>
+                        </tr>
+                        <tr>
+                            <th>Total Net</th>
+                            <th>{{totalNet}}</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-4">
+                <table class="table table-bordered">
+                    <thead style="background-color: #edf6ff; color: #205baf;">
+                        <tr>
+                            <th scope="col" colspan="" class="text-center">Deduction</th>
+                            <th scope="col" colspan="" class="text-center">Amount in(Rs.</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="data in totalDeductionFrontend" ng-if="data.amount!=0">
+                            <td>{{data.name}}</td>
+                            <td>
+                                {{data.amount}}
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th>Total Deduction</th>
+                            <th>{{totalDeduction}}</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+
         <div class="d-flex justify-content-center align-items-center">
-            <button type="button" class="btn btn-primary" ng-click="addEmployeeToBill(amount,edType_id,startdate,enddate)">ADD EMPLOYEE TO THE BILL</button>
+            <button type="button" class="btn btn-primary"
+                ng-click="addEmployeeToBill(amount,edType_id,startdate,enddate)">ADD EMPLOYEE TO THE BILL</button>
         </div>
     </div>
 

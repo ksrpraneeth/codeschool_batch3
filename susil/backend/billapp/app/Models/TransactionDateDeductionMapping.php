@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class TransactionDateDeductionMapping extends Model
 {
     use HasFactory;
+   
 }

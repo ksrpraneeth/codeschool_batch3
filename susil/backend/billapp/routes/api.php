@@ -23,3 +23,4 @@ Route::post('/employeeDetails',[BillEntryController::class,'employeeDetails']);
 Route::post('/earningType',[BillEntryController::class,'earningType']);
 Route::post('/deductionType',[BillEntryController::class,'deductionType']);
 Route::post('/addEmployeeToBill',[BillEntryController::class,'addEmployeeToBill']);
+Route::get('/EarningAndDeductions',[BillEntryController::class,'EarningAndDeductions']);
