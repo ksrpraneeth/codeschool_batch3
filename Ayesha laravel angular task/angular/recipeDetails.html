@@ -1,0 +1,42 @@
+<ui-view>
+<div ng-controller="recipeDetails">
+    <!--details-->
+    <div class="mt-5 ms-5 me-4 p-2">
+        <div class="fw-semibold">Recipe Name:</div>
+        <div>{{recipe_details.recipe_name}}</div>
+        <div class="fw-semibold mt-2">Cuisine:</div>
+        <div>{{recipe_details.cuisine}}</div>
+        <div class="fw-semibold mt-2">Chef:</div>
+        <div>{{recipe_details.chef}}</div>
+        <div class="fw-semibold mt-2">Description</div>
+        <div>{{recipe_details.description}}</div>
+        <div class="mt-2">
+            <button type="button" class="btn btn-info" ui-sref=".editRecipe({id:recipe_details.id})">Edit</button>
+        </div>
+        <!-- Button trigger modal -->
+        <div  ng-controller="AddIngredient">
+<button type="button" ng-click="addIngredient()" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Add Ingredient
+  </button>
+  <!-- Modal -->
+  <div class="modal fade mt-3" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Ingredient List</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" >
+            <select class="form-select" multiple aria-label="Default select example" ng-options="ingredient.id as ingredient.ingredients for ingredient in ingredients" ng-model="selectIngredient">
+                <!--<option value="{{ingredient.id}}">{{ingredient.ingredients}}</option>-->
+              </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" ng-click="selectIngredients()">Add Ingredients</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>
+</ui-view>

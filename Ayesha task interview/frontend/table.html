@@ -1,0 +1,42 @@
+<table class="table table-bordered">
+    <thead class="bg-primary bg-opacity-25">
+        <tr class="text-primary">
+            <th></th>
+            <th></th>
+            <th></th>
+            <th colspan="2">Due Particulars</th>
+            <th colspan="2">Drawn Particulars</th>
+            <th colspan="5">Differences</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="bg-primary bg-opacity-25 text-primary fw-bold p-2">
+            <td></td>
+            <td>From</td>
+            <td>To</td>
+            <td colspan="{{EmpArray.earning.lenght}}">Earnings(in Rs.)</td>
+            <td>Deductions(in Rs.)</td>
+            <td>Earnings(in Rs.)</td>
+            <td>Deductions(in Rs.)</td>
+            <td>Earnings(in Rs.)</td>
+            <td>Deductions(in Rs.)</td>
+            <td>Total Gross(in Rs.)</td>
+            <td>Total Deductions(in Rs.)</td>
+            <td>Net(in Rs.)</td>
+        </tr>
+        
+        <tr ng-repeat="data in EmpArray track by $index">
+            <td></td>
+            <td>{{data.fromDate|date:'dd/MM/yyyy'}}</td>
+            <td>{{data.toDate|date:'dd/MM/yyyy'}}</td>
+            <td ng-repeat="earning in  data.earnings track by $index">{{earning.amount}}</td>
+            <td ng-repeat="dedn in data.dedns track by $index">{{dedn.amount}}</td>
+            <td>1</td>
+            <td class="bg-warning bg-opacity-25">1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+    </tbody>

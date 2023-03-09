@@ -1,0 +1,108 @@
+<tr ng-repeat="data in EmpArray">
+    <td></td>
+    <td>{{data.fromDate|date:'dd/MM/yyyy'}}</td>
+    <td>{{data.toDate|date:'dd/MM/yyyy'}}</td>
+    <td>{{data.earning[0].earning}}</td>
+    <td>{{data.earning[0].amount}}</td>
+    <td>1</td>
+    <td class="bg-warning bg-opacity-25">1</td>
+    <td>1</td>
+    <td>1</td>
+    <td>1</td>
+    <td>1</td>
+    <td>1</td>
+</tr>
+
+<!-- <div ng-show="displayTable">
+    <table class="table table-bordered">
+        <thead class="bg-primary bg-opacity-25">
+            <tr class="text-primary">
+                <th></th>
+                <th></th>
+                <th></th>
+                <th colspan="2">Due Particulars</th>
+                <th colspan="2">Drawn Particulars</th>
+                <th colspan="5">Differences</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="bg-primary bg-opacity-25 text-primary fw-bold p-2">
+                <td></td>
+                <td>From</td>
+                <td>To</td>
+                <td>Earnings(in Rs.)</td>
+                <td>Deductions(in Rs.)</td>
+                <td>Earnings(in Rs.)</td>
+                <td>Deductions(in Rs.)</td>
+                <td>Earnings(in Rs.)</td>
+                <td>Deductions(in Rs.)</td>
+                <td>Total Gross(in Rs.)</td>
+                <td>Total Deductions(in Rs.)</td>
+                <td>Net(in Rs.)</td>
+            </tr>
+            
+            <tr ng-repeat="data in EmpArray track by $index">
+                <td></td>
+                <td>{{data.fromDate|date:'dd/MM/yyyy'}}</td>
+                <td>{{data.toDate|date:'dd/MM/yyyy'}}</td>
+                <td ng-repeat="earning in  data.earnings track by $index">{{earning.amount}}</td>
+                <td ng-repeat="dedn in data.dedns track by $index">{{dedn.amount}}</td>
+                <td>1</td>
+                <td class="bg-warning bg-opacity-25">1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+        </tbody>
+    </table> -->
+
+    <div class="container bg-primary bg-opacity-25 text-primary fw-bold p-2">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-1">
+                <div class="row"></div>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-3">Due Particulars</div>
+            <div class="col-md-3">Drawn Particulars</div>
+            <div class="col-md-3">Differences</div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-1">From
+            </div>
+            <div class="col-md-1">To
+            </div>
+            <div class="col-md-1">
+                Desc
+            </div>
+            <div class="col-md-1">
+               Earnings
+            </div>
+            <div class="col-md-1">
+                Deductions
+            </div>
+            <div class="col-md-1">
+            Earnings
+            </div>
+            <div class="col-md-1">
+             Deductions
+            </div>
+            <div class="col-md-1">
+                Earnings
+               </div>
+               <div class="col-md-1">
+                Deductions
+               </div>
+               <div class="col-md-1">
+                Total gross
+               </div>
+               <div class="col-md-1">
+               Total Deductions
+               </div>
+               <div class="col-md-1">
+                Net Amount
+               </div>
+        </div>
+    </div>

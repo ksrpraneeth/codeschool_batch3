@@ -1,0 +1,217 @@
+<!--Heading-->
+<div class="content" ng-controller="AgencyController">
+<div class="bg-white col-12">
+    <div class="heading bg-primary bg-opacity-25">
+   <p class="fw-bold text-primary p-2">ADD OTHER ESTABLISHMENT AGENCY</p>
+</div>
+<!--inline buttons-->
+<div class="heading border rounded bg-opacity-25 mt-2 p-2 col-8">
+    <div class="form-check form-check-inline fw-bold">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="true" ng-model="edit" ng-click="remove()">
+        <label class="form-check-label" for="inlineRadio1">Add Single Agency</label>
+      </div>
+      <div class="form-check form-check-inline fw-bold">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="false" ng-model="edit" ng-click="remove()">
+        <label class="form-check-label" for="inlineRadio2">Edit Agency Details</label>
+      </div>
+</div>
+<!--yellow bg-->
+<div class="addAgency" ng-show="edit=='true'">
+<div class="heading bg-warning bg-opacity-25 mt-2 mb-2 p-2 col-12">
+<div class="text-danger opacity-95">You can see agency status report for the agencies you have added in Reports=>Agency Details report</div>
+</div>
+<!--Bank details-->
+<div class="heading border rounded bg-opacity-25 mt-2 p-2 me-2 col-8">
+ <p class="fw-bolder">Bank Details</p>
+ <hr>
+ <!--Agency name-->
+<div class="row">
+    <div class="col-md-3">
+<p class="fw-bolder">Agency Name: <span class="text-danger">*</span>:</p>
+</div>
+<div class="col-md-6">
+<input type="text" class="form-control" ng-model="agency_name">
+</div>
+</div>
+<!--Bank account number-->
+<div class="row mt-3">
+    <div class="col-md-3">
+<p class="fw-bolder">Bank Account Number: <span class="text-danger">*</span>:</p>
+</div>
+<div class="col-md-6">
+<input type="text" class="form-control" ng-model="account_number">
+</div>
+</div>
+<!--Confirm-->
+<div class="row mt-3">
+    <div class="col-md-3">
+<p class="fw-bolder"> Confirm Bank Account Number: <span class="text-danger">*</span>:</p>
+</div>
+<div class="col-md-6">
+<input type="text" class="form-control" ng-model="account_number_confirmation">
+</div>
+</div>
+<!--GST-->
+<div class="row mt-3">
+    <div class="col-md-3">
+<p class="fw-bolder"> GST No:</p>
+</div>
+<div class="col-md-6">
+<input type="text" class="form-control" ng-model="gst">
+</div>
+</div>
+<!--IFSC Code-->
+<div class="heading bg-primary bg-opacity-25 border-primary  rounded mt-2 p-2 me-2 col-12">
+    <div class="row mt-3">
+        <div class="col-md-3">
+    <p class="fw-bolder">Enter IFSC code<span class="text-danger">*</span></p>
+</div>
+<div class="col-md-4">
+    <input type="text" class="form-control" ng-model="ifsc_code">
+    </div>
+    <div class="col-md-3">
+        <button type="button" class="btn btn-dark text-white" ng-click="IfscCodeBtn()">SEARCH</button>
+        </div>
+        <div class="text-danger">{{ifscError}}</div>
+</div>
+<!--bank name-->
+<div class="row mt-3">
+    <div class="col-md-3">
+<p class="fw-bolder">Bank Name:</p>
+</div>
+<div class="col-md-3" ng-bind="ifscdetails.bank_name">-</div>
+</div>
+<!--state-->
+<div class="row mt-3">
+    <div class="col-md-3">
+<p class="fw-bolder">State:</p>
+</div>
+<div class="col-md-3" ng-bind="ifscdetails.state">-</div>
+</div>
+<!--branch-->
+<div class="row mt-3">
+    <div class="col-md-3">
+<p class="fw-bolder">Branch:</p>
+</div>
+<div class="col-md-3" ng-bind="ifscdetails.branch">-</div>
+</div>
+<!--IFSC Code-->
+<div class="row mt-3">
+    <div class="col-md-3">
+<p class="fw-bolder">IFSC code:</p>
+</div>
+<div class="col-md-3" ng-bind="ifscdetails.ifsc_code">-</div>
+</div>
+</div>
+</div>
+<!--Add new agency button-->
+<div class="p-3 justify-content-center d-flex">
+    <button type="button" class="btn btn-dark" ng-click="AgencyBtn()">ADD NEW AGENCY</button>
+</div>
+<div class="text-danger">{{agencyDetailsError}}</div>
+<div class="text-danger">{{ifscCodeError}}</div>
+</div>
+
+<!--Edit Agency-->
+<!--Heading-->
+<div class="editAgency" ng-show="edit=='false'">
+<div class="bg-white col-12">
+<!--Bank details-->
+<div class="heading border rounded bg-opacity-25 mt-3 p-2 me-2 col-8">
+    <div class="row">
+        <div class="col-3"> 
+<p class="fw-bolder mt-3">Bank Ac No. :</p>
+</div>
+<div class="col-4">
+    <input type="text" class="form-control" ng-model="accountNumber">
+</div>
+<div class="col-4">
+    <button type="button" class="btn btn-dark text-white" ng-click="SearchAgencyBtn()">SEARCH AGENCY</button>
+</div>
+<div class="text-danger">{{InvalidAccNo}}</div>
+    </div>
+    <div class="col-12 border-bottom mt-5"></div>
+    <!--Name-->
+    <div ng-show="agencyDetailsDisplay">
+<div class="row mt-3">
+    <div class="col-md-3">
+<p class="fw-bolder">Name:</p>
+</div>
+<div class="col-md-3 fw-bold">{{searchAgencyDetails.agency_name}}</div>
+</div>
+ <!--Bank Ac No-->
+ <div class="row mt-3">
+    <div class="col-md-3">
+<p class="fw-bolder">Bank Ac No:</p>
+</div>
+<div class="col-md-3 fw-bold">{{searchAgencyDetails.account_number}}</div>
+</div>
+ <!--IFSC-->
+ <div class="row mt-3">
+    <div class="col-md-3">
+<p class="fw-bolder">IFSC:</p>
+</div>
+<div class="col-md-3 fw-bold">{{searchAgencyDetails.ifsc_code}}</div>
+</div>
+ <!--PAN--->
+ <div class="row mt-3">
+    <div class="col-md-3">
+<p class="fw-bolder">PAN:</p>
+</div>
+<div class="col-md-3 fw-bold"></div>
+</div>
+<div class="col-12 border-bottom mt-3"></div>
+<!--Agency name-->
+<div class="row p-2">
+    <div class="col-md-2">
+<p class="fw-bolder">New Agency Name:</p>
+</div>
+<div class="col-md-6">
+<input type="text" class="form-control" ng-model="agency_name">
+</div>
+<div class="text-danger">{{newAgencyNameError}}</div>
+</div>
+<!--GSTIN-->
+<div class="row p-2">
+    <div class="col-md-2">
+<p class="fw-bolder">GSTIN:</p>
+</div>
+<div class="col-md-6">
+<input type="text" class="form-control">
+</div>
+</div>
+<!--New IFSC-->
+<div class="row p-2">
+    <div class="col-md-2">
+<p class="fw-bolder">New IFSC:</p>
+</div>
+<div class="col-md-6 d-flex">
+<input type="text" class="form-control" ng-model="ifsc_code">
+<button type="button" class="btn btn-dark" ng-click="IfscCodeBtn()">SEARCH</button>
+</div>
+<div class="text-danger">{{ifscError}}</div>
+<div class="row">
+    <div class="col-4 fw-bold mt-3">Bank name:</div>
+    <div class="col-6 mt-3">{{ifscdetails.bank_name}}</div>
+</div>
+<div class="row">
+    <div class="col-4 fw-bold mt-3">State:</div>
+    <div class="col-6 mt-3">{{ifscdetails.state}}</div>
+</div>
+<div class="row">
+    <div class="col-4 fw-bold mt-3">Branch:</div>
+    <div class="col-6 mt-3">{{ifscdetails.branch}}</div>
+</div>
+<div class="row">
+    <div class="col-4 fw-bold mt-3">IFSC Code</div>
+    <div class="col-6 mt-3">{{ifscdetails.ifsc_code}}</div>
+</div>
+</div>
+<!--Update Button-->
+<div class="p-3 d-flex">
+    <button type="button" class="btn btn-success ms-5" ng-click="UpdateAgencyBtn()">UPDATE AGENCY</button>
+    </div>
+    </div>
+</div>
+</div>
+</div>
